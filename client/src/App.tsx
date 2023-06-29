@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import './App.css';
+import React from 'react';
+import MatchPage from './components/pages/MatchPage';
 
 function App(): JSX.Element {
-  return <div className="App">Привет!</div>;
+  return <MatchPage />;
 }
 
 export default App;
