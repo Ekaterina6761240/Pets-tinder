@@ -1,8 +1,9 @@
-import React from 'react';
-import MatchPage from './components/pages/MatchPage';
+import React, { useState } from 'react';
+import './App.css';
+import SideBar from './components/ui/SideBar';
 
 function App(): JSX.Element {
-  return <MatchPage />;
+  return <div className="App">Привет!</div>;
 }
 
 export default App;
