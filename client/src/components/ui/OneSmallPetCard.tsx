@@ -12,7 +12,7 @@ type OnePetProps = {
 export default function OneSmallPetCard({ pet }: OnePetProps): JSX.Element {
   return (
     <Stack direction="column" spacing={2}>
-      <Card sx={{ borderRadius: 8, padding: '16px', maxWidth: 170 }}>
+      <Card sx={{ borderRadius: 8, padding: '16px', width: 250, height: 250 }}>
         <CardActionArea sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <CardMedia
             component="img"
@@ -29,36 +29,35 @@ export default function OneSmallPetCard({ pet }: OnePetProps): JSX.Element {
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              {pet.name},{pet.age}
+              {pet.name}, {pet.age}
             </Typography>
           </CardContent>
+          <Stack direction="row" spacing={2} justifyContent="center" sx={{ width: 200 }}>
+            <Button
+              color="secondary"
+              sx={{
+                borderRadius: 2,
+                padding: '16px',
+                maxWidth: 170,
+                alignItems: 'center',
+                display: 'flex',
+              }}
+            >
+              Подробнее
+            </Button>
+            <Button
+              color="secondary"
+              sx={{
+                borderRadius: 2,
+                padding: '16px',
+                alignItems: 'center',
+              }}
+            >
+              Написать
+            </Button>
+          </Stack>
         </CardActionArea>
       </Card>
-
-      <Stack direction="row" spacing={2} justifyContent="center">
-        <Button
-          color="secondary"
-          sx={{
-            borderRadius: 8,
-            padding: '16px',
-            maxWidth: 170,
-            alignItems: 'center',
-            display: 'flex',
-          }}
-        >
-          Подробнее
-        </Button>
-        <Button
-          color="secondary"
-          sx={{
-            borderRadius: 8,
-            padding: '16px',
-            alignItems: 'center',
-          }}
-        >
-          Написать
-        </Button>
-      </Stack>
     </Stack>
   );
 }

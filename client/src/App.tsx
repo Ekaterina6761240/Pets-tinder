@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
-import './App.css';
+import React from 'react';
 import SideBar from './components/ui/SideBar';
+import MatchPage from './components/pages/MatchPage';
 
 function App(): JSX.Element {
-  return <div className="App">Привет!</div>;
+  return (
+    <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <SideBar />
+      <MatchPage />
+    </div>
+  );
 }
 
 export default App;
