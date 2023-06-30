@@ -1,4 +1,5 @@
 import React from 'react';
+sssssssssssssssssssssssssssssssssssssss
 import SideBar from './components/ui/SideBar';
 import MatchPage from './components/pages/MatchPage';
 
@@ -9,6 +10,7 @@ function App(): JSX.Element {
       <MatchPage />
     </div>
   );
-}
+
+
 
 export default App;
