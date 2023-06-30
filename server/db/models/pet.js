@@ -1,5 +1,5 @@
-'use strict';
 const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Pet extends Model {
     /**
@@ -9,11 +9,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsTo(models.User, { foreignKey: 'user_id' });
-    }
-    static associate(models) {
+
       this.hasMany(models.Like, { foreignKey: 'pet_id' });
-    }
-    static associate(models) {
+
       this.hasMany(models.Message, { foreignKey: 'pet_id' });
     }
   }

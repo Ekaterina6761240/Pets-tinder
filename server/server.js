@@ -1,9 +1,10 @@
 require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const sessionParser = require('./middlewares/sessionMiddle');
 const apiAuthRouter = require('./routes/apiUserRouter');
-const PetApiRouter = require('./routes/apiPetRouter');
+// const PetApiRouter = require('./routes/apiPetRouter');
 
 const PORT = process.env.PORT || 3001;
 
@@ -16,7 +17,7 @@ app.use(cors({ credentials: true, origin: true }));
 
 app.use(sessionParser);
 
-app.use('/api/pets', PetApiRouter);
+// app.use('/api/pets', PetApiRouter);
 app.use('/api/auth', apiAuthRouter);
 
 app.listen(PORT, () => {
