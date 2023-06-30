@@ -1,8 +1,16 @@
 import React from 'react';
-import ChatPage from './components/pages/ChatPage';
+sssssssssssssssssssssssssssssssssssssss
+import SideBar from './components/ui/SideBar';
+import MatchPage from './components/pages/MatchPage';
 
 function App(): JSX.Element {
-  return <ChatPage />;
-}
+  return (
+    <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <SideBar />
+      <MatchPage />
+    </div>
+  );
+
+
 
 export default App;

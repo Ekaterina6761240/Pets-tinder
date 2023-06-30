@@ -112,6 +112,7 @@ export default function MatchPage(): JSX.Element {
       sx={{
         backgroundColor: '#E890F6',
         minHeight: '100vh',
+        padding: '120px',
       }}
     >
       {/* Ваше содержимое страницы */}
