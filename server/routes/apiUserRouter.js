@@ -1,8 +1,8 @@
 const apiAuthRouter = require('express').Router();
 const bcrypt = require('bcrypt');
-// const { User } = require('../db/models');
+const { User } = require('../db/models');
 
-apiAuthRouter.post('/signup', async (req, res) => {
+apiAuthRouter.post('/reg', async (req, res) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password) {
     res.status(400).json({ message: 'no user full data' });
@@ -15,7 +15,7 @@ apiAuthRouter.post('/signup', async (req, res) => {
     res.status(400).json({ message: 'email exists' });
     return;
   }
-  const hashPass = await bcrypt.hash(password, 10);
+  const hashPass = await bcrypt.hash(password, 5);
   const newUser = await User.create({
     name,
     email,
@@ -27,7 +27,7 @@ apiAuthRouter.post('/signup', async (req, res) => {
   res.json({ id: newUser.id, name: newUser.name, email: newUser.email });
 });
 
-apiAuthRouter.post('/signin', async (req, res) => {
+apiAuthRouter.post('/login', async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
     res.status(400).json({ message: 'no user full data' });
