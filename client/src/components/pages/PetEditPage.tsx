@@ -9,17 +9,25 @@ export type OnePet = {
   img: string;
   age: number;
   user_id: number;
-  petType: 'кошка' | 'собака' | 'грызун';
+  type: 'кошка' | 'собака' | 'грызун';
+  sex: string;
+  city: string;
+  about: string;
+  pedigree: string;
 };
 export default function PetInfoPage(): JSX.Element {
   const petsMatch: OnePet[] = [
     {
       id: 1,
       name: 'Бобик',
+      type: 'собака',
+      sex: 'm',
+      city: 'msc',
+      about: 'gbbfbgfgf',
+      pedigree: '-',
       img: 'https://s0.rbk.ru/v6_top_pics/media/img/7/19/756752350085197.webp',
       age: 3,
       user_id: 1,
-      petType: 'собака',
     },
     {
       id: 2,
@@ -27,7 +35,11 @@ export default function PetInfoPage(): JSX.Element {
       img: 'https://cdn1.ozonusercontent.com/s3/club-storage/images/article_image_752x940/697/c500/ed7e52e-ab4d-4d1b-80fe-15e99ffbf6b6.jpeg',
       age: 1,
       user_id: 2,
-      petType: 'собака',
+      type: 'собака',
+      sex: 'm',
+      city: 'msc',
+      about: 'gbbfbgfgf',
+      pedigree: '-',
     },
     {
       id: 3,
@@ -35,7 +47,11 @@ export default function PetInfoPage(): JSX.Element {
       img: 'https://rg.ru/uploads/images/214/34/08/photorep_imageid_538385_8085b70e8b6927e1575618884.jpg',
       age: 2,
       user_id: 3,
-      petType: 'собака',
+      type: 'собака',
+      sex: 'm',
+      city: 'msc',
+      about: 'gbbfbgfgf',
+      pedigree: '-',
     },
     {
       id: 4,
@@ -43,7 +59,11 @@ export default function PetInfoPage(): JSX.Element {
       img: 'https://cdnn1.inosmi.ru/img/24985/10/249851004_0:196:2030:1211_1920x0_80_0_0_78318b59d4ce0cde91f76a1b092765e7.jpg',
       age: 4,
       user_id: 4,
-      petType: 'собака',
+      type: 'собака',
+      sex: 'm',
+      city: 'msc',
+      about: 'gbbfbgfgf',
+      pedigree: '-',
     },
     {
       id: 5,
@@ -51,7 +71,11 @@ export default function PetInfoPage(): JSX.Element {
       img: 'https://avatars.dzeninfra.ru/get-zen_doc/1246934/pub_5b9a5b8c341cd400abd07c2c_5b9a5bb69d8b2a00aa9e1ba1/scale_1200',
       age: 6,
       user_id: 5,
-      petType: 'грызун',
+      type: 'грызун',
+      sex: 'm',
+      city: 'msc',
+      about: 'gbbfbgfgf',
+      pedigree: '-',
     },
     {
       id: 6,
@@ -59,7 +83,11 @@ export default function PetInfoPage(): JSX.Element {
       img: 'https://s09.stc.yc.kpcdn.net/share/i/12/12496523/wr-960.webp',
       age: 1,
       user_id: 6,
-      petType: 'кошка',
+      type: 'кошка',
+      sex: 'm',
+      city: 'msc',
+      about: 'gbbfbgfgf',
+      pedigree: '-',
     },
     {
       id: 7,
@@ -67,7 +95,11 @@ export default function PetInfoPage(): JSX.Element {
       img: 'https://s0.rbk.ru/v6_top_pics/media/img/4/97/756723916815974.webp',
       age: 8,
       user_id: 2,
-      petType: 'кошка',
+      type: 'кошка',
+      sex: 'm',
+      city: 'msc',
+      about: 'gbbfbgfgf',
+      pedigree: '-',
     },
     {
       id: 8,
@@ -75,7 +107,11 @@ export default function PetInfoPage(): JSX.Element {
       img: 'https://zooput.ru/upload/iblock/482/4820791b5f2d5e89fdb1881ca9d10acf.jpg',
       age: 3,
       user_id: 8,
-      petType: 'грызун',
+      type: 'грызун',
+      sex: 'm',
+      city: 'msc',
+      about: 'gbbfbgfgf',
+      pedigree: '-',
     },
     {
       id: 9,
@@ -83,7 +119,11 @@ export default function PetInfoPage(): JSX.Element {
       img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Savannah_Cat_closeup.jpg/800px-Savannah_Cat_closeup.jpg',
       age: 2,
       user_id: 9,
-      petType: 'кошка',
+      type: 'кошка',
+      sex: 'm',
+      city: 'msc',
+      about: 'gbbfbgfgf',
+      pedigree: '-',
     },
     {
       id: 10,
@@ -91,10 +131,14 @@ export default function PetInfoPage(): JSX.Element {
       img: 'https://img.gazeta.ru/files3/677/14468677/Depositphotos_46566737_XL_2-pic_32ratio_1200x800-1200x800-82021.jpg',
       age: 4,
       user_id: 10,
-      petType: 'собака',
+      type: 'собака',
+      sex: 'm',
+      city: 'msc',
+      about: 'gbbfbgfgf',
+      pedigree: '-',
     },
   ];
-  const { submitHandler } = usePetHook();
+  const { editHandler } = usePetHook();
 
   const [pet, setPet] = useState({
     name: '',
@@ -114,7 +158,7 @@ export default function PetInfoPage(): JSX.Element {
     }));
   };
 
-  const uniquePetTypes = [...new Set(petsMatch.map((option) => option.petType))];
+  const uniquePetTypes = [...new Set(petsMatch.map((option) => option.type))];
   return (
     <Box
       sx={{
@@ -126,7 +170,7 @@ export default function PetInfoPage(): JSX.Element {
         backgroundColor: '#DFC645',
       }}
     >
-      <form onSubmit={submitHandler}>
+      <form onSubmit={(e: ChangeEventHandler<HTMLInputElement>) => editHandler(e, pet.id)}>
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={6} md={4} sx={{ display: 'flex', flex: 1 }}>
             <Box
@@ -221,9 +265,9 @@ export default function PetInfoPage(): JSX.Element {
                     },
                   }}
                 >
-                  {uniquePetTypes.map((petType) => (
-                    <MenuItem key={petType} value={petType}>
-                      {petType}
+                  {uniquePetTypes.map((type) => (
+                    <MenuItem key={type} value={type}>
+                      {type}
                     </MenuItem>
                   ))}
                 </TextField>
