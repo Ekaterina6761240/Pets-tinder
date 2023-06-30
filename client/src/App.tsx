@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import './App.css';
-import SideBar from './components/ui/SideBar';
+import React from 'react';
+import ChatPage from './components/pages/ChatPage';
 
 function App(): JSX.Element {
-  return <div className="App">Привет!</div>;
+  return <ChatPage />;
 }
 
 export default App;
