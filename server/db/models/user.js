@@ -10,9 +10,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.hasMany(models.Pet, { foreignKey: 'user_id' });
 
-      this.hasMany(models.Like, { foreignKey: 'user_id' });
+      // this.hasMany(models.Like, { foreignKey: 'user_id' });
 
-      this.hasMany(models.Match, { foreignKey: 'user_id' });
+      // this.hasMany(models.Match, { foreignKey: 'user_id' });
     }
   }
   User.init(

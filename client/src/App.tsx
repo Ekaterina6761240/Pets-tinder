@@ -9,7 +9,7 @@ function App(): JSX.Element {
     <div style={{ display: 'flex', flexDirection: 'row' }}>
       <SideBar />
       <Routes>
-        <Route path="/match" element={<MatchPage />} />
+        <Route path="/" element={<MatchPage />} />
         <Route path="/info" element={<PetInfoPage />} />
       </Routes>
     </div>
