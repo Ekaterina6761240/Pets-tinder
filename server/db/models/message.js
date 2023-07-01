@@ -1,5 +1,5 @@
-'use strict';
 const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Message extends Model {
     /**
@@ -14,9 +14,9 @@ module.exports = (sequelize, DataTypes) => {
   }
   Message.init(
     {
-      match_id: DataTypes.INTEGER,
-      user1_id: DataTypes.INTEGER,
-      user2_id: DataTypes.INTEGER,
+      chat_id: DataTypes.INTEGER,
+      pet_id: DataTypes.INTEGER,
+      pet2_id: DataTypes.INTEGER,
       text: DataTypes.STRING,
     },
     {
