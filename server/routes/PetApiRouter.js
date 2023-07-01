@@ -1,5 +1,5 @@
 import express from 'express';
-import { Pet } from '../db/models/';
+import { Pet } from '../db/models';
 
 const Petrouter = express.Router();
 

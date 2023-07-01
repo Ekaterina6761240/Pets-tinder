@@ -3,7 +3,7 @@ import apiInstance from './apiConfig';
 
 const getPets = (): Promise<OnePet[]> =>
   apiInstance
-    .get<OnePet[]>('/pets')
+    .get<OnePet[]>('/match')
     .then((res) => res.data)
     .catch((err) => Promise.reject(err));
 
