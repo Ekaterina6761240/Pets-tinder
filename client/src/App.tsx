@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { Container } from '@mui/material';
-import { useAppDispatch, useAppSelector } from './components/features/reduxHooks';
+import { useAppDispatch, useAppSelector } from './components/features/redux/reduxHooks';
 import { userCheckThunk } from './components/features/thunkAction/userThunkAction';
 import MainPage from './components/pages/MainPage';
 import '@fontsource/roboto/300.css';
@@ -29,25 +28,20 @@ function App(): JSX.Element {
 
   return (
     <div>
-      <Container style={{ display: 'flex', flexDirection: 'row' }}>
-        <SideBar />
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route element={<PrivateRoute isAllowed={Boolean(user)} redirectTo="/app/choice" />}>
-            <Route path="/auth/:type" element={<AuthPage />} />
-          </Route>
-          <Route path="/auth/:type" element={<AuthPage />} />
-          <Route element={<PrivateRoute isAllowed={Boolean(user)} redirectTo="/" />}>
-            <Route path="app/choice" element={<ChoiсePetPage />} />
-            <Route path="app/match" element={<MatchList />} />
-            <Route path="/match/:id" element={<MatchPage />} />
-            <Route path="/info" element={<PetInfoPage />} />
-            <Route path="/choice" element={<ChoiсePetPage />} />
-            <Route path="/edit/:id" element={<PetEditPage />} />
-            <Route path="/cabinet" element={<PetCabinetPage />} />
-          </Route>
-        </Routes>
-      </Container>
+      <SideBar />
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="auth/:type" element={<AuthPage />} />
+        <Route element={<PrivateRoute isAllowed={(user.status !== 'guest')} redirectTo="/" />}>
+          <Route path="app/choice" element={<ChoiсePetPage />} />
+          <Route path="app/match" element={<MatchList />} />
+          <Route path="/match/:id" element={<MatchPage />} />
+          <Route path="/info" element={<PetInfoPage />} />
+          <Route path="/choice" element={<ChoiсePetPage />} />
+          <Route path="/edit/:id" element={<PetEditPage />} />
+          <Route path="/cabinet" element={<PetCabinetPage />} />
+        </Route>
+      </Routes>
     </div>
   );
 }

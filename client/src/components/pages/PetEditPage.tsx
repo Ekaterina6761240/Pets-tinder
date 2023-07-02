@@ -1,8 +1,7 @@
 import { Box, Button, Card, TextField, Grid, MenuItem, CardMedia } from '@mui/material';
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import AddPhotoModal from '../ui/AddPhotoModal';
-import usePetHook from '../../hooks/usePetHook';
+import usePetHook from '../features/Hooks/usePetHook';
 
 export type OnePet = {
   id: number;

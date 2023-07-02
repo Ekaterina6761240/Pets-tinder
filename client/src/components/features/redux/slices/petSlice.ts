@@ -1,6 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
-import type { PetType } from '../../../types/petTypes';
+import type { PetType } from '../../../Types/petTypes';
 
 export type InitialState = {
   data: PetType[];

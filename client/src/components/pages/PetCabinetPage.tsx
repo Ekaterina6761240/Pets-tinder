@@ -1,9 +1,8 @@
 import { Box, Button, Card, TextField, Grid, MenuItem } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AddPhotoModal from '../ui/AddPhotoModal';
-import usePetHook from '../../hooks/usePetHook';
-import { useAppSelector } from '../../features/redux/reduxHooks';
+import usePetHook from '../features/Hooks/usePetHook';
+import { useAppSelector } from '../features/redux/reduxHooks';
 
 export type OnePet = {
   id: number;
@@ -166,30 +165,6 @@ export default function PetCabinetPage(): JSX.Element {
     const petId = pet.id;
     navigate(`/edit/${petId}`);
   };
-
-  //   const getOnePet = pets.data.filter((pet) => pet.id === user.Pet[0].id)
-
-  //   const [user, setUser] = useState({
-
-  //   const [pet, setPet] = useState({
-  //     name: '',
-  //     file: '',
-  //     type: '',
-  //     age: '',
-  //     sex: '',
-  //     city: '',
-  //     info: '',
-  //     pedigree: '',
-  //   });
-
-  //   const changeHandler = (e: ChangeEventHandler<HTMLInputElement>): void => {
-  //     setPet((prev) => ({
-  //       ...prev,
-  //       [e.target.name]: e.target.value,
-  //     }));
-  //   };
-
-  //   const uniquePetTypes = [...new Set(petsMatch.map((option) => option.petType))];
 
   return (
     <Box
