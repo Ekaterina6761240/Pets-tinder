@@ -1,104 +1,159 @@
 import { Box, Button, Card, TextField, Grid, MenuItem, CardMedia } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import AddPhotoModal from '../ui/AddPhotoModal';
 import usePetHook from '../../hooks/usePetHook';
 
 export type OnePet = {
   id: number;
   name: string;
-  img: string;
+  image: string;
   age: number;
   user_id: number;
-  petType: 'кошка' | 'собака' | 'грызун';
+  type: string;
+  sex: string;
+  city: string;
+  info: string;
+  pedigree: string;
 };
-export default function PetInfoPage(): JSX.Element {
+export default function PetEditPage(): JSX.Element {
   const petsMatch: OnePet[] = [
     {
       id: 1,
       name: 'Бобик',
-      img: 'https://s0.rbk.ru/v6_top_pics/media/img/7/19/756752350085197.webp',
+      type: 'собака',
+      sex: 'm',
+      city: 'msc',
+      info: 'gbbfbgfgf',
+      pedigree: '-',
+      image: 'https://s0.rbk.ru/v6_top_pics/media/img/7/19/756752350085197.webp',
       age: 3,
       user_id: 1,
-      petType: 'собака',
     },
     {
       id: 2,
       name: 'Шарик',
-      img: 'https://cdn1.ozonusercontent.com/s3/club-storage/images/article_image_752x940/697/c500/ed7e52e-ab4d-4d1b-80fe-15e99ffbf6b6.jpeg',
+      image:
+        'https://cdn1.ozonusercontent.com/s3/club-storage/images/article_image_752x940/697/c500/ed7e52e-ab4d-4d1b-80fe-15e99ffbf6b6.jpeg',
       age: 1,
       user_id: 2,
-      petType: 'собака',
+      type: 'собака',
+      sex: 'm',
+      city: 'msc',
+      info: 'gbbfbgfgf',
+      pedigree: '-',
     },
     {
       id: 3,
       name: 'Рекс',
-      img: 'https://rg.ru/uploads/images/214/34/08/photorep_imageid_538385_8085b70e8b6927e1575618884.jpg',
+      image:
+        'https://rg.ru/uploads/images/214/34/08/photorep_imageid_538385_8085b70e8b6927e1575618884.jpg',
       age: 2,
       user_id: 3,
-      petType: 'собака',
+      type: 'собака',
+      sex: 'm',
+      city: 'msc',
+      info: 'gbbfbgfgf',
+      pedigree: '-',
     },
     {
       id: 4,
       name: 'Лайка',
-      img: 'https://cdnn1.inosmi.ru/img/24985/10/249851004_0:196:2030:1211_1920x0_80_0_0_78318b59d4ce0cde91f76a1b092765e7.jpg',
+      image:
+        'https://cdnn1.inosmi.ru/img/24985/10/249851004_0:196:2030:1211_1920x0_80_0_0_78318b59d4ce0cde91f76a1b092765e7.jpg',
       age: 4,
       user_id: 4,
-      petType: 'собака',
+      type: 'собака',
+      sex: 'm',
+      city: 'msc',
+      info: 'gbbfbgfgf',
+      pedigree: '-',
     },
     {
       id: 5,
       name: 'Барон',
-      img: 'https://avatars.dzeninfra.ru/get-zen_doc/1246934/pub_5b9a5b8c341cd400abd07c2c_5b9a5bb69d8b2a00aa9e1ba1/scale_1200',
+      image:
+        'https://avatars.dzeninfra.ru/get-zen_doc/1246934/pub_5b9a5b8c341cd400abd07c2c_5b9a5bb69d8b2a00aa9e1ba1/scale_1200',
       age: 6,
       user_id: 5,
-      petType: 'грызун',
+      type: 'грызун',
+      sex: 'm',
+      city: 'msc',
+      info: 'gbbfbgfgf',
+      pedigree: '-',
     },
     {
       id: 6,
       name: 'Мурка',
-      img: 'https://s09.stc.yc.kpcdn.net/share/i/12/12496523/wr-960.webp',
+      image: 'https://s09.stc.yc.kpcdn.net/share/i/12/12496523/wr-960.webp',
       age: 1,
       user_id: 6,
-      petType: 'кошка',
+      type: 'кошка',
+      sex: 'm',
+      city: 'msc',
+      info: 'gbbfbgfgf',
+      pedigree: '-',
     },
     {
       id: 7,
       name: 'Багира',
-      img: 'https://s0.rbk.ru/v6_top_pics/media/img/4/97/756723916815974.webp',
+      image: 'https://s0.rbk.ru/v6_top_pics/media/img/4/97/756723916815974.webp',
       age: 8,
       user_id: 2,
-      petType: 'кошка',
+      type: 'кошка',
+      sex: 'm',
+      city: 'msc',
+      info: 'gbbfbgfgf',
+      pedigree: '-',
     },
     {
       id: 8,
       name: 'Чебурашка',
-      img: 'https://zooput.ru/upload/iblock/482/4820791b5f2d5e89fdb1881ca9d10acf.jpg',
+      image: 'https://zooput.ru/upload/iblock/482/4820791b5f2d5e89fdb1881ca9d10acf.jpg',
       age: 3,
       user_id: 8,
-      petType: 'грызун',
+      type: 'грызун',
+      sex: 'm',
+      city: 'msc',
+      info: 'gbbfbgfgf',
+      pedigree: '-',
     },
     {
       id: 9,
       name: 'Кузя',
-      img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Savannah_Cat_closeup.jpg/800px-Savannah_Cat_closeup.jpg',
+      image:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Savannah_Cat_closeup.jpg/800px-Savannah_Cat_closeup.jpg',
       age: 2,
       user_id: 9,
-      petType: 'кошка',
+      type: 'кошка',
+      sex: 'm',
+      city: 'msc',
+      info: 'gbbfbgfgf',
+      pedigree: '-',
     },
     {
       id: 10,
       name: 'Жучка',
-      img: 'https://img.gazeta.ru/files3/677/14468677/Depositphotos_46566737_XL_2-pic_32ratio_1200x800-1200x800-82021.jpg',
+      image:
+        'https://img.gazeta.ru/files3/677/14468677/Depositphotos_46566737_XL_2-pic_32ratio_1200x800-1200x800-82021.jpg',
       age: 4,
       user_id: 10,
-      petType: 'собака',
+      type: 'собака',
+      sex: 'm',
+      city: 'msc',
+      info: 'gbbfbgfgf',
+      pedigree: '-',
     },
   ];
-  const { submitHandler } = usePetHook();
+
+  const petId = useParams();
+
+  const { editHandler } = usePetHook();
 
   const [pet, setPet] = useState({
+    id: petId,
     name: '',
-    file: null,
+    image: null,
     type: '',
     age: '',
     sex: '',
@@ -107,19 +162,20 @@ export default function PetInfoPage(): JSX.Element {
     pedigree: '',
   });
 
-  // const changeHandler = (e: ChangeEventHandler<HTMLInputElement>): void => {
-  //   setPet((prev) => ({
-  //     ...prev,
-  //     [e.target.name]: e.target.value,
-  //   }));
-  // };
+  //   const changeHandler = (e: ChangeEventHandler<HTMLInputElement>): void => {
+  //     setPet((prev) => ({
+  //       ...prev,
+  //       [e.target.name]: e.target.value,
+  //     }));
+  //   };
+  // console.log(pet, '----------------------');
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
-    if (e.target.name === 'file') {
+    if (e.target.name === 'image') {
       const file = e.target.files?.[0];
       setPet((prev) => ({
         ...prev,
-        file,
+        image: file,
       }));
     } else {
       setPet((prev) => ({
@@ -129,7 +185,7 @@ export default function PetInfoPage(): JSX.Element {
     }
   };
 
-  const uniquePetTypes = [...new Set(petsMatch.map((option) => option.petType))];
+  const uniquePetTypes = [...new Set(petsMatch.map((option) => option.type))];
   return (
     <Box
       sx={{
@@ -141,7 +197,7 @@ export default function PetInfoPage(): JSX.Element {
         backgroundColor: '#DFC645',
       }}
     >
-      <form onSubmit={submitHandler}>
+      <form onSubmit={(e: React.FormEvent<HTMLFormElement>) => editHandler(e, pet.id)}>
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={6} md={4} sx={{ display: 'flex', flex: 1 }}>
             <Box
@@ -170,23 +226,24 @@ export default function PetInfoPage(): JSX.Element {
                     <input
                       id="upload-input"
                       type="file"
-                      name="file"
+                      name="image"
                       accept="image/*"
                       style={{ display: 'none' }}
                       onChange={changeHandler}
                     />
-                    
                   </label>
-                  {pet.file ? (
+                  {pet.image ? (
                     <CardMedia
                       component="img"
                       sx={{ height: 140 }}
-                      src={URL.createObjectURL(pet.file)}
+                      src={URL.createObjectURL(pet.image)}
                       alt="Загруженное изображение"
                     />
-                  ): (<Button component="label" htmlFor="upload-input" size="small">
-                  Добавить фото
-                </Button>)}
+                  ) : (
+                    <Button component="label" htmlFor="upload-input" size="small">
+                      Добавить фото
+                    </Button>
+                  )}
                 </Box>
               </Card>
               <Box>
@@ -209,7 +266,7 @@ export default function PetInfoPage(): JSX.Element {
                   type="submit"
                   variant="outlined"
                 >
-                  Добавить/изменить/вернуться в чат
+                  Изменить
                 </Button>
               </Box>
             </Box>
@@ -256,9 +313,9 @@ export default function PetInfoPage(): JSX.Element {
                     },
                   }}
                 >
-                  {uniquePetTypes.map((petType) => (
-                    <MenuItem key={petType} value={petType}>
-                      {petType}
+                  {uniquePetTypes.map((type) => (
+                    <MenuItem key={type} value={type}>
+                      {type}
                     </MenuItem>
                   ))}
                 </TextField>
