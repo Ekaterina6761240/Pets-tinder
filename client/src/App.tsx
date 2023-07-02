@@ -10,7 +10,7 @@ function App(): JSX.Element {
     <Container style={{ display: 'flex', flexDirection: 'row' }}>
       <SideBar />
       <Routes>
-        <Route path="/match" element={<MatchPage />} />
+        <Route path="/match/:id" element={<MatchPage />} />
         <Route path="/info" element={<PetInfoPage />} />
       </Routes>
     </Container>
