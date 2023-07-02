@@ -25,7 +25,7 @@ export default function OneSmallPetCard({ pet }: OnePetProps): JSX.Element {
               height: 130,
             }}
             height="100"
-            image={pet.img}
+            src={pet.img}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">

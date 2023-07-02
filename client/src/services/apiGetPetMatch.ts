@@ -1,9 +1,9 @@
 import type { OnePet } from '../Types/PetsTypes';
 import apiInstance from './apiConfig';
 
-const getPets = (): Promise<OnePet[]> =>
+const getPets = (id: number): Promise<OnePet[]> =>
   apiInstance
-    .get<OnePet[]>('/api/pets')
+    .get<OnePet[]>(`/match/${id}`)
     .then((res) => res.data)
     .catch((err) => Promise.reject(err));
 

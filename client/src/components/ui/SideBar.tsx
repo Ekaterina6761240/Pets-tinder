@@ -24,7 +24,7 @@ export default function Sidebar(): JSX.Element {
       }}
     >
       <List>
-        <img src="/public/lapka2.png" width="50" height="50" />
+        <img src="/lapka2.png" width="50" height="50" />
 
         <ListItem button component={Link} to="/1" sx={{ display: 'flex', alignItems: 'center' }}>
           <ListItemIcon sx={{ margin: 'auto', ml: 5.5 }}>

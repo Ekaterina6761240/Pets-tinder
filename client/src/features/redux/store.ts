@@ -4,7 +4,8 @@ import petMatchSlice from './slices/petMatchSlice';
 
 const store = configureStore({
   reducer: {
-    pets: petMatchSlice,
+    pets: petSlice,
+    petMatch: petMatchSlice,
   },
 });
 

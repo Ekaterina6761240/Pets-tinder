@@ -4,6 +4,7 @@ const cors = require('cors');
 const sessionParser = require('./middlewares/sessionMiddle');
 const apiAuthRouter = require('./routes/apiUserRouter');
 const Petrouter = require('./routes/PetApiRouter');
+const matchRouter = require('./routes/matchRouter/matchRouter');
 
 const PORT = process.env.PORT || 3001;
 
@@ -18,6 +19,7 @@ app.use(sessionParser);
 
 app.use('/api/pets', Petrouter);
 app.use('/api/auth', apiAuthRouter);
+app.use('/match', matchRouter);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}!`);
