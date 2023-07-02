@@ -9,6 +9,7 @@ export default function MainPage(): JSX.Element {
     to: { opacity: 1, transform: 'translateX(0)' },
     from: { opacity: 0, transform: 'translateX(100%)' },
   });
+  const gradientColors = 'linear-gradient(to right, #ff8a00, #e52e71)';
   return (
     <div
       style={{
@@ -21,14 +22,30 @@ export default function MainPage(): JSX.Element {
       <div>
         {trail.map((style, index) => (
           <animated.div key={index} style={style}>
-            <h4 style={{ fontFamily: 'Kanit, sans-serif', fontSize: '40px', marginBottom: '50px' }}>
+            <h4
+              style={{
+                fontFamily: 'Kanit, sans-serif',
+                fontSize: '40px',
+                marginBottom: '50px',
+                background: `${gradientColors}`,
+                WebkitBackgroundClip: 'text', // Применение градиента к тексту
+                WebkitTextFillColor: 'transparent', // Заполнение текста прозрачным цветом
+              }}
+            >
               Pet's Tinder
             </h4>
           </animated.div>
         ))}
       </div>
       <div style={{ marginTop: '50px', textAlign: 'center' }}>
-        <p style={{ fontFamily: 'Kanit, sans-serif', fontSize: '40px', marginBottom: '50px' }}>
+        <p      style={{
+                fontFamily: 'Kanit, sans-serif',
+                fontSize: '40px',
+                marginBottom: '50px',
+                background: `${gradientColors}`,
+                WebkitBackgroundClip: 'text', // Применение градиента к тексту
+                WebkitTextFillColor: 'transparent', // Заполнение текста прозрачным цветом
+              }}>
           Сервис для поиска пары своему питомцу
         </p>
       </div>

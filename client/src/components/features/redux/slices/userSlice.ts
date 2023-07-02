@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { UserStateType } from '../../../Types/userTypes';
+import type { UserStateType } from '../../../Types/userTypes';
 import { userCheckThunk, userLoginThunk, userRegThunk } from '../../thunkAction/userThunkAction';
 
 const initialState: UserStateType = {

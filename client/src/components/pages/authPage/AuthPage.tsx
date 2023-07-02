@@ -16,7 +16,7 @@ import useFormHook from '../../features/Hooks/authFormHooks';
 export default function AuthPage(): JSX.Element {
   const [disabled, setDisabled] = useState(true);
   const { type } = useParams();
-  const { regHandler, loginHandler, redirectToChoice } = useFormHook();
+  const { regHandler, loginHandler } = useFormHook();
   const reCapchaHandler = (value: string): (() => void) => {
     if (value) {
       const timer = setTimeout(() => {
@@ -26,9 +26,6 @@ export default function AuthPage(): JSX.Element {
     }
     return () => {};
   };
-  if (redirectToChoice) {
-    return <Redirect to="app/choice" />;
-  }
   return (
     <div
       style={{

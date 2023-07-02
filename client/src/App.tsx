@@ -9,8 +9,9 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import AuthPage from './components/pages/authPage/AuthPage';
 import PrivateRoute from './components/HOC/PrivateRoute';
-import ChoiсePetPage from './components/pages/ChoiсePetPage';
+import ChoiсePetPage from './components/pages/ChoiсePetPage'
 import MatchList from './components/ui/MatchList';
+import './index.css'
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -24,7 +25,7 @@ function App(): JSX.Element {
     <div>
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route element={<PrivateRoute isAllowed={!user} redirectTo="/app/choice" />}>
+        <Route element={<PrivateRoute isAllowed={Boolean(user)} redirectTo="/app/choice" />}>
           <Route path="/auth/:type" element={<AuthPage />} />
         </Route>
         <Route path="/auth/:type" element={<AuthPage />} />
