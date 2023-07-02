@@ -3,22 +3,22 @@ export type PetType = {
     name: string;
     type: string;
     age: number;
-    img: string;
+    image: string;
     sex: string;
     city: string;
-    about: string;
+    info: string;
     pedigree: string;
     user_id: number;
 };
 
 export type PetFormType = {
     name: HTMLInputElement;
-    file: HTMLInputElement & { files: FileList };
+    image: HTMLInputElement & { files: FileList };
     type: HTMLInputElement;
     age: HTMLInputElement;
     sex: HTMLInputElement;
     city: HTMLInputElement;
-    about: HTMLInputElement;
+    info: HTMLInputElement;
     pedigree: HTMLInputElement;
 };
 
@@ -27,9 +27,9 @@ export type EditFormType = {
     name: string;
     type: string;
     age: string;
-    // img: string;
+    image: string;
     sex: string;
     city: string;
-    about: string;
+    info: string;
     pedigree: string;
 }

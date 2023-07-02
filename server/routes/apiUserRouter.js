@@ -1,6 +1,6 @@
 const apiAuthRouter = require('express').Router();
 const bcrypt = require('bcrypt');
-// const { User } = require('../db/models');
+const { User } = require('../db/models');
 
 apiAuthRouter.post('/signup', async (req, res) => {
   const { name, email, password } = req.body;

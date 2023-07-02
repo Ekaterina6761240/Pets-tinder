@@ -1,5 +1,5 @@
-import { Box, Button, Card, TextField, Grid, MenuItem } from '@mui/material';
-import React, { useState } from 'react';
+import { Box, Button, Card, TextField, Grid, MenuItem, CardMedia } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import AddPhotoModal from '../ui/AddPhotoModal';
 import usePetHook from '../../hooks/usePetHook';
 
@@ -98,20 +98,35 @@ export default function PetInfoPage(): JSX.Element {
 
   const [pet, setPet] = useState({
     name: '',
-    file: '',
+    file: null,
     type: '',
     age: '',
     sex: '',
     city: '',
-    about: '',
+    info: '',
     pedigree: '',
   });
 
-  const changeHandler = (e: ChangeEventHandler<HTMLInputElement>): void => {
-    setPet((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+  // const changeHandler = (e: ChangeEventHandler<HTMLInputElement>): void => {
+  //   setPet((prev) => ({
+  //     ...prev,
+  //     [e.target.name]: e.target.value,
+  //   }));
+  // };
+
+  const changeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
+    if (e.target.name === 'file') {
+      const file = e.target.files?.[0];
+      setPet((prev) => ({
+        ...prev,
+        file,
+      }));
+    } else {
+      setPet((prev) => ({
+        ...prev,
+        [e.target.name]: e.target.value,
+      }));
+    }
   };
 
   const uniquePetTypes = [...new Set(petsMatch.map((option) => option.petType))];
@@ -151,7 +166,27 @@ export default function PetInfoPage(): JSX.Element {
                     borderRadius: '10px',
                   }}
                 >
-                  <AddPhotoModal />
+                  <label htmlFor="upload-input">
+                    <input
+                      id="upload-input"
+                      type="file"
+                      name="file"
+                      accept="image/*"
+                      style={{ display: 'none' }}
+                      onChange={changeHandler}
+                    />
+                    
+                  </label>
+                  {pet.file ? (
+                    <CardMedia
+                      component="img"
+                      sx={{ height: 140 }}
+                      src={URL.createObjectURL(pet.file)}
+                      alt="Загруженное изображение"
+                    />
+                  ): (<Button component="label" htmlFor="upload-input" size="small">
+                  Добавить фото
+                </Button>)}
                 </Box>
               </Card>
               <Box>
@@ -362,9 +397,9 @@ export default function PetInfoPage(): JSX.Element {
               <TextField
                 id="outlined-multiline-static"
                 placeholder="О питомце"
-                name="about"
+                name="info"
                 onChange={changeHandler}
-                value={pet.about}
+                value={pet.info}
                 multiline
                 rows={4}
                 InputProps={{
