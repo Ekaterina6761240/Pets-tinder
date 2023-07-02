@@ -72,6 +72,7 @@ matchRouter.get('/:id', async (req, res) => {
       },
       attributes: ['who_liked_pet_id', 'was_liked_pet_id'],
     });
+
     const petIds = likes.reduce((result, like) => {
       if (like.who_liked_pet_id === id) {
         result.push(like.was_liked_pet_id);
@@ -81,13 +82,13 @@ matchRouter.get('/:id', async (req, res) => {
       return result;
     }, []);
 
+    const patsMatch = petIds.filter((petId) => petId !== Number(id));
+
     const pets = await Pet.findAll({
       where: {
-        id: petIds,
+        id: patsMatch,
       },
     });
-
-    console.log(pets);
 
     res.json(pets);
   } catch (error) {
@@ -96,6 +97,9 @@ matchRouter.get('/:id', async (req, res) => {
   }
 });
 
+// const metchPetId = petIds.filter((petId) => petId !== id);
+
+// console.log('!!!!!!!!!', metchPetId);
 //     const match = await Pet.findAll({
 //       include: {
 //         model: Like,
