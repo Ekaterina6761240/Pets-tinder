@@ -12,7 +12,8 @@ module.exports = {
           city: 'Москва',
           pedigree: 'Овчарка',
           info: 'Любит изучать композицию, а также изучать их разные исполнители',
-          image: 'https://s0.rbk.ru/v6_top_pics/media/img/7/19/756752350085197.webp',
+          image:
+            'https://cdnn21.img.ria.ru/images/15065/90/150659078_76:0:425:349_1920x0_80_0_0_f65e7dcf5e836e0192159eac4f39b6e5.jpg',
           user_id: 2,
         },
         {
@@ -23,8 +24,7 @@ module.exports = {
           city: 'Санкт-Петербург',
           pedigree: 'Мальтезе',
           info: 'Любит изучать композицию, а также изучать их разные исполнители',
-          image:
-            'https://cdn1.ozonusercontent.com/s3/club-storage/images/article_image_752x940/697/c500/ed7e52e-ab4d-4d1b-80fe-15e99ffbf6b6.jpeg',
+          image: 'https://sobaky.info/wp-content/uploads/2017/12/m1-1.jpg',
           user_id: 2,
         },
         {
@@ -47,8 +47,7 @@ module.exports = {
           city: 'Улан-Удэ',
           pedigree: 'Дог',
           info: 'Любит изучать композицию, а также изучать их разные исполнители',
-          image:
-            'https://cdnn1.inosmi.ru/img/24985/10/249851004_0:196:2030:1211_1920x0_80_0_0_78318b59d4ce0cde91f76a1b092765e7.jpg',
+          image: 'https://lapkins.ru/upload/uf/a02/a029a6bcc025fd33a596d296193d5e28.jpg',
           user_id: 2,
         },
         {
@@ -59,8 +58,7 @@ module.exports = {
           city: 'Москва',
           pedigree: 'Крыса ушастая',
           info: 'Любит изучать композицию, а также изучать их разные исполнители',
-          image:
-            'https://avatars.dzeninfra.ru/get-zen_doc/1246934/pub_5b9a5b8c341cd400abd07c2c_5b9a5bb69d8b2a00aa9e1ba1/scale_1200',
+          image: 'https://homkin.ru/wp-content/uploads/2018/05/14-2.jpg',
           user_id: 1,
         },
         {
@@ -71,7 +69,8 @@ module.exports = {
           city: 'Санкт-Петербург',
           pedigree: 'Бенгал',
           info: 'Любит изучать композицию, а также изучать их разные исполнители',
-          image: 'https://s0.rbk.ru/v6_top_pics/media/img/4/97/756723916815974.webp',
+          image:
+            'https://lifehacker.ru/wp-content/uploads/2019/12/Depositphotos_88222332_xl-2015_1577102622-e1577103030530.jpg',
           user_id: 3,
         },
         {
@@ -82,7 +81,8 @@ module.exports = {
           city: 'Владимир',
           pedigree: 'Сфинкс',
           info: 'Любит изучать композицию, а также изучать их разные исполнители',
-          image: 'https://s09.stc.yc.kpcdn.net/share/i/12/12496523/wr-960.webp',
+          image:
+            'https://koshka.top/uploads/posts/2021-11/1638106879_1-koshka-top-p-rozovii-sfinks-1.jpg',
           user_id: 1,
         },
         {
@@ -93,7 +93,8 @@ module.exports = {
           city: 'Екатеринбург',
           pedigree: 'Хомяк',
           info: 'Любит изучать композицию, а также изучать их разные исполнители',
-          image: 'https://zooput.ru/upload/iblock/482/4820791b5f2d5e89fdb1881ca9d10acf.jpg',
+          image:
+            'https://cdnn21.img.ria.ru/images/150895/53/1508955367_0:77:3672:2143_1920x0_80_0_0_c628a973e47c4929c1e8aff4e25f9ba6.jpg',
           user_id: 2,
         },
         {
@@ -105,7 +106,7 @@ module.exports = {
           pedigree: 'Дворовая',
           info: 'Любит изучать композицию, а также изучать их разные исполнители',
           image:
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Savannah_Cat_closeup.jpg/800px-Savannah_Cat_closeup.jpg',
+            'https://avatars.dzeninfra.ru/get-zen_doc/4935831/pub_610ad22fc6a5c72a8d63fdb2_610ad8bbd807673411c4c2fa/scale_1200',
           user_id: 1,
         },
       ],

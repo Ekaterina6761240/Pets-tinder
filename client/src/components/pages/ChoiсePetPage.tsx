@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import OneNamePetForChoice from '../ui/OneNamePetForChoice';
 import { useAppDispatch, useAppSelector } from '../features/redux/reduxHooks';
 import { getPetsThunk } from '../features/thunkAction/petThunkActions';
+import { setCurrentPet } from '../features/redux/slices/currentPetSlice';
 
 export default function ChoiсePetPage(): JSX.Element {
   const dispatch = useAppDispatch();

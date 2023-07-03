@@ -63,7 +63,6 @@ const { Pet, Like } = require('../../db/models');
 matchRouter.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    // console.log('11111!!!!!!', req.params);
 
     const likes = await Like.findAll({
       where: {

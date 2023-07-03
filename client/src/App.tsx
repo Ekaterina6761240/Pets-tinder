@@ -33,15 +33,15 @@ function App(): JSX.Element {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="auth/:type" element={<AuthPage />} />
-        {/* <Route element={<PrivateRoute isAllowed={user.status !== 'guest'} redirectTo="/" />}> */}
+        <Route element={<PrivateRoute isAllowed={user.status !== 'guest'} redirectTo="/" />}>
           <Route path="app/choice" element={<CardSwipePage />} />
           <Route path="app/match" element={<MatchList />} />
           <Route path="/match/:id" element={<MatchPage />} />
           <Route path="/info" element={<PetInfoPage />} />
           <Route path="/edit/:id" element={<PetEditPage />} />
-          <Route path="/cabinet/:id" element={<PetCabinetPage />} />
+          <Route path="/cabinet" element={<PetCabinetPage />} />
           <Route path="/choice" element={<ChoiсePetPage />} />
-        {/* </Route> */}
+        </Route>
       </Routes>
     </div>
   );
