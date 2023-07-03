@@ -17,6 +17,7 @@ import PetInfoPage from './components/pages/PetInfoPage';
 import PetEditPage from './components/pages/PetEditPage';
 import PetCabinetPage from './components/pages/PetCabinetPage';
 import CardSwipePage from './components/pages/CardSwipePage';
+import VariationsPage from './components/pages/VariationsPage';
 import './index.css';
 
 function App(): JSX.Element {
@@ -33,13 +34,14 @@ function App(): JSX.Element {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="auth/:type" element={<AuthPage />} />
-        <Route element={<PrivateRoute isAllowed={(user.status !== 'guest')} redirectTo="/" />}>
+        <Route element={<PrivateRoute isAllowed={user.status !== 'guest'} redirectTo="/" />}>
           <Route path="app/choice" element={<CardSwipePage />} />
           <Route path="app/match" element={<MatchList />} />
           <Route path="/match/:id" element={<MatchPage />} />
           <Route path="/info" element={<PetInfoPage />} />
           <Route path="/edit/:id" element={<PetEditPage />} />
           <Route path="/cabinet" element={<PetCabinetPage />} />
+          <Route path="/variations" element={<VariationsPage />} />
         </Route>
       </Routes>
     </div>
