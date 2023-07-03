@@ -1,11 +1,11 @@
 import type { EditFormType, PetType } from '../types';
 import apiInstance from './apiConfig';
 
-// export const getPets = (): Promise<PetType[]> =>
-//   apiInstance
-//     .get('api/pets')
-//     .then((response) => response.data.pets)
-//     .catch((error) => Promise.reject(error));
+export const getPets = (): Promise<PetType[]> =>
+  apiInstance
+    .get<PetType[]>('api/pets')
+    .then((response) => response.data)
+    .catch((error) => Promise.reject(error));
 
 export const createPet = (data: FormData): Promise<PetType> =>
   apiInstance

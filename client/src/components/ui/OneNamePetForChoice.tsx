@@ -1,14 +1,24 @@
 import React from 'react';
 import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import type { PetType } from '../../types';
 
 export type PetProps = {
-    userPet: PetType;
+  userPet: PetType;
 };
 
-export default function OneNamePetForChoice({ userPet }): JSX.Element {
+export default function OneNamePetForChoice({ userPet }: PetProps): JSX.Element {
+  const navigate = useNavigate();
+
+  const handleClick = (): void => {
+    navigate(`/cabinet/${userPet.id}`);
+  };
   return (
-    <Button sx={{ backgroundColor: '#F3EDED', borderRadius: '10px' }} variant="outlined">
+    <Button
+      onClick={handleClick}
+      sx={{ backgroundColor: '#F3EDED', borderRadius: '10px' }}
+      variant="outlined"
+    >
       {userPet.name}
     </Button>
   );

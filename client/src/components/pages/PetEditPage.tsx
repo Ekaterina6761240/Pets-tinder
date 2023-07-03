@@ -1,8 +1,10 @@
 import { Box, Button, Card, TextField, Grid, MenuItem, CardMedia } from '@mui/material';
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import AddPhotoModal from '../ui/AddPhotoModal';
 import usePetHook from '../../hooks/usePetHook';
+import { useAppDispatch, useAppSelector } from '../../features/redux/reduxHooks';
+import { editPetThunk } from '../../features/thunkActions/petThunkActions';
 
 export type OnePet = {
   id: number;
@@ -17,141 +19,16 @@ export type OnePet = {
   pedigree: string;
 };
 export default function PetEditPage(): JSX.Element {
-  const petsMatch: OnePet[] = [
-    {
-      id: 1,
-      name: 'Бобик',
-      type: 'собака',
-      sex: 'm',
-      city: 'msc',
-      info: 'gbbfbgfgf',
-      pedigree: '-',
-      image: 'https://s0.rbk.ru/v6_top_pics/media/img/7/19/756752350085197.webp',
-      age: 3,
-      user_id: 1,
-    },
-    {
-      id: 2,
-      name: 'Шарик',
-      image:
-        'https://cdn1.ozonusercontent.com/s3/club-storage/images/article_image_752x940/697/c500/ed7e52e-ab4d-4d1b-80fe-15e99ffbf6b6.jpeg',
-      age: 1,
-      user_id: 2,
-      type: 'собака',
-      sex: 'm',
-      city: 'msc',
-      info: 'gbbfbgfgf',
-      pedigree: '-',
-    },
-    {
-      id: 3,
-      name: 'Рекс',
-      image:
-        'https://rg.ru/uploads/images/214/34/08/photorep_imageid_538385_8085b70e8b6927e1575618884.jpg',
-      age: 2,
-      user_id: 3,
-      type: 'собака',
-      sex: 'm',
-      city: 'msc',
-      info: 'gbbfbgfgf',
-      pedigree: '-',
-    },
-    {
-      id: 4,
-      name: 'Лайка',
-      image:
-        'https://cdnn1.inosmi.ru/img/24985/10/249851004_0:196:2030:1211_1920x0_80_0_0_78318b59d4ce0cde91f76a1b092765e7.jpg',
-      age: 4,
-      user_id: 4,
-      type: 'собака',
-      sex: 'm',
-      city: 'msc',
-      info: 'gbbfbgfgf',
-      pedigree: '-',
-    },
-    {
-      id: 5,
-      name: 'Барон',
-      image:
-        'https://avatars.dzeninfra.ru/get-zen_doc/1246934/pub_5b9a5b8c341cd400abd07c2c_5b9a5bb69d8b2a00aa9e1ba1/scale_1200',
-      age: 6,
-      user_id: 5,
-      type: 'грызун',
-      sex: 'm',
-      city: 'msc',
-      info: 'gbbfbgfgf',
-      pedigree: '-',
-    },
-    {
-      id: 6,
-      name: 'Мурка',
-      image: 'https://s09.stc.yc.kpcdn.net/share/i/12/12496523/wr-960.webp',
-      age: 1,
-      user_id: 6,
-      type: 'кошка',
-      sex: 'm',
-      city: 'msc',
-      info: 'gbbfbgfgf',
-      pedigree: '-',
-    },
-    {
-      id: 7,
-      name: 'Багира',
-      image: 'https://s0.rbk.ru/v6_top_pics/media/img/4/97/756723916815974.webp',
-      age: 8,
-      user_id: 2,
-      type: 'кошка',
-      sex: 'm',
-      city: 'msc',
-      info: 'gbbfbgfgf',
-      pedigree: '-',
-    },
-    {
-      id: 8,
-      name: 'Чебурашка',
-      image: 'https://zooput.ru/upload/iblock/482/4820791b5f2d5e89fdb1881ca9d10acf.jpg',
-      age: 3,
-      user_id: 8,
-      type: 'грызун',
-      sex: 'm',
-      city: 'msc',
-      info: 'gbbfbgfgf',
-      pedigree: '-',
-    },
-    {
-      id: 9,
-      name: 'Кузя',
-      image:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Savannah_Cat_closeup.jpg/800px-Savannah_Cat_closeup.jpg',
-      age: 2,
-      user_id: 9,
-      type: 'кошка',
-      sex: 'm',
-      city: 'msc',
-      info: 'gbbfbgfgf',
-      pedigree: '-',
-    },
-    {
-      id: 10,
-      name: 'Жучка',
-      image:
-        'https://img.gazeta.ru/files3/677/14468677/Depositphotos_46566737_XL_2-pic_32ratio_1200x800-1200x800-82021.jpg',
-      age: 4,
-      user_id: 10,
-      type: 'собака',
-      sex: 'm',
-      city: 'msc',
-      info: 'gbbfbgfgf',
-      pedigree: '-',
-    },
-  ];
+  const newPet = useAppSelector((store) => store.pets.data);
+  const dispatch = useAppDispatch();
+  console.log(newPet, '=============');
 
   const petId = useParams();
 
   const { editHandler } = usePetHook();
 
   const [pet, setPet] = useState({
-    id: petId,
+    id: petId.id,
     name: '',
     image: null,
     type: '',
@@ -161,6 +38,10 @@ export default function PetEditPage(): JSX.Element {
     info: '',
     pedigree: '',
   });
+
+  useEffect(() => {
+    dispatch(editPetThunk(petId.id));
+  }, [petId.id]);
 
   //   const changeHandler = (e: ChangeEventHandler<HTMLInputElement>): void => {
   //     setPet((prev) => ({
@@ -185,7 +66,16 @@ export default function PetEditPage(): JSX.Element {
     }
   };
 
-  const uniquePetTypes = [...new Set(petsMatch.map((option) => option.type))];
+  const navigate = useNavigate();
+  const saveClick = (): void => {
+    const petIdnum = Number(petId.id);
+    navigate(`/cabinet/${petIdnum}`);
+  };
+
+  // const uniquePetTypes = [...new Set(newPet.map((option) => option.type))];
+  const uniquePetTypes = ['Грызун', 'Кошка', 'Собака'];
+  const sexPet = ['Мужской', 'Женский'];
+
   return (
     <Box
       sx={{
@@ -197,7 +87,7 @@ export default function PetEditPage(): JSX.Element {
         backgroundColor: '#DFC645',
       }}
     >
-      <form onSubmit={(e: React.FormEvent<HTMLFormElement>) => editHandler(e, pet.id)}>
+      <form onSubmit={(e: React.FormEvent<HTMLFormElement>) => editHandler(e, id.petId)}>
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={6} md={4} sx={{ display: 'flex', flex: 1 }}>
             <Box
@@ -265,8 +155,9 @@ export default function PetEditPage(): JSX.Element {
                   }}
                   type="submit"
                   variant="outlined"
+                  onClick={saveClick}
                 >
-                  Изменить
+                  Сохранить
                 </Button>
               </Box>
             </Box>
@@ -293,7 +184,7 @@ export default function PetEditPage(): JSX.Element {
                   select
                   placeholder="Вид питомца"
                   name="type"
-                  defaultValue="собака"
+                  defaultValue="Собака"
                   onChange={changeHandler}
                   value={pet.type}
                   fullWidth
@@ -347,6 +238,7 @@ export default function PetEditPage(): JSX.Element {
               />
               <TextField
                 id="outlined-basic"
+                select
                 placeholder="Пол"
                 name="sex"
                 onChange={changeHandler}
@@ -366,7 +258,13 @@ export default function PetEditPage(): JSX.Element {
                     border: 'none',
                   },
                 }}
-              />
+              >
+                {sexPet.map((sex) => (
+                  <MenuItem key={sex} value={sex}>
+                    {sex}
+                  </MenuItem>
+                ))}
+              </TextField>
               <TextField
                 id="outlined-basic"
                 placeholder="Возраст"

@@ -17,7 +17,7 @@ function App(): JSX.Element {
         <Route path="/info" element={<PetInfoPage />} />
         <Route path="/choice" element={<ChoiсePetPage />} />
         <Route path="/edit/:id" element={<PetEditPage />} />
-        <Route path="/cabinet" element={<PetCabinetPage />} />
+        <Route path="/cabinet/:id" element={<PetCabinetPage />} />
       </Routes>
     </Container>
   );
