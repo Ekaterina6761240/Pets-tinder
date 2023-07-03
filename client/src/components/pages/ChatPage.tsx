@@ -4,7 +4,7 @@ import SendIcon from '@mui/icons-material/Send';
 
 import ArrowBackIosTwoToneIcon from '@mui/icons-material/ArrowBackIosTwoTone';
 import Message from '../ui/Message';
-import type { MessageType } from '../../Types/MessageType';
+import type { MessageType } from '../Types/MessageType';
 
 export default function ChatPage(): JSX.Element {
   const messages: MessageType[] = [

@@ -13,7 +13,16 @@ export default function usePetHook(): SubmitHandler {
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement & PetFormType>): void => {
     e.preventDefault();
-    const formData = Object.fromEntries(new FormData(e.currentTarget));
+    // const formData = Object.fromEntries(new FormData(e.currentTarget));
+    const formData = new FormData();
+    formData.append('name', e.currentTarget.name.value);
+    formData.append('type', e.currentTarget.type.value);
+    formData.append('age', e.currentTarget.age.value);
+    formData.append('sex', e.currentTarget.sex.value);
+    formData.append('image', e.currentTarget.image.files[0]);
+    formData.append('city', e.currentTarget.city.value);
+    formData.append('info', e.currentTarget.info.value);
+    formData.append('pedigree', e.currentTarget.pedigree.value);
     void dispatch(addPetThunk(formData));
   };
 
@@ -22,20 +31,20 @@ export default function usePetHook(): SubmitHandler {
     id: PetType['id'],
   ): void => {
     e.preventDefault();
-    const data = {
-      name: e.currentTarget.name.value,
-      type: e.currentTarget.type.value,
-      age: e.currentTarget.age.value,
-      sex: e.currentTarget.sex.value,
-      image: e.currentTarget.image.value,
-      city: e.currentTarget.city.value,
-      info: e.currentTarget.info.value,
-      pedigree: e.currentTarget.pedigree.value,
-      id,
-    };
-    console.log(id, data, e.currentTarget.image.value, 'id, data:-----++++++-----');
+    console.log('change');
+    
+    const formData = new FormData();
 
-    void dispatch(editPetThunk(data));
+    formData.append('name', e.currentTarget.name.value);
+    formData.append('type', e.currentTarget.type.value);
+    formData.append('age', e.currentTarget.age.value);
+    formData.append('sex', e.currentTarget.sex.value);
+    formData.append('image', e.currentTarget.image.files[0]);
+    formData.append('city', e.currentTarget.city.value);
+    formData.append('info', e.currentTarget.info.value);
+    formData.append('pedigree', e.currentTarget.pedigree.value);
+
+    void dispatch(editPetThunk({ data: formData, id }));
   };
 
   return { submitHandler, editHandler };

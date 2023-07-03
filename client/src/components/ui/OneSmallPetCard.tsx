@@ -22,10 +22,6 @@ export default function OneSmallPetCard({ pet }: OnePetProps): JSX.Element {
     navigate(`/cabinet/${id}`);
   };
 
-  const clickCurrentHandler = (currentPet: OnePet, id: number): void => {
-    dispatch(setCurrentPet(currentPet));
-    navigate(`/chat/${id}`);
-  };
   const clickChatHandler = (): void => {
     const { id } = pet;
     // const { history } = useHistory();
