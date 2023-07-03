@@ -41,25 +41,12 @@ export default function PetEditPage(): JSX.Element {
     pedigree: onePet?.pedigree,
   });
 
-  // useEffect(() => {
-  //   dispatch(editPetThunk({ data: pet, id: Number(petId.id) }));
-  // }, [petId.id]);
-
-  //   const changeHandler = (e: ChangeEventHandler<HTMLInputElement>): void => {
-  //     setPet((prev) => ({
-  //       ...prev,
-  //       [e.target.name]: e.target.value,
-  //     }));
-  //   };
-  // console.log(pet, '----------------------');
-
-  const navigate = useNavigate();
   const changeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
     if (e.target.name === 'image') {
       const file = e.target.files?.[0];
       setPet((prev) => ({
         ...prev,
-        file,
+        image:file,
       }));
     } else {
       setPet((prev) => ({
@@ -69,12 +56,6 @@ export default function PetEditPage(): JSX.Element {
     }
   };
 
-  // const saveClick = (): void => {
-  //   const petIdnum = Number(petId.id);
-  //   navigate(`/cabinet/${petIdnum}`);
-  // };
-
-  // const uniquePetTypes = [...new Set(newPet.map((option) => option.type))];
   const uniquePetTypes = ['Грызун', 'Кошка', 'Собака'];
   const sexPet = ['Мужской', 'Женский'];
 

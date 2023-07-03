@@ -102,12 +102,13 @@ export default function PetCabinetPage(): JSX.Element {
                     borderRadius: '10px',
                   }}
                 >
-                  <CardMedia
-                      component="img"
-                      sx={{ height: 140 }}
-                      src={`../../../server/public/img/${pet?.image}`}
+                  {/* <CardMedia */}
+                      {/* // component="img" */}
+                      <img
+                      // sx={{ height: 140 }}
+                      src={pet?.image}
                       alt="Загруженное изображение"
-                    />
+                      />
                 </Box>
               </Card>
               <Box>
