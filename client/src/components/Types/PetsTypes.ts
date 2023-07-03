@@ -1,7 +1,7 @@
 export type OnePet = {
   id: number;
   name: string;
-  img: string;
+  image: string;
   sex: string;
   city: string;
   pedigree: string;

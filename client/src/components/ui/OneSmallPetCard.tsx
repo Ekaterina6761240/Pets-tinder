@@ -42,7 +42,7 @@ export default function OneSmallPetCard({ pet }: OnePetProps): JSX.Element {
               height: 130,
             }}
             height="100"
-            image={pet.img}
+            image={pet.image}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
@@ -70,7 +70,7 @@ export default function OneSmallPetCard({ pet }: OnePetProps): JSX.Element {
                 padding: '16px',
                 alignItems: 'center',
               }}
-              onClick={() => clickCurrentHandler(pet, pet.id)}
+              onClick={clickChatHandler}
             >
               Написать
             </Button>

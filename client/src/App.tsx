@@ -36,7 +36,7 @@ function App(): JSX.Element {
         <Route element={<PrivateRoute isAllowed={user.status !== 'guest'} redirectTo="/" />}>
           <Route path="app/choice" element={<CardSwipePage />} />
           <Route path="app/match" element={<MatchList />} />
-          <Route path="/match/:id" element={<MatchPage />} />
+          <Route path="/match" element={<MatchPage />} />
           <Route path="/info" element={<PetInfoPage />} />
           <Route path="/edit/:id" element={<PetEditPage />} />
           <Route path="/cabinet" element={<PetCabinetPage />} />

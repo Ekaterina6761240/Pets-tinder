@@ -29,10 +29,13 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function MatchPage(): JSX.Element {
   const petsMatch = useAppSelector((state) => state.petMatch.data);
   // const petCurent = useAppSelector((state) => state.petCurent.data);
+  const currentPet = useAppSelector((state) => state.currentPet.data);
+  // console.log(currentPet);
+
   const dispatch = useAppDispatch();
 
-  const { id } = useParams();
-
+  // const { id } = useParams();
+  const id = currentPet?.id;
   useEffect(() => {
     dispatch(getAllMatchThunk(id));
   }, [id]);

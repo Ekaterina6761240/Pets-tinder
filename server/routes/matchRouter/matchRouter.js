@@ -60,9 +60,9 @@ const { Pet, Like } = require('../../db/models');
 //   }
 // });
 
-matchRouter.get('/:id', async (req, res) => {
+matchRouter.post('/', async (req, res) => {
   try {
-    const { id } = req.params;
+    const { id } = req.body;
 
     const likes = await Like.findAll({
       where: {

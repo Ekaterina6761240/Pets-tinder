@@ -15,7 +15,7 @@ export default function OneNamePetForChoice({ userPet }: PetProps): JSX.Element 
   const dispatch = useAppDispatch();
   const handleClick = (currentPet: OnePet): void => {
     dispatch(setCurrentPet(currentPet));
-    navigate(`/cabinet`);
+    navigate(`/match`);
   };
   return (
     <Button
