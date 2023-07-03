@@ -1,9 +1,9 @@
-import { Box, Grid, Stack, backdropClasses } from '@mui/material';
+import { Box, Grid, Stack } from '@mui/material';
 import React, { useEffect } from 'react';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import { useParams } from 'react-router-dom';
-import type { OnePet } from '../../Types/PetsTypes';
+// import type { OnePet } from '../../Types/PetsTypes';
 import OneSmallPetCard from '../ui/OneSmallPetCard';
 import { useAppDispatch, useAppSelector } from '../features/redux/reduxHooks';
 import getAllMatchThunk from '../features/thunkAction/petMatchThankAction';
@@ -28,6 +28,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function MatchPage(): JSX.Element {
   const petsMatch = useAppSelector((state) => state.petMatch.data);
+  // const petCurent = useAppSelector((state) => state.petCurent.data);
   const dispatch = useAppDispatch();
 
   const { id } = useParams();
@@ -40,7 +41,7 @@ export default function MatchPage(): JSX.Element {
     // <div>{petsMatch}</div>
     <Box
       sx={{
-        backgroundColor: '#E890F6',
+        // backgroundColor: '',
         minHeight: '100vh',
         padding: '120px',
       }}
