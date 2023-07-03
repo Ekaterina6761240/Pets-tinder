@@ -3,7 +3,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { Button, CardActionArea, Stack, Typography } from '@mui/material';
-import type { OnePet } from '../../Types/PetsTypes';
+import type { OnePet } from '../Types/PetsTypes';
 
 type OnePetProps = {
   pet: OnePet;

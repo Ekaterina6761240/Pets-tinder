@@ -1,7 +1,7 @@
 import { Box, Button, Card, TextField, Grid, MenuItem, CardMedia } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import AddPhotoModal from '../ui/AddPhotoModal';
-import usePetHook from '../../hooks/usePetHook';
+import usePetHook from '../features/Hooks/usePetHook';
 
 export type OnePet = {
   id: number;
@@ -107,13 +107,6 @@ export default function PetInfoPage(): JSX.Element {
     pedigree: '',
   });
 
-  // const changeHandler = (e: ChangeEventHandler<HTMLInputElement>): void => {
-  //   setPet((prev) => ({
-  //     ...prev,
-  //     [e.target.name]: e.target.value,
-  //   }));
-  // };
-
   const changeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
     if (e.target.name === 'file') {
       const file = e.target.files?.[0];
@@ -175,7 +168,6 @@ export default function PetInfoPage(): JSX.Element {
                       style={{ display: 'none' }}
                       onChange={changeHandler}
                     />
-                    
                   </label>
                   {pet.file ? (
                     <CardMedia
@@ -184,9 +176,11 @@ export default function PetInfoPage(): JSX.Element {
                       src={URL.createObjectURL(pet.file)}
                       alt="Загруженное изображение"
                     />
-                  ): (<Button component="label" htmlFor="upload-input" size="small">
-                  Добавить фото
-                </Button>)}
+                  ) : (
+                    <Button component="label" htmlFor="upload-input" size="small">
+                      Добавить фото
+                    </Button>
+                  )}
                 </Box>
               </Card>
               <Box>
