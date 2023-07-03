@@ -18,7 +18,7 @@ export default function useFormHook(): AuthHookReturnedType {
     e.preventDefault();
     const formData = Object.fromEntries(new FormData(e.currentTarget)) as UserRegType;
     void dispatch(userRegThunk(formData));
-    window.location.href = 'http://localhost:3001/app/choice';
+    window.location.href = 'http://localhost:5173/choice';
     // navigate('app/choice', { replace: true });
   };
 
@@ -26,8 +26,8 @@ export default function useFormHook(): AuthHookReturnedType {
     e.preventDefault();
     const formData = Object.fromEntries(new FormData(e.currentTarget)) as UserLoginType;
     void dispatch(userLoginThunk(formData));
-    // window.location.href = 'http://localhost:3001/app/choice';
-    window.location.assign('http://localhost:3001/app/choice');
+
+    window.location.assign('http://localhost:5173/choice');
     navigate('app/choice', { replace: true });
   };
 

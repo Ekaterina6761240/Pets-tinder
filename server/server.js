@@ -6,6 +6,7 @@ const apiAuthRouter = require('./routes/apiUserRouter');
 const Petrouter = require('./routes/PetApiRouter');
 const matchRouter = require('./routes/matchRouter/matchRouter');
 const apiCurrentRouter = require('./routes/apiCurrentRouter');
+const swipePageRouter = require('./routes/swipePage/swipePageRouter');
 
 const PORT = process.env.PORT || 3001;
 
@@ -22,6 +23,7 @@ app.use('/api/pets', Petrouter);
 app.use('/api/auth', apiAuthRouter);
 app.use('/match', matchRouter);
 app.use('/cutent', apiCurrentRouter);
+app.use('/swipe', swipePageRouter);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}!`);

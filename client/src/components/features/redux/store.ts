@@ -3,6 +3,7 @@ import petMatchSlice from './slices/petMatchSlice';
 import petSlice from './slices/petSlice';
 import userSlice from './slices/userSlice';
 import currentPetSlice from './slices/currentPetSlice';
+import petSwipeSlice from './slices/petSwipeSlice';
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     pets: petSlice,
     petMatch: petMatchSlice,
     currentPet: currentPetSlice,
+    petsSwipe: petSwipeSlice,
   },
 });
 

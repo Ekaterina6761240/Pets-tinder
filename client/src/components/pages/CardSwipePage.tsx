@@ -1,10 +1,12 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import TinderCard from 'react-tinder-card';
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
 import PetsIcon from '@mui/icons-material/Pets';
 import RestoreIcon from '@mui/icons-material/Restore';
 import CongratulationsModal from '../ui/CongratulationsModal';
+import { useAppDispatch, useAppSelector } from '../features/redux/hooks';
+import getSwipePetThunk from '../features/thunkAction/swipePet';
 
 const db = [
   {
@@ -39,6 +41,20 @@ const db = [
   },
 ];
 export default function CardSwipePage(): JSX.Element {
+  const currentPet = useAppSelector((state) => state.currentPet.data);
+
+  console.log(currentPet, 'currentPet1111');
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(() => getSwipePetThunk(currentPet));
+  }, []);
+
+  const petSwipe = useAppSelector((state) => state.petsSwipe.data);
+
+  console.log(petSwipe, 'petSwipe!!!!!');
+
   const [currentIndex, setCurrentIndex] = useState(db.length - 1);
   const [lastDirection, setLastDirection] = useState();
   const currentIndexRef = useRef(currentIndex);
