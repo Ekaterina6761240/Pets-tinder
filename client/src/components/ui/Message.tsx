@@ -1,6 +1,6 @@
 import { Avatar, Chip } from '@mui/material';
 import React from 'react';
-import type { MessageType } from '../../Types/MessageType';
+import type { MessageType } from '../Types/MessageType';
 
 type MessageTypeProps = {
   message: MessageType;

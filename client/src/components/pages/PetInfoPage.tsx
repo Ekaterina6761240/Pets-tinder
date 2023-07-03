@@ -1,26 +1,9 @@
 import { Box, Button, Card, TextField, Grid, MenuItem, CardMedia } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import AddPhotoModal from '../ui/AddPhotoModal';
-import usePetHook from '../../hooks/usePetHook';
+import usePetHook from '../features/Hooks/usePetHook';
 
-declare global {
-  interface Window {
-    Blob: typeof Blob;
-  }
-};
-
-export type OnePet = {
-  id: number;
-  name: string;
-  img: string;
-  age: number;
-  user_id: number;
-  petType: 'кошка' | 'собака' | 'грызун';
-};
 export default function PetInfoPage(): JSX.Element {
-  
   const { submitHandler } = usePetHook();
-  
 
   const [pet, setPet] = useState({
     name: '',
@@ -32,23 +15,13 @@ export default function PetInfoPage(): JSX.Element {
     info: '',
     pedigree: '',
   });
-  
-
-  // const changeHandler = (e: ChangeEventHandler<HTMLInputElement>): void => {
-  //   setPet((prev) => ({
-  //     ...prev,
-  //     [e.target.name]: e.target.value,
-  //   }));
-  // };
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
     if (e.target.name === 'image') {
       const file = e.target.files?.[0];
-      console.log(file.lastModified, '000000000000-------------------');
       setPet((prev) => ({
         ...prev,
         image: file,
-        
       }));
     } else {
       setPet((prev) => ({
@@ -111,7 +84,7 @@ export default function PetInfoPage(): JSX.Element {
                     <CardMedia
                       component="img"
                       sx={{ height: 140 }}
-                      src={URL.createObjectURL(pet?.image)}
+                      src={`../../../server/public/img/${pet?.image}`}
                       alt="Загруженное изображение"
                     />
                   ) : (

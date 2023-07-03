@@ -1,9 +1,16 @@
-import type { EditFormType, PetType } from '../types';
 import apiInstance from './apiConfig';
+
+import type { EditFormType, PetType } from '../Types/petTypes';
 
 export const getPets = (): Promise<PetType[]> =>
   apiInstance
     .get<PetType[]>('api/pets')
+    .then((response) => response.data)
+    .catch((error) => Promise.reject(error));
+
+export const getOnePets = (id: number): Promise<PetType> =>
+  apiInstance
+    .get<PetType>(`api/pets/${id}`)
     .then((response) => response.data)
     .catch((error) => Promise.reject(error));
 
@@ -13,18 +20,8 @@ export const createPet = (data: FormData): Promise<PetType> =>
     .then((res) => res.data)
     .catch((err) => Promise.reject(err));
 
-export const editPet = ({
-  id,
-  name,
-  type,
-  age,
-  image,
-  sex,
-  city,
-  info,
-  pedigree,
-}: EditFormType): Promise<PetType> =>
+export const editPet = (data: {data: FormData, id: number}): Promise<PetType> =>
   apiInstance
-    .patch<PetType>(`/api/pets/${id}`, { name, type, age, image, sex, city, info, pedigree })
+    .post<PetType>(`/api/pets/${data.id}`, data.data )
     .then((res) => res.data)
     .catch((err) => Promise.reject(err));

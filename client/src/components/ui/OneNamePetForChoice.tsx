@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import type { PetType } from '../../types';
+import type { PetType } from '../Types/petTypes';
 
 export type PetProps = {
   userPet: PetType;

@@ -1,47 +1,49 @@
 import { Box, Button, Card, TextField, Grid, MenuItem, CardMedia } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import AddPhotoModal from '../ui/AddPhotoModal';
-import usePetHook from '../../hooks/usePetHook';
-import { useAppDispatch, useAppSelector } from '../../features/redux/reduxHooks';
-import { editPetThunk } from '../../features/thunkActions/petThunkActions';
+import usePetHook from '../features/Hooks/usePetHook';
+import { useAppDispatch, useAppSelector } from '../features/redux/reduxHooks';
+import { editPetThunk, getOnePetThunk } from '../features/thunkAction/petThunkActions';
+import type { PetFormType } from '../Types/petTypes';
 
-export type OnePet = {
-  id: number;
-  name: string;
-  image: string;
-  age: number;
-  user_id: number;
-  type: string;
-  sex: string;
-  city: string;
-  info: string;
-  pedigree: string;
-};
+// export type OnePet = {
+//   id: number;
+//   name: string;
+//   image: string;
+//   age: number;
+//   user_id: number;
+//   type: string;
+//   sex: string;
+//   city: string;
+//   info: string;
+//   pedigree: string;
+// };
 export default function PetEditPage(): JSX.Element {
   const newPet = useAppSelector((store) => store.pets.data);
   const dispatch = useAppDispatch();
-  console.log(newPet, '=============');
 
   const petId = useParams();
+  const onePet = newPet.find((pet) => pet.id === Number(petId.id));
+
+  console.log(newPet, '=============');
 
   const { editHandler } = usePetHook();
 
   const [pet, setPet] = useState({
-    id: petId.id,
-    name: '',
+    // id: petId.id,
+    name: onePet?.name,
     image: null,
-    type: '',
-    age: '',
-    sex: '',
-    city: '',
-    info: '',
-    pedigree: '',
+    type: onePet?.type,
+    age: onePet?.age,
+    sex: onePet?.sex,
+    city: onePet?.city,
+    info: onePet?.info,
+    pedigree: onePet?.pedigree,
   });
 
-  useEffect(() => {
-    dispatch(editPetThunk(petId.id));
-  }, [petId.id]);
+  // useEffect(() => {
+  //   dispatch(editPetThunk({ data: pet, id: Number(petId.id) }));
+  // }, [petId.id]);
 
   //   const changeHandler = (e: ChangeEventHandler<HTMLInputElement>): void => {
   //     setPet((prev) => ({
@@ -51,12 +53,13 @@ export default function PetEditPage(): JSX.Element {
   //   };
   // console.log(pet, '----------------------');
 
+  const navigate = useNavigate();
   const changeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
     if (e.target.name === 'image') {
       const file = e.target.files?.[0];
       setPet((prev) => ({
         ...prev,
-        image: file,
+        file,
       }));
     } else {
       setPet((prev) => ({
@@ -66,11 +69,10 @@ export default function PetEditPage(): JSX.Element {
     }
   };
 
-  const navigate = useNavigate();
-  const saveClick = (): void => {
-    const petIdnum = Number(petId.id);
-    navigate(`/cabinet/${petIdnum}`);
-  };
+  // const saveClick = (): void => {
+  //   const petIdnum = Number(petId.id);
+  //   navigate(`/cabinet/${petIdnum}`);
+  // };
 
   // const uniquePetTypes = [...new Set(newPet.map((option) => option.type))];
   const uniquePetTypes = ['Грызун', 'Кошка', 'Собака'];
@@ -87,7 +89,9 @@ export default function PetEditPage(): JSX.Element {
         backgroundColor: '#DFC645',
       }}
     >
-      <form onSubmit={(e: React.FormEvent<HTMLFormElement>) => editHandler(e, id.petId)}>
+      <form
+        onSubmit={(e: React.FormEvent<HTMLFormElement & PetFormType>) => editHandler(e, petId.id)}
+      >
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={6} md={4} sx={{ display: 'flex', flex: 1 }}>
             <Box
@@ -125,6 +129,7 @@ export default function PetEditPage(): JSX.Element {
                   {pet.image ? (
                     <CardMedia
                       component="img"
+                      defaultValue={onePet?.image}
                       sx={{ height: 140 }}
                       src={URL.createObjectURL(pet.image)}
                       alt="Загруженное изображение"
@@ -155,7 +160,7 @@ export default function PetEditPage(): JSX.Element {
                   }}
                   type="submit"
                   variant="outlined"
-                  onClick={saveClick}
+                  // onClick={saveClick}
                 >
                   Сохранить
                 </Button>
@@ -184,7 +189,7 @@ export default function PetEditPage(): JSX.Element {
                   select
                   placeholder="Вид питомца"
                   name="type"
-                  defaultValue="Собака"
+                  defaultValue={onePet?.type}
                   onChange={changeHandler}
                   value={pet.type}
                   fullWidth
@@ -239,6 +244,7 @@ export default function PetEditPage(): JSX.Element {
               <TextField
                 id="outlined-basic"
                 select
+                defaultValue={onePet?.sex}
                 placeholder="Пол"
                 name="sex"
                 onChange={changeHandler}
@@ -260,7 +266,7 @@ export default function PetEditPage(): JSX.Element {
                 }}
               >
                 {sexPet.map((sex) => (
-                  <MenuItem key={sex} value={sex}>
+                  <MenuItem defaultValue={sex} key={sex} value={sex}>
                     {sex}
                   </MenuItem>
                 ))}

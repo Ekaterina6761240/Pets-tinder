@@ -1,9 +1,9 @@
 import { Box, Button } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../features/redux/reduxHooks';
 import OneNamePetForChoice from '../ui/OneNamePetForChoice';
-import { getPetsThunk } from '../../features/thunkActions/petThunkActions';
+import { useAppDispatch, useAppSelector } from '../features/redux/reduxHooks';
+import { getPetsThunk } from '../features/thunkAction/petThunkActions';
 
 export default function ChoiсePetPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -11,7 +11,7 @@ export default function ChoiсePetPage(): JSX.Element {
   console.log(pets, '--------------------');
 
   useEffect(() => {
-    dispatch(getPetsThunk());
+    void dispatch(getPetsThunk());
   }, []);
   const navigate = useNavigate();
 
