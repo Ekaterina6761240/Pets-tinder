@@ -16,6 +16,7 @@ import PetInfoPage from './components/pages/PetInfoPage';
 import PetEditPage from './components/pages/PetEditPage';
 import PetCabinetPage from './components/pages/PetCabinetPage';
 import CardSwipePage from './components/pages/CardSwipePage';
+import VariationsPage from './components/pages/VariationsPage';
 import './index.css';
 import ChoiсePetPage from './components/pages/ChoiсePetPage';
 
@@ -40,6 +41,7 @@ function App(): JSX.Element {
           <Route path="/info" element={<PetInfoPage />} />
           <Route path="/edit/:id" element={<PetEditPage />} />
           <Route path="/cabinet" element={<PetCabinetPage />} />
+          <Route path="/variations" element={<VariationsPage />} />
           <Route path="/choice" element={<ChoiсePetPage />} />
         </Route>
       </Routes>
