@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import type { OnePet } from '../../Types/PetsTypes';
-import { createLikePets, getSwipePets } from '../../services/apiSwipe';
+import { createDislikePets, createLikePets, getSwipePets } from '../../services/apiSwipe';
 
 export const getSwipePetThunk = createAsyncThunk<OnePet[], OnePet>(
   'pets/getSwipePets',
@@ -18,4 +18,10 @@ export const createSwipePetThunk = createAsyncThunk<OnePet['id'], { id: number; 
       .catch((err) => Promise.reject(err)),
 );
 
-export default getSwipePetThunk;
+export const createDislikeThunk = createAsyncThunk<OnePet['id'], { id: number; idMyPet: number }>(
+  'pets/createDislikeSwipePets',
+  async (data) =>
+    createDislikePets(data)
+      .then((res) => res)
+      .catch((err) => Promise.reject(err)),
+);

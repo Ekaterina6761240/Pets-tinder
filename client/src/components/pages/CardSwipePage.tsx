@@ -10,7 +10,11 @@ import CongratulationsModal from '../ui/CongratulationsModal';
 import { useAppDispatch, useAppSelector } from '../features/redux/hooks';
 
 import SwipeSmallCard from './SwipeSmallCard';
-import getSwipePetThunk, { createSwipePetThunk } from '../features/thunkAction/swipePet';
+import {
+  getSwipePetThunk,
+  createDislikeThunk,
+  createSwipePetThunk,
+} from '../features/thunkAction/swipePet';
 
 // const db = [
 //   {
@@ -56,6 +60,11 @@ export default function CardSwipePage(): JSX.Element {
 
     void dispatch(createSwipePetThunk(data));
   };
+
+  const clickDislikeHandler = (data: { id: number; idMyPet: number }): void => {
+    void dispatch(createDislikeThunk(data));
+  };
+
   // console.log(currentPet, 'currentPet1111');
   const navigate = useNavigate();
   const handleClick = () => {
@@ -79,7 +88,9 @@ export default function CardSwipePage(): JSX.Element {
             <SwipeSmallCard key={el.id} character={el} />
             <ButtonGroup variant="text" aria-label="text button group" className="buttons">
               <div className="">
-                <IconButton>
+                <IconButton
+                  onClick={() => clickDislikeHandler({ id: el.id, idMyPet: currentPet?.id })}
+                >
                   <CloseIcon />
                 </IconButton>
 

@@ -62,6 +62,50 @@ const { Pet, Like } = require('../../db/models');
 
 matchRouter.post('/', async (req, res) => {
   try {
+    const { id } = req.body;
+
+    const findMatch = await Like.findAll({
+      where: {
+        who_liked_pet_id: id,
+        isLiked: true,
+      },
+    });
+    const findMatch2 = await Like.findAll({
+      where: {
+        was_liked_pet_id: id,
+        isLiked: true,
+      },
+    });
+
+    const filterMatch = findMatch2.filter((e) =>
+      findMatch.some((g) => g.was_liked_pet_id === e.who_liked_pet_id),
+    );
+
+    // const filteredPet = findMatch2.filter((el) => !findMatch.includes(el.was_liked_pet_id));
+
+    const petIds = filterMatch.map((pet) => pet.who_liked_pet_id);
+
+    Pet.findAll({
+      where: {
+        id: petIds,
+      },
+    }).then((foundPets) => {
+      console.log(foundPets);
+    });
+
+    console.log(filterMatch, 'filterMatch');
+    console.log(findMatch, 'findMatch');
+    console.log(filterMatch, '!!!!!!!!!!!!');
+    // console.log(filteredPet, 'filteredPet');
+
+    // res.json(foundPets);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+matchRouter.post('/4444', async (req, res) => {
+  try {
     console.log('!!!!!!!!!!!!!!!');
     const { id } = req.body;
     console.log(req.body);

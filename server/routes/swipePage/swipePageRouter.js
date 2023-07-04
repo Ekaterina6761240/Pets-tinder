@@ -6,35 +6,30 @@ const { Pet, Like } = require('../../db/models');
 swipePageRouter.post('/like', async (req, res) => {
   try {
     const { id, idMyPet } = req.body;
-    // const idMyPet = req.body.id;
-    console.log({ id, idMyPet }, '1!11!!!!!!!!!!!!!!!!!!!');
-    const liked = await Like.findAll({
-      where: {
-        who_liked_pet_id: id,
-        was_liked_pet_id: idMyPet,
-      },
+    const liked = await Like.create({
+      who_liked_pet_id: idMyPet,
+      was_liked_pet_id: id,
+      isLiked: true,
     });
-    if (liked.length === 0) {
-      await Like.create({
-        who_liked_pet_id: idMyPet,
-        was_liked_pet_id: id,
-        isLiked: false,
-      });
-    } else {
-      await Like.update(
-        {
-          isLiked: true,
-        },
-        {
-          where: {
-            who_liked_pet_id: id,
-            was_liked_pet_id: idMyPet,
-          },
-        },
-      );
-    }
 
     res.json(liked);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+swipePageRouter.post('/dislike', async (req, res) => {
+  try {
+    const { id, idMyPet } = req.body;
+    // const idMyPet = req.body.id;
+    // console.log({ id, idMyPet }, '1!11!!!!!!!!!!!!!!!!!!!');
+    const dislike = await Like.create({
+      who_liked_pet_id: idMyPet,
+      was_liked_pet_id: id,
+      isLiked: false,
+    });
+
+    res.json(dislike);
   } catch (error) {
     console.log(error);
   }

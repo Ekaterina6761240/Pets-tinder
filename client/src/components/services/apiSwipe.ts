@@ -12,3 +12,9 @@ export const createLikePets = (data: { id: number; idMyPet: number }): Promise<O
     .post<OnePet['id']>('/swipe/like', data)
     .then((res) => res.data)
     .catch((err) => Promise.reject(err));
+
+export const createDislikePets = (data: { id: number; idMyPet: number }): Promise<OnePet['id']> =>
+  apiInstance
+    .post<OnePet['id']>('/swipe/dislike', data)
+    .then((res) => res.data)
+    .catch((err) => Promise.reject(err));

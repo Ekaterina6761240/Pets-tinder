@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { Pet } from '../../../Types/PetsTypes';
-import getSwipePetThunk from '../../thunkAction/swipePet';
+import { createDislikeThunk, getSwipePetThunk } from '../../thunkAction/swipePet';
 
 export type InitialState = {
   data: Pet;
