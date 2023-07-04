@@ -38,6 +38,56 @@ module.exports = {
           was_liked_pet_id: 2,
           isLiked: true,
         },
+        {
+          who_liked_pet_id: 5,
+          was_liked_pet_id: 7,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 7,
+          was_liked_pet_id: 9,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 9,
+          was_liked_pet_id: 7,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 3,
+          was_liked_pet_id: 5,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 2,
+          was_liked_pet_id: 5,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 1,
+          was_liked_pet_id: 5,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 1,
+          was_liked_pet_id: 6,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 4,
+          was_liked_pet_id: 5,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 1,
+          was_liked_pet_id: 7,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 1,
+          was_liked_pet_id: 9,
+          isLiked: true,
+        },
       ],
       {},
     );

@@ -48,8 +48,10 @@ export default function CardSwipePage(): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(() => getSwipePetThunk(currentPet));
-  }, []);
+    if (currentPet) {
+      void dispatch(getSwipePetThunk(currentPet));
+    }
+  }, [currentPet]);
 
   const petSwipe = useAppSelector((state) => state.petsSwipe.data);
 

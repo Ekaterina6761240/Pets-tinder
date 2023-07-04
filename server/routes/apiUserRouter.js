@@ -34,6 +34,7 @@ apiAuthRouter.post('/reg', async (req, res) => {
     res.json({ id: newUser.id, name: newUser.name, email: newUser.email });
   } catch (error) {
     console.log(error);
+    res.status(500).json({ message: 'server error' });
   }
 });
 

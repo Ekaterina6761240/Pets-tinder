@@ -1,5 +1,6 @@
 const swipePageRouter = require('express').Router();
 
+const { Op } = require('sequelize');
 const { Pet, Like } = require('../../db/models');
 
 // swipePageRouter.post('/', async (req, res) => {
@@ -39,33 +40,40 @@ const { Pet, Like } = require('../../db/models');
 //   }
 
 swipePageRouter.post('/', async (req, res) => {
-  const { pet } = req.body;
-  // const petLike = await Like.findAll({ where: { who_liked_pet_id: pet.id } });
-  console.log(pet, '11111pet');
+  try {
+    const { pet } = req.body;
+    // const petLike = await Like.findAll({ where: { who_liked_pet_id: pet.id } });
 
-  const findPet = await Pet.findAll({
-    where: {
-      id: !pet?.id,
-      name: !pet?.sex,
-      type: pet?.type,
-      include: [{ model: Like, where: { who_liked_pet_id: pet?.id } }],
-    },
-  });
-  res.json(findPet);
+    const findPet = await Pet.findAll({
+      where: {
+        sex: {
+          [Op.not]: pet?.sex,
+
+          // type: pet?.type,
+          // include: [{ model: Like, where: { [Op.or]: !petLike } }],
+        },
+        id: { [Op.not]: pet?.id },
+        type: pet?.type,
+      },
+    });
+    console.log(findPet);
+    // res.json(petLike);
+  } catch (error) {
+    console.log(error);
+  }
+
+  // const findPet = await Pet.findAll({
+  //   where: {
+  //     id: !pet?.id,
+  //     name: !pet?.sex,
+  //     type: pet?.type,
+  //     include: [{ model: Like, where: { who_liked_pet_id: pet?.id } }],
+  //   },
+  // });
+  // res.json(findPet);
 });
 
-//   const petLike = await Like.findAll({ where: { who_liked_pet_id: pet.id } });
-
-//   const findPet = await Pet.findAll({
-//     where: {
-//       [Op.and]: [{ id: { [Op.ne]: pet.id } }, { name: { [Op.ne]: pet.sex } }, { type: pet.type }],
-//     },
-//     include: [{ model: Like, where: { [Op.or]: petLike } }],
-//   });
-//   res.json(findPet);
-// });
-
-// const filterPet = findPet.filter((el) => {
-
-// const filteredPet = res.json(findPet);
+//
+// const petLike = await Like.findAll({ where: { who_liked_pet_id: pet.id } });
+// console.log(pet, '11111pet');
 module.exports = swipePageRouter;

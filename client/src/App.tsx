@@ -34,16 +34,16 @@ function App(): JSX.Element {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="auth/:type" element={<AuthPage />} />
-        {/* <Route element={<PrivateRoute isAllowed={user.status !== 'guest'} redirectTo="/" />}> */}
-        <Route path="/swipe" element={<CardSwipePage />} />
-        <Route path="app/match" element={<MatchList />} />
-        <Route path="/match" element={<MatchPage />} />
-        <Route path="/info" element={<PetInfoPage />} />
-        <Route path="/edit/:id" element={<PetEditPage />} />
-        <Route path="/cabinet" element={<PetCabinetPage />} />
-        <Route path="/variations" element={<VariationsPage />} />
-        <Route path="/choice" element={<ChoiсePetPage />} />
-        {/* </Route> */}
+        <Route element={<PrivateRoute isAllowed={user.status !== 'guest'} redirectTo="/choice" />}>
+          <Route path="/swipe" element={<CardSwipePage />} />
+          <Route path="app/match" element={<MatchList />} />
+          <Route path="/match" element={<MatchPage />} />
+          <Route path="/info" element={<PetInfoPage />} />
+          <Route path="/edit/:id" element={<PetEditPage />} />
+          <Route path="/cabinet" element={<PetCabinetPage />} />
+          <Route path="/variations" element={<VariationsPage />} />
+          <Route path="/choice" element={<ChoiсePetPage />} />
+        </Route>
       </Routes>
     </div>
   );
