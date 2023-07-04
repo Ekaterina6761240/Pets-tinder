@@ -1,12 +1,16 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import TinderCard from 'react-tinder-card';
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
 import PetsIcon from '@mui/icons-material/Pets';
 import RestoreIcon from '@mui/icons-material/Restore';
+import TinderCard from 'react-tinder-card';
+import { ButtonGroup, IconButton } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import CongratulationsModal from '../ui/CongratulationsModal';
 import { useAppDispatch, useAppSelector } from '../features/redux/hooks';
-import getSwipePetThunk from '../features/thunkAction/swipePet';
+
+import SwipeSmallCard from './SwipeSmallCard';
+import getSwipePetThunk, { createSwipePetThunk } from '../features/thunkAction/swipePet';
 
 // const db = [
 //   {
@@ -42,137 +46,64 @@ import getSwipePetThunk from '../features/thunkAction/swipePet';
 // ];
 export default function CardSwipePage(): JSX.Element {
   const currentPet = useAppSelector((state) => state.currentPet.data);
-
-  // console.log(currentPet, 'currentPet1111');
+  console.log('======curpet', currentPet);
 
   const dispatch = useAppDispatch();
+  const petSwipe = useAppSelector((state) => state.petsSwipe.data);
 
+  const clickLikeHandler = (data: { id: number; idMyPet: number }): void => {
+    console.log('-------data', data);
+
+    void dispatch(createSwipePetThunk(data));
+  };
+  // console.log(currentPet, 'currentPet1111');
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/match`);
+  };
   useEffect(() => {
     if (currentPet) {
       void dispatch(getSwipePetThunk(currentPet));
     }
   }, [currentPet]);
 
-  const petSwipe = useAppSelector((state) => state.petsSwipe.data);
-
   console.log(petSwipe, 'petSwipe!!!!!');
-
-  const [currentIndex, setCurrentIndex] = useState(petSwipe.length - 1);
-  const [lastDirection, setLastDirection] = useState();
-  const currentIndexRef = useRef(currentIndex);
-  const [open, setOpen] = useState<boolean>(false);
-
-  const childRefs = useMemo(
-    () =>
-      Array(petSwipe.length)
-        .fill(0)
-        .map((i) => React.createRef()),
-    [],
-  );
-
-  const updateCurrentIndex = (val): void => {
-    setCurrentIndex(val);
-    currentIndexRef.current = val;
-  };
-
-  const canGoBack = currentIndex < petSwipe.length;
-  const canSwipe = currentIndex >= 0;
-
-  // set last direction and decrease current index
-
-  const swiped = (direction, nameToDelete, index) => {
-    setLastDirection(direction);
-    updateCurrentIndex(index - 1);
-  };
-
-  const outOfFrame = (image, idx) => {
-    console.log(`${image} (${idx}) left the screen!`, currentIndexRef.current);
-    currentIndexRef.current >= idx && childRefs[idx].current.restoreCard();
-  };
-
-  const swipe = async (dir) => {
-    if (canSwipe && currentIndex < petSwipe.length) {
-      await childRefs[currentIndex].current.swipe(dir);
-    }
-    if (dir === 'right') {
-      setOpen(true);
-    }
-  };
-
-  // increase current index and show card
-  const goBack = async () => {
-    if (!canGoBack) return;
-    const newIndex = currentIndex + 1;
-    updateCurrentIndex(newIndex);
-    await childRefs[newIndex].current.restoreCard();
-  };
-
-  const onClose = () => {
-    setOpen(false);
-  };
   return (
     <div className="container">
       <h1 style={{ fontFamily: 'Kanit, sans-serif', fontSize: '40px', marginBottom: '50px' }}>
-        Make your choice
+        Выбери пару своему питомцу
       </h1>
       <div className="cardContainer" style={{ width: '600px', height: '900px' }}>
-        {petSwipe.map((character, index) => (
-          <TinderCard
-            // ref={childRefs[index]}
-            className="swipe"
-            key={character.id}
-            onSwipe={(dir) => swiped(dir, character.image, index)}
-            onCardLeftScreen={() => outOfFrame(character.image, index)}
-          >
-            <div className={`card ${index === currentIndex ? 'active' : ''}`}>
-              <div
-                className="imageContainer"
-                style={{ backgroundImage: `image(${character.image})` }}
-              />
-              <img src={character.image} alt="" style={{ width: '400px', height: '500px' }} />
-              <h4 className="overlay-text">
-                {character.name}, {character.age}
-              </h4>
-            </div>
-          </TinderCard>
+        {petSwipe.map((el) => (
+          <div className="swipe" key={el.id}>
+            <SwipeSmallCard key={el.id} character={el} />
+            <ButtonGroup variant="text" aria-label="text button group" className="buttons">
+              <div className="">
+                <IconButton>
+                  <CloseIcon />
+                </IconButton>
+
+                <IconButton>
+                  <RestoreIcon />
+                </IconButton>
+
+                <IconButton
+                  onClick={() => clickLikeHandler({ id: el.id, idMyPet: currentPet?.id })}
+                >
+                  <PetsIcon />
+                </IconButton>
+              </div>
+            </ButtonGroup>
+          </div>
         ))}
+        <Button
+          onClick={handleClick}
+          sx={{ backgroundColor: '#F3EDED', borderRadius: '10px' }}
+          variant="outlined"
+        >
+          перейти к метчам
+        </Button>
       </div>
-      <div className="buttons">
-        {/* <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('left')}>
-          Swipe left!
-        </button> */}
-        <Button
-          variant="contained"
-          startIcon={<CloseIcon />}
-          onClick={() => swipe('left')}
-          size="large"
-          className="roundButton"
-        />
-        <Button
-          variant="contained"
-          startIcon={<RestoreIcon />}
-          onClick={() => goBack()}
-          size="large"
-          className="roundButton"
-        />
-        <Button
-          variant="contained"
-          startIcon={<PetsIcon />}
-          onClick={() => swipe('right')}
-          size="large"
-          className="roundButton"
-        />
-      </div>
-      {/* {lastDirection ? (
-        <h2 key={lastDirection} className="infoText">
-          You swiped {lastDirection}
-        </h2>
-      ) : (
-        <h2 className="infoText">
-          Swipe a card or press a button to get Restore Card button visible!
-        </h2>
-      )} */}
-      <CongratulationsModal open={open} onClose={onClose} />
     </div>
   );
 }

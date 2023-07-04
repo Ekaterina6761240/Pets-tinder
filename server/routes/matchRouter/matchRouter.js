@@ -62,7 +62,9 @@ const { Pet, Like } = require('../../db/models');
 
 matchRouter.post('/', async (req, res) => {
   try {
+    console.log('!!!!!!!!!!!!!!!');
     const { id } = req.body;
+    console.log(req.body);
 
     const likes = await Like.findAll({
       where: {

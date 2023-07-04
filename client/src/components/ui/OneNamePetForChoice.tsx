@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import type { PetType } from '../Types/petTypes';
 import { setCurrentPet } from '../features/redux/slices/currentPetSlice';
 import { useAppDispatch } from '../features/redux/reduxHooks';
 import type { OnePet } from '../Types/PetsTypes';

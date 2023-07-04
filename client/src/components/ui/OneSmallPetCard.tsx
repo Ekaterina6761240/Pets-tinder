@@ -5,16 +5,13 @@ import CardMedia from '@mui/material/CardMedia';
 import { Button, CardActionArea, Stack, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
 import type { OnePet } from '../Types/PetsTypes';
-import currentPetSlice, { setCurrentPet } from '../features/redux/slices/currentPetSlice';
 
 type OnePetProps = {
   pet: OnePet;
 };
 
 export default function OneSmallPetCard({ pet }: OnePetProps): JSX.Element {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const clickHandler = (): void => {
     const { id } = pet;

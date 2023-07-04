@@ -36,8 +36,10 @@ export default function MatchPage(): JSX.Element {
 
   // const { id } = useParams();
   const id = currentPet?.id;
+
   useEffect(() => {
     dispatch(getAllMatchThunk(id));
+    console.log(id, 'iddddddddddddddd');
   }, [id]);
 
   return (
