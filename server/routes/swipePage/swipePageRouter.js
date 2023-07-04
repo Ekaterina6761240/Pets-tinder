@@ -42,38 +42,25 @@ const { Pet, Like } = require('../../db/models');
 swipePageRouter.post('/', async (req, res) => {
   try {
     const { pet } = req.body;
-    // const petLike = await Like.findAll({ where: { who_liked_pet_id: pet.id } });
+    const petLike = await Like.findAll({ where: { who_liked_pet_id: pet.id } });
+
+    const arr = petLike.map((el) => el.was_liked_pet_id);
 
     const findPet = await Pet.findAll({
       where: {
         sex: {
           [Op.not]: pet?.sex,
-
-          // type: pet?.type,
-          // include: [{ model: Like, where: { [Op.or]: !petLike } }],
         },
         id: { [Op.not]: pet?.id },
         type: pet?.type,
       },
     });
-    console.log(findPet);
-    // res.json(petLike);
+
+    const filteredPet = findPet.filter((el) => !arr.includes(el.id));
+    res.json(filteredPet);
   } catch (error) {
     console.log(error);
   }
-
-  // const findPet = await Pet.findAll({
-  //   where: {
-  //     id: !pet?.id,
-  //     name: !pet?.sex,
-  //     type: pet?.type,
-  //     include: [{ model: Like, where: { who_liked_pet_id: pet?.id } }],
-  //   },
-  // });
-  // res.json(findPet);
 });
 
-//
-// const petLike = await Like.findAll({ where: { who_liked_pet_id: pet.id } });
-// console.log(pet, '11111pet');
 module.exports = swipePageRouter;

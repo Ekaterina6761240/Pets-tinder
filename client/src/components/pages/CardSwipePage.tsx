@@ -8,42 +8,42 @@ import CongratulationsModal from '../ui/CongratulationsModal';
 import { useAppDispatch, useAppSelector } from '../features/redux/hooks';
 import getSwipePetThunk from '../features/thunkAction/swipePet';
 
-const db = [
-  {
-    name: 'Richard Hendricks',
-    url: 'https://www.iwmbuzz.com/wp-content/uploads/2022/02/awesome-pawsome-rubina-dilaik-gets-playful-with-cute-pet-dog-see-photodump-moments-3.jpg',
-    message: 'Привет',
-    status: false,
-  },
-  {
-    name: 'Erlich Bachman',
-    url: 'https://avatars.mds.yandex.net/i?id=88f45152c5585bda08cbd6600d5c88fb_l-5450841-images-thumbs&ref=rim&n=13&w=1080&h=1350',
-    message: 'Экстримальные увлечения',
-    status: false,
-  },
-  {
-    name: 'Monica Hall',
-    url: 'https://i.pinimg.com/736x/bf/18/e5/bf18e5af5575e464a4b602503767a004.jpg',
-    message: 'Пиши',
-    status: true,
-  },
-  {
-    name: 'Jared Dunn',
-    url: 'https://avatars.mds.yandex.net/i?id=b43f164612c20d06ae30680d8a6242d5_l-5509203-images-thumbs&ref=rim&n=13&w=1080&h=1350',
-    message: 'В активном поиске',
-    status: false,
-  },
-  {
-    name: 'Dinesh Chugtai',
-    url: 'https://avatars.mds.yandex.net/i?id=5a3f12ec8e834228ecc923a485fd51ac_l-4835198-images-thumbs&ref=rim&n=13&w=1080&h=1350',
-    message: '89853262112',
-    status: false,
-  },
-];
+// const db = [
+//   {
+//     name: 'Richard Hendricks',
+//     image: 'https://www.iwmbuzz.com/wp-content/uploads/2022/02/awesome-pawsome-rubina-dilaik-gets-playful-with-cute-pet-dog-see-photodump-moments-3.jpg',
+//     message: 'Привет',
+//     status: false,
+//   },
+//   {
+//     name: 'Erlich Bachman',
+//     image: 'https://avatars.mds.yandex.net/i?id=88f45152c5585bda08cbd6600d5c88fb_l-5450841-images-thumbs&ref=rim&n=13&w=1080&h=1350',
+//     message: 'Экстримальные увлечения',
+//     status: false,
+//   },
+//   {
+//     name: 'Monica Hall',
+//     image: 'https://i.pinimg.com/736x/bf/18/e5/bf18e5af5575e464a4b602503767a004.jpg',
+//     message: 'Пиши',
+//     status: true,
+//   },
+//   {
+//     name: 'Jared Dunn',
+//     image: 'https://avatars.mds.yandex.net/i?id=b43f164612c20d06ae30680d8a6242d5_l-5509203-images-thumbs&ref=rim&n=13&w=1080&h=1350',
+//     message: 'В активном поиске',
+//     status: false,
+//   },
+//   {
+//     name: 'Dinesh Chugtai',
+//     image: 'https://avatars.mds.yandex.net/i?id=5a3f12ec8e834228ecc923a485fd51ac_l-4835198-images-thumbs&ref=rim&n=13&w=1080&h=1350',
+//     message: '89853262112',
+//     status: false,
+//   },
+// ];
 export default function CardSwipePage(): JSX.Element {
   const currentPet = useAppSelector((state) => state.currentPet.data);
 
-  console.log(currentPet, 'currentPet1111');
+  // console.log(currentPet, 'currentPet1111');
 
   const dispatch = useAppDispatch();
 
@@ -57,40 +57,41 @@ export default function CardSwipePage(): JSX.Element {
 
   console.log(petSwipe, 'petSwipe!!!!!');
 
-  const [currentIndex, setCurrentIndex] = useState(db.length - 1);
+  const [currentIndex, setCurrentIndex] = useState(petSwipe.length - 1);
   const [lastDirection, setLastDirection] = useState();
   const currentIndexRef = useRef(currentIndex);
   const [open, setOpen] = useState<boolean>(false);
 
   const childRefs = useMemo(
     () =>
-      Array(db.length)
+      Array(petSwipe.length)
         .fill(0)
         .map((i) => React.createRef()),
     [],
   );
 
-  const updateCurrentIndex = (val) => {
+  const updateCurrentIndex = (val): void => {
     setCurrentIndex(val);
     currentIndexRef.current = val;
   };
 
-  const canGoBack = currentIndex < db.length - 1;
+  const canGoBack = currentIndex < petSwipe.length;
   const canSwipe = currentIndex >= 0;
 
   // set last direction and decrease current index
+
   const swiped = (direction, nameToDelete, index) => {
     setLastDirection(direction);
     updateCurrentIndex(index - 1);
   };
 
-  const outOfFrame = (url, idx) => {
-    console.log(`${url} (${idx}) left the screen!`, currentIndexRef.current);
+  const outOfFrame = (image, idx) => {
+    console.log(`${image} (${idx}) left the screen!`, currentIndexRef.current);
     currentIndexRef.current >= idx && childRefs[idx].current.restoreCard();
   };
 
-  const swipe = async (dir, status) => {
-    if (canSwipe && currentIndex < db.length) {
+  const swipe = async (dir) => {
+    if (canSwipe && currentIndex < petSwipe.length) {
       await childRefs[currentIndex].current.swipe(dir);
     }
     if (dir === 'right') {
@@ -115,21 +116,23 @@ export default function CardSwipePage(): JSX.Element {
         Make your choice
       </h1>
       <div className="cardContainer" style={{ width: '600px', height: '900px' }}>
-        {db.map((character, index) => (
+        {petSwipe.map((character, index) => (
           <TinderCard
-            ref={childRefs[index]}
+            // ref={childRefs[index]}
             className="swipe"
-            key={character.url}
-            onSwipe={(dir) => swiped(dir, character.url, index)}
-            onCardLeftScreen={() => outOfFrame(character.url, index)}
+            key={character.id}
+            onSwipe={(dir) => swiped(dir, character.image, index)}
+            onCardLeftScreen={() => outOfFrame(character.image, index)}
           >
             <div className={`card ${index === currentIndex ? 'active' : ''}`}>
               <div
                 className="imageContainer"
-                style={{ backgroundImage: `url(${character.url})` }}
+                style={{ backgroundImage: `image(${character.image})` }}
               />
-              <img src={character.url} alt="" style={{ width: '400px', height: '500px' }} />
-              <h4 className="overlay-text">{character.message}</h4>
+              <img src={character.image} alt="" style={{ width: '400px', height: '500px' }} />
+              <h4 className="overlay-text">
+                {character.name}, {character.age}
+              </h4>
             </div>
           </TinderCard>
         ))}
