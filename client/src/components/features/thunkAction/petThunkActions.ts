@@ -20,10 +20,13 @@ export const addPetThunk = createAsyncThunk<PetType, FormData>('pets/addPet', as
     .catch((err) => Promise.reject(err)),
 );
 
-export const editPetThunk = createAsyncThunk<PetType, {data:FormData, id: PetType['id']}>(
+export const editPetThunk = createAsyncThunk<PetType, { data: FormData; id: PetType['id'] }>(
   'pets/edit',
-  async ( data) =>
+  async (data, { dispatch }) =>
     editPet(data)
-      .then((res) => res)
+      .then((res) => {
+        void dispatch(getPetsThunk());
+        return res;
+      })
       .catch((err) => Promise.reject(err)),
 );

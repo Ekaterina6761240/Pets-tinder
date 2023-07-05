@@ -90,15 +90,13 @@ matchRouter.post('/', async (req, res) => {
         id: petIds,
       },
     }).then((foundPets) => {
-      console.log(foundPets);
+      res.json(foundPets);
     });
 
     console.log(filterMatch, 'filterMatch');
     console.log(findMatch, 'findMatch');
     console.log(filterMatch, '!!!!!!!!!!!!');
     // console.log(filteredPet, 'filteredPet');
-
-    // res.json(foundPets);
   } catch (error) {
     console.log(error);
   }

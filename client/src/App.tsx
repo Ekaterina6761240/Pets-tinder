@@ -10,7 +10,6 @@ import '@fontsource/roboto/700.css';
 import AuthPage from './components/pages/authPage/AuthPage';
 import PrivateRoute from './components/HOC/PrivateRoute';
 import MatchList from './components/ui/MatchList';
-// import SideBar from './components/ui/SideBar';
 import MatchPage from './components/pages/MatchPage';
 import PetInfoPage from './components/pages/PetInfoPage';
 import PetEditPage from './components/pages/PetEditPage';
@@ -30,7 +29,6 @@ function App(): JSX.Element {
 
   return (
     <div>
-      {/* <SideBar /> */}
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="auth/:type" element={<AuthPage />} />

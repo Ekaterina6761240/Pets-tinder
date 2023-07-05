@@ -22,7 +22,7 @@ app.use(sessionParser);
 app.use('/api/pets', Petrouter);
 app.use('/api/auth', apiAuthRouter);
 app.use('/match', matchRouter);
-app.use('/cutent', apiCurrentRouter);
+app.use('/current', apiCurrentRouter);
 app.use('/swipe', swipePageRouter);
 
 app.listen(PORT, () => {

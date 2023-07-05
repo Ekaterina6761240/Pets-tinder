@@ -2,6 +2,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import type { OnePet } from '../../../Types/PetsTypes';
 import getCurrentPetThunk from '../../thunkAction/currentPetThank';
+import { editPetThunk } from '../../thunkAction/petThunkActions';
 
 export type InitialState = {
   data: OnePet | null;
@@ -19,11 +20,11 @@ const currentPetSlice = createSlice({
       state.data = action.payload;
     },
   },
-  // extraReducers: (builder) => {
-  //   builder.addCase(getCurrentPetThunk.fulfilled, (state, action) => {
-  //     state.data = action.payload;
-  //   });
-  // },
+  extraReducers: (builder) => {
+    builder.addCase(editPetThunk.fulfilled, (state, action) => {
+      state.data = action.payload;
+    });
+  },
 });
 
 export const { setCurrentPet } = currentPetSlice.actions;

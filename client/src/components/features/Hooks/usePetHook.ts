@@ -2,6 +2,7 @@ import type React from 'react';
 import type { PetFormType, PetType } from '../../Types/petTypes';
 import { useAppDispatch } from '../redux/reduxHooks';
 import { addPetThunk, editPetThunk } from '../thunkAction/petThunkActions';
+import getCurrentPetThunk from '../thunkAction/currentPetThank';
 
 export type SubmitHandler = {
   submitHandler: (e: React.FormEvent<HTMLFormElement & PetFormType>) => void;
@@ -32,7 +33,7 @@ export default function usePetHook(): SubmitHandler {
   ): void => {
     e.preventDefault();
     console.log('change');
-    
+
     const formData = new FormData();
 
     formData.append('name', e.currentTarget.name.value);
@@ -45,6 +46,7 @@ export default function usePetHook(): SubmitHandler {
     formData.append('pedigree', e.currentTarget.pedigree.value);
 
     void dispatch(editPetThunk({ data: formData, id }));
+    // void dispatch(getCurrentPetThunk(id));
   };
 
   return { submitHandler, editHandler };
