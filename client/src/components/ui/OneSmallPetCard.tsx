@@ -5,16 +5,13 @@ import CardMedia from '@mui/material/CardMedia';
 import { Button, CardActionArea, Stack, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
 import type { OnePet } from '../Types/PetsTypes';
-import currentPetSlice, { setCurrentPet } from '../features/redux/slices/currentPetSlice';
 
 type OnePetProps = {
   pet: OnePet;
 };
 
 export default function OneSmallPetCard({ pet }: OnePetProps): JSX.Element {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const clickHandler = (): void => {
     const { id } = pet;
@@ -42,7 +39,7 @@ export default function OneSmallPetCard({ pet }: OnePetProps): JSX.Element {
               height: 130,
             }}
             height="100"
-            image={pet.img}
+            image={pet.image}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
@@ -70,7 +67,7 @@ export default function OneSmallPetCard({ pet }: OnePetProps): JSX.Element {
                 padding: '16px',
                 alignItems: 'center',
               }}
-              onClick={() => clickCurrentHandler(pet, pet.id)}
+              onClick={clickChatHandler}
             >
               Написать
             </Button>

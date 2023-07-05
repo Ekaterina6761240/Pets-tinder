@@ -2,9 +2,10 @@ import type React from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { PetFormType, PetType } from '../../Types/petTypes';
 import { useAppDispatch } from '../redux/reduxHooks';
-import { addPetThunk, editPetThunk, getOnePetThunk } from '../thunkAction/petThunkActions';
+
+import { addPetThunk, editPetThunk } from '../thunkAction/petThunkActions';
+
 import type { OnePet } from '../../Types/PetsTypes';
-import { setCurrentPet } from '../redux/slices/currentPetSlice';
 
 export type SubmitHandler = {
   submitHandler: (e: React.FormEvent<HTMLFormElement & PetFormType>) => void;
@@ -55,7 +56,7 @@ export default function usePetHook(): SubmitHandler {
     console.log(formData, '==========');
 
     void dispatch(editPetThunk({ data: formData, id }));
-    void dispatch(getOnePetThunk(id));
+
     navigate('/cabinet');
   };
 

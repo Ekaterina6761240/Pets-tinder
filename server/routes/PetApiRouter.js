@@ -10,7 +10,7 @@ Petrouter.get('/', async (req, res) => {
   try {
     const allPets = await Pet.findAll({
       where: {
-        user_id: 1,
+        user_id: req.session.user.id,
       },
     });
     res.json(allPets);
@@ -48,7 +48,7 @@ Petrouter.post('/', upload.single('image'), async (req, res) => {
       city: req.body.city,
       info: req.body.info,
       pedigree: req.body.pedigree,
-      user_id: 1,
+      user_id: req.session.user.id,
     });
     res.json(newPet);
     console.log(newPet, 'newPet: =========>');

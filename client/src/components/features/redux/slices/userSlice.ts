@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 import type { UserStateType, UserType } from '../../../Types/userTypes';
 import { userCheckThunk, userLoginThunk, userRegThunk } from '../../thunkAction/userThunkAction';
-import axios from 'axios';
-import { AppThunk } from '../hooks';
+import type { AppThunk } from '../hooks';
 import apiInstance from '../../../services/apiConfig';
 
 export type UserState = UserType & { status: boolean };
@@ -14,11 +14,7 @@ const initialState: UserStateType = {
 const userSlice = createSlice({
   name: 'user',
   initialState: initialState as UserStateType,
-  reducers: {
-    setUser: (state, action) => {
-      state.status = 'guest';
-    },
-  },
+  reducers: {},
 
   extraReducers: (builder) => {
     builder.addCase(userCheckThunk.fulfilled, (state, action) => ({
@@ -38,7 +34,6 @@ const userSlice = createSlice({
     }));
   },
 });
-export const { setUser } = userSlice.actions;
 
 export const logoutThunk = (): AppThunk => (dispatch) => {
   apiInstance('/api/auth/logout')

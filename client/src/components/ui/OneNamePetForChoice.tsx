@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import type { PetType } from '../Types/petTypes';
 import { setCurrentPet } from '../features/redux/slices/currentPetSlice';
 import { useAppDispatch } from '../features/redux/reduxHooks';
 import type { OnePet } from '../Types/PetsTypes';
@@ -23,7 +22,7 @@ export default function OneNamePetForChoice({ userPet }: PetProps): JSX.Element 
       sx={{ backgroundColor: '#F3EDED', borderRadius: '10px' }}
       variant="outlined"
     >
-      {userPet.name}
+      {userPet.type} {userPet.name}
     </Button>
   );
 }
