@@ -1,27 +1,28 @@
 import apiInstance from './apiConfig';
 
 import type { EditFormType, PetType } from '../Types/petTypes';
+import type { OnePet } from '../Types/PetsTypes';
 
-export const getPets = (): Promise<PetType[]> =>
+export const getPets = (): Promise<OnePet[]> =>
   apiInstance
-    .get<PetType[]>('api/pets')
+    .get<OnePet[]>('api/pets')
     .then((response) => response.data)
     .catch((error) => Promise.reject(error));
 
-export const getOnePets = (id: number): Promise<PetType> =>
+export const getOnePets = (id: number): Promise<OnePet> =>
   apiInstance
-    .get<PetType>(`api/pets/${id}`)
+    .get<OnePet>(`api/pets/${id}`)
     .then((response) => response.data)
     .catch((error) => Promise.reject(error));
 
-export const createPet = (data: FormData): Promise<PetType> =>
+export const createPet = (data: FormData): Promise<OnePet> =>
   apiInstance
-    .post<PetType>('api/pets', data)
+    .post<OnePet>('api/pets', data)
     .then((res) => res.data)
     .catch((err) => Promise.reject(err));
 
-export const editPet = (data: {data: FormData, id: number}): Promise<PetType> =>
+export const editPet = (data: { data: FormData; id: number }): Promise<OnePet> =>
   apiInstance
-    .post<PetType>(`/api/pets/${data.id}`, data.data )
+    .post<OnePet>(`/api/pets/${data.id}`, data.data)
     .then((res) => res.data)
     .catch((err) => Promise.reject(err));

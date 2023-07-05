@@ -7,6 +7,7 @@ apiCurrentRouter.post('/', async (req, res) => {
     const current = await Pet.findByPk(id);
 
     res.json(current);
+    console.log(current);
   } catch {
     res.status(500).json({ message: 'Что-то пошло не так' });
   }

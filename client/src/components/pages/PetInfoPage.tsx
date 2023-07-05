@@ -1,19 +1,26 @@
 import { Box, Button, Card, TextField, Grid, MenuItem, CardMedia } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import usePetHook from '../features/Hooks/usePetHook';
+import { useAppDispatch, useAppSelector } from '../features/redux/reduxHooks';
+import AppSpinner from '../ui/PetSpinner';
+import { getPetsThunk } from '../features/thunkAction/petThunkActions';
 
 export default function PetInfoPage(): JSX.Element {
+  // const [isLoading, setIsLoading] = useState(true);
+
+  // const dispatch = useAppDispatch();
+  const currentPet = useAppSelector((state) => state.currentPet.data);
   const { submitHandler } = usePetHook();
 
   const [pet, setPet] = useState({
-    name: '',
-    image: null,
-    type: '',
-    age: '',
-    sex: '',
-    city: '',
-    info: '',
-    pedigree: '',
+    name: currentPet?.name,
+    image: currentPet?.image,
+    type: currentPet?.type,
+    age: currentPet?.age,
+    sex: currentPet?.sex,
+    city: currentPet?.city,
+    info: currentPet?.info,
+    pedigree: currentPet?.pedigree,
   });
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -31,7 +38,16 @@ export default function PetInfoPage(): JSX.Element {
     }
   };
 
-  const uniquePetTypes = ['Грызун', 'Кошка', 'Собака'];
+  // useEffect((): void => {
+  //   void dispatch(getPetsThunk());
+  //   setTimeout(() => {
+  //     setIsLoading(false);
+  //   }, 2000);
+  // }, []);
+
+  console.log(currentPet?.image, '======image');
+
+  const uniquePetTypes = ['Кошка', 'Собака'];
   const sexPet = ['Мужской', 'Женский'];
 
   return (
@@ -42,9 +58,13 @@ export default function PetInfoPage(): JSX.Element {
         alignItems: 'center',
         height: '100vh',
         padding: '2rem',
+        paddingLeft: '10rem',
         backgroundColor: '#DFC645',
       }}
     >
+      {/* {isLoading ? (
+        <AppSpinner />
+      ) : ( */}
       <form onSubmit={submitHandler}>
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={6} md={4} sx={{ display: 'flex', flex: 1 }}>
@@ -81,12 +101,15 @@ export default function PetInfoPage(): JSX.Element {
                     />
                   </label>
                   {pet.image ? (
-                    <CardMedia
-                      component="img"
-                      sx={{ height: 140 }}
-                      src={`../../../server/public/img/${pet?.image}`}
-                      alt="Загруженное изображение"
-                    />
+                    // <CardMedia
+                    //   component="img"
+                    //   sx={{ height: 140 }}
+                    //   src={`http://localhost/3001/img/${currentPet?.image}`}
+                    //   alt="Загруженное изображение"
+                    // />
+                    <div>
+                      Фото добавлено
+                    </div>
                   ) : (
                     <Button component="label" htmlFor="upload-input" size="small">
                       Добавить фото
@@ -327,6 +350,7 @@ export default function PetInfoPage(): JSX.Element {
           </Grid>
         </Grid>
       </form>
+      {/* )} */}
     </Box>
   );
 }
