@@ -6,9 +6,10 @@ import {
   getPetsThunk,
 } from '../../thunkAction/petThunkActions';
 import type { PetType } from '../../../Types/petTypes';
+import type { OnePet } from '../../../Types/PetsTypes';
 
 export type InitialState = {
-  data: PetType[];
+  data: OnePet[];
 };
 
 const initialState: InitialState = {

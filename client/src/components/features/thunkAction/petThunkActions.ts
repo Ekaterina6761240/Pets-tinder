@@ -1,20 +1,21 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createPet, editPet, getOnePets, getPets } from '../../services/apiPetService';
 import type { EditFormType, PetType } from '../../Types/petTypes';
+import type { OnePet } from '../../Types/PetsTypes';
 
-export const getPetsThunk = createAsyncThunk<PetType[]>('pets/getPets', async () =>
+export const getPetsThunk = createAsyncThunk<OnePet[]>('pets/getPets', async () =>
   getPets()
     .then((res) => res)
     .catch((err) => Promise.reject(err)),
 );
 
-export const getOnePetThunk = createAsyncThunk<PetType, number>('pets/getOnePet', async (id) =>
+export const getOnePetThunk = createAsyncThunk<OnePet, number>('pets/getOnePet', async (id) =>
   getOnePets(id)
     .then((res) => res)
     .catch((err) => Promise.reject(err)),
 );
 
-export const addPetThunk = createAsyncThunk<PetType, FormData>('pets/addPet', async (data) =>
+export const addPetThunk = createAsyncThunk<OnePet, FormData>('pets/addPet', async (data) =>
   createPet(data)
     .then((res) => res)
     .catch((err) => Promise.reject(err)),

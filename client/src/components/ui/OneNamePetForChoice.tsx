@@ -14,7 +14,7 @@ export default function OneNamePetForChoice({ userPet }: PetProps): JSX.Element 
   const dispatch = useAppDispatch();
   const handleClick = (currentPet: OnePet): void => {
     dispatch(setCurrentPet(currentPet));
-    navigate(`/swipe`);
+    navigate(`/cabinet`);
   };
   return (
     <Button
@@ -22,7 +22,7 @@ export default function OneNamePetForChoice({ userPet }: PetProps): JSX.Element 
       sx={{ backgroundColor: '#F3EDED', borderRadius: '10px' }}
       variant="outlined"
     >
-      {userPet.name}
+      {userPet.type} {userPet.name}
     </Button>
   );
 }

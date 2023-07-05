@@ -81,8 +81,6 @@ matchRouter.post('/', async (req, res) => {
       findMatch.some((g) => g.was_liked_pet_id === e.who_liked_pet_id),
     );
 
-    // const filteredPet = findMatch2.filter((el) => !findMatch.includes(el.was_liked_pet_id));
-
     const petIds = filterMatch.map((pet) => pet.who_liked_pet_id);
 
     Pet.findAll({
@@ -92,11 +90,6 @@ matchRouter.post('/', async (req, res) => {
     }).then((foundPets) => {
       res.json(foundPets);
     });
-
-    console.log(filterMatch, 'filterMatch');
-    console.log(findMatch, 'findMatch');
-    console.log(filterMatch, '!!!!!!!!!!!!');
-    // console.log(filteredPet, 'filteredPet');
   } catch (error) {
     console.log(error);
   }

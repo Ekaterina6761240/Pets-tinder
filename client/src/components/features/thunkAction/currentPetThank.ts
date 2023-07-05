@@ -7,4 +7,12 @@ const getCurrentPetThunk = createAsyncThunk<OnePet, number>('pets/getCurrentPet'
     .then((res) => res)
     .catch((err) => Promise.reject(err)),
 );
+
+// const getCurrentAllPetThunk = createAsyncThunk<OnePet[]>('pets/getCurrentAllPet', async () =>
+//   getAllCurrentPage()
+//     .then((res) => res)
+//     .catch((err) => Promise.reject(err)),
+// );
+
+// export { getCurrentAllPetThunk };
 export default getCurrentPetThunk;

@@ -1,7 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import type { OnePet } from '../../../Types/PetsTypes';
-import getCurrentPetThunk from '../../thunkAction/currentPetThank';
 import { editPetThunk } from '../../thunkAction/petThunkActions';
 
 export type InitialState = {
