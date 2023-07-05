@@ -14,7 +14,11 @@ const initialState: UserStateType = {
 const userSlice = createSlice({
   name: 'user',
   initialState: initialState as UserStateType,
-  reducers: {},
+  reducers: {
+    setUser: (state, action) => {
+      state.status = 'guest';
+    },
+  },
 
   extraReducers: (builder) => {
     builder.addCase(userCheckThunk.fulfilled, (state, action) => ({

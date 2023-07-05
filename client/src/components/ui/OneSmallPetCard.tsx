@@ -16,13 +16,13 @@ export default function OneSmallPetCard({ pet }: OnePetProps): JSX.Element {
   const clickHandler = (): void => {
     const { id } = pet;
     // const { history } = useHistory();
-    navigate(`/cabinet/${id}`);
+    navigate('/cabinet');
   };
 
   const clickChatHandler = (): void => {
     const { id } = pet;
     // const { history } = useHistory();
-    navigate(`/chat/${id}`);
+    navigate('/chat');
   };
   return (
     <Stack direction="column" spacing={2}>
@@ -35,11 +35,12 @@ export default function OneSmallPetCard({ pet }: OnePetProps): JSX.Element {
               borderRadius: 8,
               objectFit: 'cover',
               padding: '120px solid #FF0000',
+
               width: 130,
               height: 130,
             }}
             height="100"
-            image={pet.image}
+            src={`http://localhost:3001/img/${pet?.image}`}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">

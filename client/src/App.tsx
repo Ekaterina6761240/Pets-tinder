@@ -19,6 +19,7 @@ import VariationsPage from './components/pages/VariationsPage';
 import './index.css';
 import ChoiсePetPage from './components/pages/ChoiсePetPage';
 import AppSpinner from './components/ui/PetSpinner';
+import Sidebar from './components/ui/SideBar';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -30,6 +31,7 @@ function App(): JSX.Element {
 
   return (
     <div>
+      <Sidebar />
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="auth/:type" element={<AuthPage />} />
