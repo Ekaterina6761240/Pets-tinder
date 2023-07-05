@@ -28,6 +28,8 @@ function App(): JSX.Element {
   useEffect(() => {
     void dispatch(userCheckThunk());
   }, []);
+  const currentPet = useAppSelector((state) => state.currentPet);
+  console.log(currentPet);
 
   return (
     <div>

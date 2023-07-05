@@ -12,15 +12,16 @@ import Person2TwoToneIcon from '@mui/icons-material/Person2TwoTone';
 import LogoutIcon from '@mui/icons-material/Logout';
 import axios from 'axios';
 import { useAppDispatch, useAppSelector } from '../features/redux/reduxHooks';
-import { logoutThunk } from '../features/redux/slices/userSlice';
+import { logoutThunk } from '../features/thunkAction/userThunkAction';
 
 const drawerWidth = 100;
 
 export default function Sidebar(): JSX.Element {
   const dispatch = useAppDispatch();
   const logoutHandler = (): void => {
-    dispatch(logoutThunk());
+    void dispatch(logoutThunk());
   };
+  const currentPet = useAppSelector((state) => state.currentPet);
 
   const user = useAppSelector((store) => store.user);
   return (
@@ -48,26 +49,23 @@ export default function Sidebar(): JSX.Element {
               <Person2TwoToneIcon />
             </ListItemIcon>
           </ListItem>
-          <ListItem button component={Link} to="/swipe" sx={{ my: 3 }}>
-            <ListItemIcon>
-              <SegmentTwoToneIcon />
-            </ListItemIcon>
-            <ListItemText primary="Анкеты" />
-          </ListItem>
-          <ListItem button component={Link} to="/match" sx={{ my: 3 }}>
-            <ListItemIcon>
-              <FavoriteTwoToneIcon />
-            </ListItemIcon>
-            {/* <ListItemText primary="Лайки" />
-          </ListItem>
-          <ListItem button component={Link} to="/3" sx={{ my: 3 }}>
-            <ListItemIcon>
-              <ChatTwoToneIcon />
-            </ListItemIcon> */}
-            <ListItemText primary="Мои пары" />
-          </ListItem>
-
-          <ListItem button component={Link} to="/match" sx={{ position: 'absolute', my: 49 }}>
+          {currentPet.data !== null && (
+            <>
+              <ListItem button component={Link} to="/swipe" sx={{ my: 3 }}>
+                <ListItemIcon>
+                  <SegmentTwoToneIcon />
+                </ListItemIcon>
+                <ListItemText primary="Анкеты" />
+              </ListItem>
+              <ListItem button component={Link} to="/match" sx={{ my: 3 }}>
+                <ListItemIcon>
+                  <FavoriteTwoToneIcon />
+                </ListItemIcon>
+                <ListItemText primary="Лайки" />
+              </ListItem>
+            </>
+          )}
+          <ListItem button component={Link} to="/" sx={{ position: 'absolute', my: 49 }}>
             <ListItemIcon>
               <LogoutIcon />
             </ListItemIcon>
