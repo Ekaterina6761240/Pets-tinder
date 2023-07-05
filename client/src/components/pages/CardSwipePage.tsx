@@ -1,119 +1,154 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef, useState, useEffect } from 'react';
+import TinderCard from 'react-tinder-card';
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
 import PetsIcon from '@mui/icons-material/Pets';
 import RestoreIcon from '@mui/icons-material/Restore';
-import TinderCard from 'react-tinder-card';
-import { ButtonGroup, IconButton } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+
+import { IconButton } from '@mui/material';
 import CongratulationsModal from '../ui/CongratulationsModal';
 import { useAppDispatch, useAppSelector } from '../features/redux/hooks';
-
-import SwipeSmallCard from './SwipeSmallCard';
 import {
-  getSwipePetThunk,
   createDislikeThunk,
   createSwipePetThunk,
+  getSwipePetThunk,
 } from '../features/thunkAction/swipePet';
 
-// const db = [
-//   {
-//     name: 'Richard Hendricks',
-//     image: 'https://www.iwmbuzz.com/wp-content/uploads/2022/02/awesome-pawsome-rubina-dilaik-gets-playful-with-cute-pet-dog-see-photodump-moments-3.jpg',
-//     message: 'Привет',
-//     status: false,
-//   },
-//   {
-//     name: 'Erlich Bachman',
-//     image: 'https://avatars.mds.yandex.net/i?id=88f45152c5585bda08cbd6600d5c88fb_l-5450841-images-thumbs&ref=rim&n=13&w=1080&h=1350',
-//     message: 'Экстримальные увлечения',
-//     status: false,
-//   },
-//   {
-//     name: 'Monica Hall',
-//     image: 'https://i.pinimg.com/736x/bf/18/e5/bf18e5af5575e464a4b602503767a004.jpg',
-//     message: 'Пиши',
-//     status: true,
-//   },
-//   {
-//     name: 'Jared Dunn',
-//     image: 'https://avatars.mds.yandex.net/i?id=b43f164612c20d06ae30680d8a6242d5_l-5509203-images-thumbs&ref=rim&n=13&w=1080&h=1350',
-//     message: 'В активном поиске',
-//     status: false,
-//   },
-//   {
-//     name: 'Dinesh Chugtai',
-//     image: 'https://avatars.mds.yandex.net/i?id=5a3f12ec8e834228ecc923a485fd51ac_l-4835198-images-thumbs&ref=rim&n=13&w=1080&h=1350',
-//     message: '89853262112',
-//     status: false,
-//   },
-// ];
 export default function CardSwipePage(): JSX.Element {
   const currentPet = useAppSelector((state) => state.currentPet.data);
-  console.log('======curpet', currentPet);
-
   const dispatch = useAppDispatch();
   const petSwipe = useAppSelector((state) => state.petsSwipe.data);
 
-  const clickLikeHandler = (data: { id: number; idMyPet: number }): void => {
-    console.log('-------data', data);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [lastDirection, setLastDirection] = useState();
+  const currentIndexRef = useRef(currentIndex);
+  const [open, setOpen] = useState<boolean>(false);
 
-    void dispatch(createSwipePetThunk(data));
+  const childRefs = useMemo(
+    () =>
+      Array(petSwipe.length)
+        .fill(0)
+        .map((i) => React.createRef()),
+    [petSwipe.length],
+  );
+
+  const updateCurrentIndex = (val: number): void => {
+    setCurrentIndex(val);
+    currentIndexRef.current = val;
+  };
+
+  const canGoBack = currentIndex < petSwipe.length - 1;
+  const canSwipe = currentIndex >= 0;
+
+  const swiped = (direction: string, image: string, index: number): void => {
+    setLastDirection(direction);
+    updateCurrentIndex(index - 1);
+  };
+
+  const outOfFrame = (image: string, idx: number): void => {
+    console.log(`${image} (${idx}) left the screen!`, currentIndexRef.current);
+    if (currentIndexRef.current >= idx) {
+      childRefs[idx].current?.restoreCard();
+    }
+  };
+
+  const swipe = async (dir: string): Promise<void> => {
+    if (currentIndex >= 0 && canSwipe && currentIndex < petSwipe.length) {
+      await childRefs[currentIndex].current?.swipe(dir);
+    }
+    if (dir === 'right') {
+      setOpen(true);
+    }
+  };
+
+  const goBack = async (): Promise<void> => {
+    if (!canGoBack) return;
+    const newIndex = currentIndex + 1;
+    updateCurrentIndex(newIndex);
+    await childRefs[newIndex].current?.restoreCard();
+  };
+
+  const onClose = (): void => {
+    setOpen(false);
   };
 
   const clickDislikeHandler = (data: { id: number; idMyPet: number }): void => {
     void dispatch(createDislikeThunk(data));
+    swipe('left');
+    if (canSwipe) {
+      setCurrentIndex(currentIndex - 1);
+    }
   };
 
-  // console.log(currentPet, 'currentPet1111');
-  const navigate = useNavigate();
-  const handleClick = () => {
-    navigate(`/match`);
+  const clickLikeHandler = (data: { id: number; idMyPet: number }): void => {
+    void dispatch(createSwipePetThunk(data));
+    swipe('right');
+    if (canGoBack) {
+      setCurrentIndex(currentIndex + 1);
+    }
   };
+
   useEffect(() => {
     if (currentPet) {
       void dispatch(getSwipePetThunk(currentPet));
     }
   }, [currentPet]);
 
-  console.log(petSwipe, 'petSwipe!!!!!');
   return (
     <div className="container">
       <h1 style={{ fontFamily: 'Kanit, sans-serif', fontSize: '40px', marginBottom: '50px' }}>
         Выбери пару своему питомцу
       </h1>
       <div className="cardContainer" style={{ width: '600px', height: '900px' }}>
-        {petSwipe.map((el) => (
-          <div className="swipe" key={el.id}>
-            <SwipeSmallCard key={el.id} character={el} />
-            <ButtonGroup variant="text" aria-label="text button group" className="buttons">
-              <div className="">
-                <IconButton
-                  onClick={() => clickDislikeHandler({ id: el.id, idMyPet: currentPet?.id })}
-                >
-                  <CloseIcon />
-                </IconButton>
-
-                <IconButton>
-                  <RestoreIcon />
-                </IconButton>
-
-                <IconButton
-                  onClick={() => clickLikeHandler({ id: el.id, idMyPet: currentPet?.id })}
-                >
-                  <PetsIcon />
-                </IconButton>
-              </div>
-            </ButtonGroup>
-          </div>
+        {petSwipe.map((el, index) => (
+          <TinderCard
+            ref={childRefs[index]}
+            className="swipe"
+            key={el.id}
+            onSwipe={(dir) => swiped(dir, el.image, index)}
+            onCardLeftScreen={() => outOfFrame(el.image, index)}
+          >
+            <div className={`card ${index === currentIndex ? 'active' : ''}`}>
+              <div className="imageContainer" style={{ backgroundImage: `url(${el.image})` }} />
+              <img
+                src={`http://localhost:3001/img/${el?.image}`}
+                alt=""
+                style={{ width: '400px', height: '500px' }}
+              />
+              <h4 className="overlay-text">{el.name}</h4>
+            </div>
+          </TinderCard>
         ))}
-        <Button
-          onClick={handleClick}
-          sx={{ backgroundColor: '#F3EDED', borderRadius: '10px' }}
-          variant="outlined"
-        >
-          перейти к метчам
-        </Button>
+      </div>
+      <div>
+        <IconButton size="large">
+          <CloseIcon
+            style={{ width: '100px', marginTop: '20px' }}
+            color="error"
+            fontSize="large"
+            onClick={() =>
+              clickDislikeHandler({ id: petSwipe[currentIndex]?.id, idMyPet: currentPet?.id })
+            }
+          />
+        </IconButton>
+        <IconButton>
+          <RestoreIcon
+            style={{ width: '100px', marginTop: '20px' }}
+            color="success"
+            fontSize="large"
+            onClick={goBack}
+          />{' '}
+        </IconButton>
+        <IconButton size="large">
+          <PetsIcon
+            style={{ width: '100px', marginTop: '20px' }}
+            color="success"
+            fontSize="large"
+            onClick={() =>
+              clickLikeHandler({ id: petSwipe[currentIndex]?.id, idMyPet: currentPet?.id })
+            }
+          />
+        </IconButton>
       </div>
     </div>
   );

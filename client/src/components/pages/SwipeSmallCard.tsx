@@ -9,7 +9,12 @@ export default function SwipeSmallCard({ character }: SwipePetProps): JSX.Elemen
   return (
     <Card sx={{ maxWidth: 400 }}>
       <CardActionArea>
-        <CardMedia component="img" height="300" image={character.image} alt="green iguana" />
+        <CardMedia
+          component="img"
+          height="300"
+          src={`http://localhost:3001/img/${character?.image}`}
+          alt="green iguana"
+        />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {character.name}, {character.age}

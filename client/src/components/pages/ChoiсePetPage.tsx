@@ -5,6 +5,7 @@ import OneNamePetForChoice from '../ui/OneNamePetForChoice';
 import { useAppDispatch, useAppSelector } from '../features/redux/reduxHooks';
 import { getPetsThunk } from '../features/thunkAction/petThunkActions';
 import AppSpinner from '../ui/PetSpinner';
+import { setCurrentPet } from '../features/redux/slices/currentPetSlice';
 
 export default function ChoiсePetPage(): JSX.Element {
   const [isLoading, setIsLoading] = useState(true);
@@ -21,6 +22,7 @@ export default function ChoiсePetPage(): JSX.Element {
   const navigate = useNavigate();
 
   const navigateToInfo = (): void => {
+    dispatch(setCurrentPet(null));
     navigate('/info');
   };
 
@@ -43,34 +45,34 @@ export default function ChoiсePetPage(): JSX.Element {
         <AppSpinner />
       ) : (
         <>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          marginBottom: '2rem',
-        }}
-      >
-        <Button
-          sx={{ backgroundColor: '#F3EDED', borderRadius: '10px' }}
-          variant="outlined"
-          onClick={navigateToInfo}
-        >
-          Добавить питомца
-        </Button>
-      </Box>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-        }}
-      >
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          {pets.map((el) => (
-            <OneNamePetForChoice key={el.id} userPet={el} />
-          ))}
-        </div>
-      </Box>
-      </>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginBottom: '2rem',
+            }}
+          >
+            <Button
+              sx={{ backgroundColor: '#F3EDED', borderRadius: '10px' }}
+              variant="outlined"
+              onClick={navigateToInfo}
+            >
+              Добавить питомца
+            </Button>
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              {pets.map((el) => (
+                <OneNamePetForChoice key={el.id} userPet={el} />
+              ))}
+            </div>
+          </Box>
+        </>
       )}
     </Box>
   );

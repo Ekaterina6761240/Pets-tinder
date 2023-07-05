@@ -18,3 +18,9 @@ export const loginUser = (data: UserLoginType): Promise<UserType> =>
     .post<UserType>('/api/auth/login', data)
     .then((response) => response.data)
     .catch((error) => Promise.reject(error));
+
+export const logoutUser = (): Promise<UserType> =>
+  apiInstanse
+    .get<UserType>('/api/auth/logout')
+    .then((response) => response.data)
+    .catch((error) => Promise.reject(error));
