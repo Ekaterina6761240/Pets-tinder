@@ -38,7 +38,7 @@ Petrouter.post('/', upload.single('image'), async (req, res) => {
   try {
     const name = `${Date.now()}.webp`;
     const outputBuffer = await sharp(req.file.buffer).webp().toBuffer();
-    await fs.writeFile(`./public/${name}`, outputBuffer);
+    await fs.writeFile(`./public/img/${name}`, outputBuffer);
     const newPet = await Pet.create({
       name: req.body.name,
       type: req.body.type,
@@ -59,15 +59,22 @@ Petrouter.post('/', upload.single('image'), async (req, res) => {
 });
 
 Petrouter.post('/:id', upload.single('image'), async (req, res) => {
-  console.log('req.body: =========>', req.body);
+  if (!req.file) {
+    res.status(400).json({ message: 'No file uploaded' });
+    return;
+  }
   try {
+    console.log('req.body: =========>', req.body);
+    const name = `${Date.now()}.webp`;
+    const outputBuffer = await sharp(req.file.buffer).webp().toBuffer();
+    await fs.writeFile(`./public/img/${name}`, outputBuffer);
     const { id } = req.params;
     await Pet.update(
       {
         name: req.body.name,
         type: req.body.type,
         age: req.body.age,
-        image: req.body.image,
+        image: name,
         sex: req.body.sex,
         city: req.body.city,
         info: req.body.info,

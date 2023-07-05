@@ -19,11 +19,14 @@ const currentPetSlice = createSlice({
       state.data = action.payload;
     },
   },
-  // extraReducers: (builder) => {
-  //   builder.addCase(getCurrentPetThunk.fulfilled, (state, action) => {
-  //     state.data = action.payload;
-  //   });
-  // },
+  extraReducers: (builder) => {
+    builder.addCase(getCurrentPetThunk.fulfilled, (state, action) => {
+      state.data = action.payload;
+    });
+    // builder.addCase(getCurrentAllPetThunk.fulfilled, (state, action) => {
+    //   state.data = action.payload;
+    // });
+  },
 });
 
 export const { setCurrentPet } = currentPetSlice.actions;

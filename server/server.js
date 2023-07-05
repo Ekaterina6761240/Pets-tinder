@@ -21,7 +21,7 @@ app.use(sessionParser);
 app.use('/api/pets', Petrouter);
 app.use('/api/auth', apiAuthRouter);
 app.use('/match', matchRouter);
-app.use('/cutent', apiCurrentRouter);
+app.use('/current', apiCurrentRouter);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}!`);

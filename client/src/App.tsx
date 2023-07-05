@@ -19,6 +19,7 @@ import CardSwipePage from './components/pages/CardSwipePage';
 import VariationsPage from './components/pages/VariationsPage';
 import './index.css';
 import ChoiсePetPage from './components/pages/ChoiсePetPage';
+import AppSpinner from './components/ui/PetSpinner';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -34,7 +35,7 @@ function App(): JSX.Element {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="auth/:type" element={<AuthPage />} />
-        <Route element={<PrivateRoute isAllowed={user.status !== 'guest'} redirectTo="/" />}>
+        {/* <Route element={<PrivateRoute isAllowed={user.status !== 'guest'} redirectTo="/" />}> */}
           <Route path="app/choice" element={<CardSwipePage />} />
           <Route path="app/match" element={<MatchList />} />
           <Route path="/match/:id" element={<MatchPage />} />
@@ -43,7 +44,8 @@ function App(): JSX.Element {
           <Route path="/cabinet" element={<PetCabinetPage />} />
           <Route path="/variations" element={<VariationsPage />} />
           <Route path="/choice" element={<ChoiсePetPage />} />
-        </Route>
+          <Route path="/spinner" element={<AppSpinner />} />
+        {/* </Route> */}
       </Routes>
     </div>
   );

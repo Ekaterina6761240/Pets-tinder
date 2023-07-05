@@ -7,4 +7,12 @@ const getCurrentPage = (): Promise<OnePet> =>
     .then((res) => res.data)
     .catch((err) => Promise.reject(err));
 
+//     const getAllCurrentPage = (): Promise<OnePet[]> =>
+//   apiInstance
+//     .get<OnePet[]>(`/current`)
+//     .then((res) => res.data)
+//     .catch((err) => Promise.reject(err));
+
+// export { getCurrentPage, getAllCurrentPage }
+
 export default getCurrentPage;

@@ -1,18 +1,22 @@
 import { Box, Button } from '@mui/material';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import OneNamePetForChoice from '../ui/OneNamePetForChoice';
 import { useAppDispatch, useAppSelector } from '../features/redux/reduxHooks';
 import { getPetsThunk } from '../features/thunkAction/petThunkActions';
-import { setCurrentPet } from '../features/redux/slices/currentPetSlice';
+import AppSpinner from '../ui/PetSpinner';
 
 export default function ChoiсePetPage(): JSX.Element {
+  const [isLoading, setIsLoading] = useState(true);
   const dispatch = useAppDispatch();
   const pets = useAppSelector((state) => state.pets.data);
   console.log(pets, '--------------------');
 
   useEffect(() => {
     void dispatch(getPetsThunk());
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
   }, []);
   const navigate = useNavigate();
 
@@ -35,6 +39,10 @@ export default function ChoiсePetPage(): JSX.Element {
       noValidate
       autoComplete="off"
     >
+      {isLoading ? (
+        <AppSpinner />
+      ) : (
+        <>
       <Box
         sx={{
           display: 'flex',
@@ -62,6 +70,8 @@ export default function ChoiсePetPage(): JSX.Element {
           ))}
         </div>
       </Box>
+      </>
+      )}
     </Box>
   );
 }
