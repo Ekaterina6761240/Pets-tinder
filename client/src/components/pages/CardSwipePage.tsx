@@ -4,8 +4,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
 import PetsIcon from '@mui/icons-material/Pets';
 import RestoreIcon from '@mui/icons-material/Restore';
-
-import { IconButton } from '@mui/material';
 import CongratulationsModal from '../ui/CongratulationsModal';
 import { useAppDispatch, useAppSelector } from '../features/redux/hooks';
 import {
@@ -19,7 +17,7 @@ export default function CardSwipePage(): JSX.Element {
   const dispatch = useAppDispatch();
   const petSwipe = useAppSelector((state) => state.petsSwipe.data);
 
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(petSwipe.length - 1);
   const [lastDirection, setLastDirection] = useState();
   const currentIndexRef = useRef(currentIndex);
   const [open, setOpen] = useState<boolean>(false);
@@ -40,20 +38,20 @@ export default function CardSwipePage(): JSX.Element {
   const canGoBack = currentIndex < petSwipe.length - 1;
   const canSwipe = currentIndex >= 0;
 
-  const swiped = (direction: string, image: string, index: number): void => {
+  const swiped = (direction: string, image: string, index: number) => {
     setLastDirection(direction);
     updateCurrentIndex(index - 1);
   };
 
-  const outOfFrame = (image: string, idx: number): void => {
+  const outOfFrame = (image: string, idx: number) => {
     console.log(`${image} (${idx}) left the screen!`, currentIndexRef.current);
     if (currentIndexRef.current >= idx) {
       childRefs[idx].current?.restoreCard();
     }
   };
 
-  const swipe = async (dir: string): Promise<void> => {
-    if (currentIndex >= 0 && canSwipe && currentIndex < petSwipe.length) {
+  const swipe = async (dir: string) => {
+    if (canSwipe && currentIndex < petSwipe.length) {
       await childRefs[currentIndex].current?.swipe(dir);
     }
     if (dir === 'right') {
@@ -61,14 +59,14 @@ export default function CardSwipePage(): JSX.Element {
     }
   };
 
-  const goBack = async (): Promise<void> => {
+  const goBack = async () => {
     if (!canGoBack) return;
     const newIndex = currentIndex + 1;
     updateCurrentIndex(newIndex);
     await childRefs[newIndex].current?.restoreCard();
   };
 
-  const onClose = (): void => {
+  const onClose = () => {
     setOpen(false);
   };
 
@@ -109,7 +107,7 @@ export default function CardSwipePage(): JSX.Element {
             onCardLeftScreen={() => outOfFrame(el.image, index)}
           >
             <div className={`card ${index === currentIndex ? 'active' : ''}`}>
-              <div className="imageContainer" style={{ backgroundImage: `url(${el.image})` }} />
+              <div className="imageContainer" />
               <img
                 src={`http://localhost:3001/img/${el?.image}`}
                 alt=""
@@ -120,35 +118,32 @@ export default function CardSwipePage(): JSX.Element {
           </TinderCard>
         ))}
       </div>
-      <div>
-        <IconButton size="large">
-          <CloseIcon
-            style={{ width: '100px', marginTop: '20px' }}
-            color="error"
-            fontSize="large"
-            onClick={() =>
-              clickDislikeHandler({ id: petSwipe[currentIndex]?.id, idMyPet: currentPet?.id })
-            }
-          />
-        </IconButton>
-        <IconButton>
-          <RestoreIcon
-            style={{ width: '100px', marginTop: '20px' }}
-            color="success"
-            fontSize="large"
-            onClick={goBack}
-          />{' '}
-        </IconButton>
-        <IconButton size="large">
-          <PetsIcon
-            style={{ width: '100px', marginTop: '20px' }}
-            color="success"
-            fontSize="large"
-            onClick={() =>
-              clickLikeHandler({ id: petSwipe[currentIndex]?.id, idMyPet: currentPet?.id })
-            }
-          />
-        </IconButton>
+      <div className="buttons">
+        <Button
+          variant="contained"
+          startIcon={<CloseIcon />}
+          onClick={() =>
+            clickDislikeHandler({ id: petSwipe[currentIndex]?.id, idMyPet: currentPet?.id })
+          }
+          size="large"
+          className="roundButton"
+        />
+        <Button
+          variant="contained"
+          startIcon={<RestoreIcon />}
+          onClick={goBack}
+          size="large"
+          className="roundButton"
+        />
+        <Button
+          variant="contained"
+          startIcon={<PetsIcon />}
+          onClick={() =>
+            clickLikeHandler({ id: petSwipe[currentIndex]?.id, idMyPet: currentPet?.id })
+          }
+          size="large"
+          className="roundButton"
+        />
       </div>
     </div>
   );

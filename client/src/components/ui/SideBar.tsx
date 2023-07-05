@@ -30,7 +30,7 @@ export default function Sidebar(): JSX.Element {
       anchor="left"
       sx={{
         width: drawerWidth,
-        bgcolor: 'rgba(220, 200, 180, 0.8)',
+        bgcolor: '#534ED9',
       }}
     >
       {user.status === 'success' && (
@@ -55,13 +55,13 @@ export default function Sidebar(): JSX.Element {
                 <ListItemIcon>
                   <SegmentTwoToneIcon />
                 </ListItemIcon>
-                <ListItemText primary="Анкеты" />
+                <ListItemText primary="Найти пару" />
               </ListItem>
               <ListItem button component={Link} to="/match" sx={{ my: 3 }}>
                 <ListItemIcon>
                   <FavoriteTwoToneIcon />
                 </ListItemIcon>
-                <ListItemText primary="Лайки" />
+                <ListItemText primary="Пары" />
               </ListItem>
             </>
           )}

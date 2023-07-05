@@ -20,6 +20,7 @@ import './index.css';
 import ChoiсePetPage from './components/pages/ChoiсePetPage';
 import AppSpinner from './components/ui/PetSpinner';
 import Sidebar from './components/ui/SideBar';
+import OverPetProfil from './components/pages/OverPetProfil';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -40,6 +41,7 @@ function App(): JSX.Element {
 
         <Route element={<PrivateRoute isAllowed={user.status !== 'guest'} redirectTo="/choice" />}>
           <Route path="/swipe" element={<CardSwipePage />} />
+          <Route path="/profile" element={<OverPetProfil />} />
 
           <Route path="app/match" element={<MatchList />} />
           <Route path="/match" element={<MatchPage />} />
