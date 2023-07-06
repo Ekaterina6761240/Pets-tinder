@@ -20,6 +20,7 @@ import './index.css';
 import ChoiсePetPage from './components/pages/ChoiсePetPage';
 import AppSpinner from './components/ui/PetSpinner';
 import Sidebar from './components/ui/SideBar';
+import Slider from './components/pages/Slider';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -50,6 +51,7 @@ function App(): JSX.Element {
           <Route path="/choice" element={<ChoiсePetPage />} />
           <Route path="/spinner" element={<AppSpinner />} />
         </Route>
+        <Route path="/slider" element={<Slider />} />
       </Routes>
     </div>
   );

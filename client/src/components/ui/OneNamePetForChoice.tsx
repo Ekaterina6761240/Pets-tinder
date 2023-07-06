@@ -19,10 +19,20 @@ export default function OneNamePetForChoice({ userPet }: PetProps): JSX.Element 
   return (
     <Button
       onClick={() => handleClick(userPet)}
-      sx={{ backgroundColor: '#F3EDED', borderRadius: '10px' }}
+      sx={{
+        backgroundColor: 'transparent',
+        borderRadius: '10px',
+        marginBottom: '1rem',
+        color: '#000000',
+      }}
       variant="outlined"
     >
-      {userPet.type} {userPet.name}
+      {userPet.type === 'Кошка' && userPet.sex === '♂'
+        ? 'Кот'
+        : userPet.type === 'Кошка' && userPet.sex === '♀'
+        ? 'Кошка'
+        : 'Собака'}{' '}
+      {userPet.name}
     </Button>
   );
 }

@@ -45,12 +45,6 @@
   border-radius: 10px 10px 0 0;
 }
 
-.card img {
-  width: 150px;
-  height: 200px;
-  border-radius: 10px 10px 10px 10px;
-}
-
 .buttons {
   display: flex;
   justify-content: center;
@@ -92,3 +86,4 @@
   padding: 8px;
   border-radius: 4px;
 }
+
