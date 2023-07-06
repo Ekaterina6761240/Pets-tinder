@@ -1,7 +1,7 @@
 import type React from 'react';
 import type { PetFormType, PetType } from '../../Types/petTypes';
 import { useAppDispatch } from '../redux/reduxHooks';
-import { addPetThunk, editPetThunk } from '../thunkAction/petThunkActions';
+import { addPetThunk, editPetThunk, getAnimalsTypeThunk } from '../thunkAction/petThunkActions';
 
 export type SubmitHandler = {
   submitHandler: (e: React.FormEvent<HTMLFormElement & PetFormType>) => void;
@@ -37,6 +37,8 @@ export default function usePetHook(): SubmitHandler {
 
     void dispatch(editPetThunk(data));
   };
+
+  const getAnimalsTypeHandler = async (): Promise<PetType[]> => dispatch(getAnimalsTypeThunk());
 
   return { submitHandler, editHandler };
 }

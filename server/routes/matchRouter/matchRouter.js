@@ -1,8 +1,14 @@
 const matchRouter = require('express').Router();
 const { Op } = require('sequelize');
-const { Pet, Like } = require('../../db/models');
+const { Pet, Like, User } = require('../../db/models');
 // import express from 'express';
 // import { Pet, Like } from '../../db/models';
+
+matchRouter.get('/', async (req, res) => {
+  const users = await User.findAll();
+
+  res.json(users);
+});
 
 // const matchRouter = express.Router();
 

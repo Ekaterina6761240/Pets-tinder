@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import { useParams } from 'react-router-dom';
-import type { OnePet } from '../../Types/PetsTypes';
 import OneSmallPetCard from '../ui/OneSmallPetCard';
 import { useAppDispatch, useAppSelector } from '../features/redux/reduxHooks';
 import getAllMatchThunk from '../features/thunkAction/petMatchThankAction';

@@ -1,6 +1,7 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import type { PetType } from '../../../Types/petTypes';
+import { getAnimalsTypeThunk } from '../../thunkAction/petThunkActions';
 
 export type InitialState = {
   data: PetType[];
@@ -23,6 +24,11 @@ const petSlice = createSlice({
     editPet: (state, action: PayloadAction<PetType>) => {
       state.data = state.data.map((pet) => (pet.id === action.payload.id ? action.payload : pet));
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getAnimalsTypeThunk.fulfilled, (state, action) => {
+      state.data = action.payload;
+    });
   },
 });
 

@@ -14,18 +14,8 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import useFormHook from '../../features/Hooks/authFormHooks';
 
 export default function AuthPage(): JSX.Element {
-  const [disabled, setDisabled] = useState(true);
-  const { type } = useParams();
-  const { regHandler, loginHandler } = useFormHook();
-  const reCapchaHandler = (value: string): (() => void) => {
-    if (value) {
-      const timer = setTimeout(() => {
-        setDisabled(false);
-      }, 500);
-      return () => clearTimeout(timer);
-    }
-    return () => {};
-  };
+  const [input, setInput] = useState<string>('');
+  const { regHandler, loginHandler, reCapchaHandler, disabled, type } = useFormHook();
   return (
     <div
       style={{
@@ -33,7 +23,6 @@ export default function AuthPage(): JSX.Element {
         justifyContent: 'center',
         alignItems: 'center',
         minHeight: '100vh',
-        backgroundColor: '',
       }}
     >
       <Box
@@ -49,7 +38,7 @@ export default function AuthPage(): JSX.Element {
             <Stack direction="column" spacing={2}>
               <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
                 <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-                <TextField label="name" variant="standard" type="text" name="name" />
+                <TextField label="name" variant="standard" type="text" name="name" value={input} />
               </Box>
             </Stack>
           )}
@@ -65,7 +54,7 @@ export default function AuthPage(): JSX.Element {
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <ReCAPTCHA
                 sitekey="6LcVdHImAAAAANSNii7Zg0fi4zPqOT4M_BlHWjCY"
-                onChange={reCapchaHandler}
+                onChange={(value: string | null) => reCapchaHandler(value || '')}
                 style={{
                   paddingBottom: '10px',
                   display: 'inline-block',

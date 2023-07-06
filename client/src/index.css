@@ -92,3 +92,8 @@
   padding: 8px;
   border-radius: 4px;
 }
+
+body {
+  margin: 0px;
+  height: 1500px;
+}

@@ -1,10 +1,8 @@
-
 const Petrouter = require('express').Router();
 const fs = require('fs').promises;
 const sharp = require('sharp');
 const { Pet, User } = require('../db/models');
 const upload = require('../middlewares/multerMid');
-
 
 // const Petrouter = express.Router();
 
@@ -16,6 +14,16 @@ Petrouter.get('/', async (req, res) => {
       },
     });
     res.json(allPets);
+  } catch (err) {
+    res.status(500);
+  }
+});
+
+Petrouter.get('/:type/getPets', async (req, res) => {
+  const { type } = req.params;
+  try {
+    const allPetsOneType = await Pet.findAll({ where: { type } });
+    res.json(allPetsOneType);
   } catch (err) {
     res.status(500);
   }
