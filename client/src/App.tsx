@@ -26,6 +26,8 @@ import LikePage from './components/pages/LikePage';
 import { Swipe } from '@mui/icons-material';
 import Simple from './components/pages/Simple';
 import MatchPage from './components/pages/MatchPage';
+import { Container } from '@mui/material';
+
 // import SwipePage from './components/pages/SwipePage';
 // import TestCard from './components/pages/TestCard';
 function App(): JSX.Element {
@@ -39,7 +41,7 @@ function App(): JSX.Element {
   console.log(currentPet);
 
   return (
-    <div>
+    <Container sx={{ display: 'flex' }}>
       <Sidebar />
       <Routes>
         <Route path="/" element={<MainPage />} />
@@ -59,7 +61,7 @@ function App(): JSX.Element {
           <Route path="/spinner" element={<AppSpinner />} />
         </Route>
       </Routes>
-    </div>
+    </Container>
   );
 }
 

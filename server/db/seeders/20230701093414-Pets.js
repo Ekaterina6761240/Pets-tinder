@@ -45,7 +45,7 @@ module.exports = {
           city: 'Улан-Удэ',
           pedigree: 'Корги',
           info: 'Любит изучать композицию, а также изучать их разные исполнители',
-          image: 'porodistye-sobaki-krasivye-kartinki-19.jpeg',
+          image: 'porodistye-sobaki-krasivye-kartinki-19.jpg',
           user_id: 2,
         },
         {

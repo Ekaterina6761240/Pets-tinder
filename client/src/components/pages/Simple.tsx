@@ -1,35 +1,18 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import TinderCard from 'react-tinder-card';
 import { useAppDispatch, useAppSelector } from '../features/redux/hooks';
-import { getSwipePetThunk } from '../features/thunkAction/swipePet';
-
-const db = [
-  {
-    name: 'Richard Hendricks',
-    url: './img/richard.jpg',
-  },
-  {
-    name: 'Erlich Bachman',
-    url: './img/erlich.jpg',
-  },
-  {
-    name: 'Monica Hall',
-    url: './img/monica.jpg',
-  },
-  {
-    name: 'Jared Dunn',
-    url: './img/jared.jpg',
-  },
-  {
-    name: 'Dinesh Chugtai',
-    url: './img/dinesh.jpg',
-  },
-];
+import {
+  createDislikeThunk,
+  createSwipePetThunk,
+  getSwipePetThunk,
+} from '../features/thunkAction/swipePet';
 
 function Simple(): JSX.Element {
   const petSwipe = useAppSelector((state) => state.petsSwipe.data);
   const dispatch = useAppDispatch();
   const currentPet = useAppSelector((state) => state.currentPet.data);
+  // вызывать функцию обновления состояния тех с кем метч и если метч то открывать модалку
+  // как вызвать функцию на кликхендлере?
 
   useEffect(() => {
     if (currentPet) {
@@ -79,9 +62,17 @@ function Simple(): JSX.Element {
       await childRefs[currentIndex].current.swipe(dir); // Swipe the card!
     }
   };
+  const clickLikeHandler = async (data: { id: number; idMyPet: number }): Promise<void> => {
+    await (() => swipe('right'));
+    void dispatch(createSwipePetThunk(data));
+  };
 
+  const clickDislikeHandler = async (data: { id: number; idMyPet: number }): Promise<void> => {
+    await (() => swipe('left'));
+    void dispatch(createDislikeThunk(data));
+  };
   // increase current index and show card
-  const goBack = async () => {
+  const goBack = async (): Promise<void> => {
     if (!canGoBack) return;
     const newIndex = currentIndex + 1;
     updateCurrentIndex(newIndex);
@@ -102,36 +93,47 @@ function Simple(): JSX.Element {
             onSwipe={(dir) => swiped(dir, character.id, index)}
             onCardLeftScreen={() => outOfFrame(character.id, index)}
           >
-            <div
-              style={{
-                backgroundImage: `http://localhost:3001/img/${character.image}`,
-              }}
-              className="card"
-            >
-              <img src={`http://localhost:3001/img/${character.image}`} alt="" />
-              <h3>{character.name}</h3>
+            <div className="card">
+              <img
+                src={`http://localhost:3001/img/${character.image}`}
+                alt=""
+                style={{
+                  width: '100%',
+                  height: '100%',
+                }}
+              />
             </div>
           </TinderCard>
         ))}
       </div>
       <div className="buttons">
-        <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('left')}>
-          Swipe left!
+        <button
+          type="button"
+          style={{ backgroundColor: !canSwipe && '#c3c4d3' }}
+          onClick={() => swipe('left')}
+        >
+          Свайп влево!
         </button>
-        <button style={{ backgroundColor: !canGoBack && '#c3c4d3' }} onClick={() => goBack()}>
-          Undo swipe!
+        <button
+          type="button"
+          style={{ backgroundColor: !canGoBack && '#c3c4d3' }}
+          onClick={() => goBack()}
+        >
+          Вернуть
         </button>
-        <button style={{ backgroundColor: !canSwipe && '#c3c4d3' }} onClick={() => swipe('right')}>
-          Swipe right!
+        <button
+          type="button"
+          style={{ backgroundColor: !canSwipe && '#c3c4d3' }}
+          onClick={() => swipe('right')}
+        >
+          Свайп вправо!
         </button>
       </div>
       {lastDirection ? (
-        <h2 key={lastDirection} className="infoText">
-          You swiped {lastDirection}
-        </h2>
+        <h2 key={lastDirection} className="infoText" />
       ) : (
         <h2 className="infoText">
-          Swipe a card or press a button to get Restore Card button visible!
+          Делай свайп вправо, если хочешь поставить лайк потенциальному партнеру!
         </h2>
       )}
     </div>
