@@ -1,9 +1,12 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const apiPostRouter = require('./routes/apiPostRouter');
 const sessionParser = require('./middlewares/sessionMiddle');
 const apiAuthRouter = require('./routes/apiUserRouter');
+const Petrouter = require('./routes/PetApiRouter');
+const matchRouter = require('./routes/matchRouter/matchRouter');
+const apiCurrentRouter = require('./routes/apiCurrentRouter');
+const swipePageRouter = require('./routes/swipePage/swipePageRouter');
 
 const PORT = process.env.PORT || 3001;
 
@@ -16,8 +19,12 @@ app.use(cors({ credentials: true, origin: true }));
 
 app.use(sessionParser);
 
-app.use('/api/posts', apiPostRouter);
+app.use('/api/pets', Petrouter);
 app.use('/api/auth', apiAuthRouter);
+app.use('/match', matchRouter);
+app.use('/current', apiCurrentRouter);
+
+app.use('/swipe', swipePageRouter);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}!`);
