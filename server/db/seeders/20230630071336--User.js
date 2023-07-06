@@ -34,6 +34,27 @@ module.exports = {
           premium: true,
           rating: 3,
         },
+        {
+          name: 'Катя',
+          email: '123@mail.ru',
+          password: '123',
+          premium: true,
+          rating: 4,
+        },
+        {
+          name: 'Влад',
+          email: '123@gmail.com',
+          password: '123',
+          premium: true,
+          rating: 5,
+        },
+        {
+          name: 'Маша',
+          email: '123@yandex.ru',
+          password: '123',
+          premium: true,
+          rating: 6,
+        },
       ],
       {},
     );

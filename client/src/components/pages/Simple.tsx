@@ -197,7 +197,7 @@ function Simple(): JSX.Element {
           style={{ backgroundColor: !canSwipe && '#c3c4d3' }}
           onClick={() =>
             clickLikeHandler(
-              { id: petSwipe[currentIndex]?.id, idMyPet: currentPet?.id }
+              { id: petSwipe[currentIndex]?.id, idMyPet: currentPet?.id },
               // petSwipe[currentIndex]?.id,
             )
           }
