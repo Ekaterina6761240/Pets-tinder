@@ -10,7 +10,7 @@ import '@fontsource/roboto/700.css';
 import AuthPage from './components/pages/authPage/AuthPage';
 import PrivateRoute from './components/HOC/PrivateRoute';
 import MatchList from './components/ui/MatchList';
-import MatchPage from './components/pages/MatchPage';
+// import MatchPage from './components/pages/MatchPage';
 import PetInfoPage from './components/pages/PetInfoPage';
 import PetEditPage from './components/pages/PetEditPage';
 import PetCabinetPage from './components/pages/PetCabinetPage';
@@ -20,7 +20,16 @@ import './index.css';
 import ChoiсePetPage from './components/pages/ChoiсePetPage';
 import AppSpinner from './components/ui/PetSpinner';
 import Sidebar from './components/ui/SideBar';
+import OverPetProfil from './components/pages/OverPetProfil';
+import Test from './components/pages/Test';
+import LikePage from './components/pages/LikePage';
+import { Swipe } from '@mui/icons-material';
+import Simple from './components/pages/Simple';
+import MatchPage from './components/pages/MatchPage';
+import { Container } from '@mui/material';
 
+// import SwipePage from './components/pages/SwipePage';
+// import TestCard from './components/pages/TestCard';
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
@@ -32,16 +41,17 @@ function App(): JSX.Element {
   console.log(currentPet);
 
   return (
-    <div>
+    <Container sx={{ display: 'flex' }}>
       <Sidebar />
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="auth/:type" element={<AuthPage />} />
 
         <Route element={<PrivateRoute isAllowed={user.status !== 'guest'} redirectTo="/choice" />}>
-          <Route path="/swipe" element={<CardSwipePage />} />
+          <Route path="/profile" element={<OverPetProfil />} />
 
           <Route path="app/match" element={<MatchList />} />
+          <Route path="/swipe" element={<Simple />} />
           <Route path="/match" element={<MatchPage />} />
           <Route path="/info" element={<PetInfoPage />} />
           <Route path="/edit/:id" element={<PetEditPage />} />
@@ -51,7 +61,7 @@ function App(): JSX.Element {
           <Route path="/spinner" element={<AppSpinner />} />
         </Route>
       </Routes>
-    </div>
+    </Container>
   );
 }
 
