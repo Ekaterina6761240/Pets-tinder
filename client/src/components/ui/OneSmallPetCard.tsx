@@ -6,6 +6,8 @@ import { Button, CardActionArea, Stack, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import type { OnePet } from '../Types/PetsTypes';
+import { useAppDispatch } from '../features/redux/hooks';
+import { setCurrentOtherPet } from '../features/redux/slices/currentOtherPet';
 
 type OnePetProps = {
   pet: OnePet;
@@ -13,10 +15,11 @@ type OnePetProps = {
 
 export default function OneSmallPetCard({ pet }: OnePetProps): JSX.Element {
   const navigate = useNavigate();
-  const clickHandler = (): void => {
-    const { id } = pet;
-    // const { history } = useHistory();
-    navigate('/cabinet');
+  const dispatch = useAppDispatch();
+  const clickHandler = (currentOtherPet: OnePet): void => {
+    dispatch(setCurrentOtherPet(currentOtherPet));
+
+    navigate('/profile');
   };
 
   const clickChatHandler = (): void => {
@@ -57,7 +60,7 @@ export default function OneSmallPetCard({ pet }: OnePetProps): JSX.Element {
                 alignItems: 'center',
                 display: 'flex',
               }}
-              onClick={clickHandler}
+              onClick={() => clickHandler(pet)}
             >
               Подробнее
             </Button>

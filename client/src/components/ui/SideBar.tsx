@@ -35,89 +35,93 @@ export default function Sidebar(): JSX.Element {
 
   const user = useAppSelector((store) => store.user);
   return (
-    <Drawer
-      variant="permanent"
-      anchor="left"
-      open={sidebarOpen} // Передача состояния открытости/закрытости в компонент Drawer
-      sx={{
-        width: sidebarOpen ? drawerWidth : 90,
-          flexShrink: 0,
-          transition: 'width 0.2s',
-          '& .MuiDrawer-paper': {
-            width: sidebarOpen ? drawerWidth : 30,
-            boxSizing: 'border-box',
-            bgcolor: '#fcc444',
-            // transition: 'width 0.2s',
-            overflowX: 'hidden',
-            
-          },
-      }}
-    >
-      {user.status === 'success' && sidebarOpen ? (
-        <>
-        <List>
-          <ListItem sx={{ ml: 4 }}>
-            <img src="/lapka2.png" width="50" height="50" />
-          </ListItem>
-
-          <ListItem
-            button
-            component={Link}
-            to="/choice"
-            sx={{ display: 'flex', alignItems: 'center' }}
-          >
-            <ListItemIcon sx={{ margin: 'auto', ml: 5.5 }}>
-              <Person2TwoToneIcon />
-            </ListItemIcon>
-          </ListItem>
-          {currentPet.data !== null && (
+    <>
+      {user.status === 'success' && (
+        <Drawer
+          variant="permanent"
+          anchor="left"
+          open={sidebarOpen} // Передача состояния открытости/закрытости в компонент Drawer
+          sx={{
+            width: sidebarOpen ? drawerWidth : 90,
+            flexShrink: 0,
+            transition: 'width 0.2s',
+            '& .MuiDrawer-paper': {
+              width: sidebarOpen ? drawerWidth : 30,
+              boxSizing: 'border-box',
+              bgcolor: '#fcc444',
+              // transition: 'width 0.2s',
+              overflowX: 'hidden',
+            },
+          }}
+        >
+          {user.status === 'success' && sidebarOpen ? (
             <>
-              <ListItem button component={Link} to="/swipe" sx={{ my: 3 }}>
-                <ListItemIcon>
-                  <SegmentTwoToneIcon />
-                </ListItemIcon>
-                <ListItemText primary="Анкеты" />
-              </ListItem>
-              <ListItem button component={Link} to="/match" sx={{ my: 3 }}>
-                <ListItemIcon>
-                  <FavoriteTwoToneIcon />
-                </ListItemIcon>
-                <ListItemText primary="Лайки" />
-              </ListItem>
+              <List>
+                <ListItem sx={{ ml: 4 }}>
+                  <img src="/lapka2.png" width="50" height="50" />
+                </ListItem>
+
+                <ListItem
+                  button
+                  component={Link}
+                  to="/choice"
+                  sx={{ display: 'flex', alignItems: 'center' }}
+                >
+                  <ListItemIcon sx={{ margin: 'auto', ml: 5.5 }}>
+                    <Person2TwoToneIcon />
+                  </ListItemIcon>
+                </ListItem>
+                {currentPet.data !== null && (
+                  <>
+                    <ListItem button component={Link} to="/swipe" sx={{ my: 3 }}>
+                      <ListItemIcon>
+                        <SegmentTwoToneIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Найти пару" />
+                    </ListItem>
+                    <ListItem button component={Link} to="/match" sx={{ my: 3 }}>
+                      <ListItemIcon>
+                        <FavoriteTwoToneIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Пары" />
+                    </ListItem>
+                  </>
+                )}
+                <ListItem button component={Link} to="/" sx={{ position: 'absolute', my: 49 }}>
+                  <ListItemIcon>
+                    <LogoutIcon />
+                  </ListItemIcon>
+                  <ListItemText onClick={logoutHandler} primary="Выйти" />
+                </ListItem>
+              </List>
+              <IconButton
+                onClick={toggleSidebar} // Обработчик клика для скрытия/раскрытия боковой панели
+                sx={{
+                  position: 'absolute',
+                  top: '0',
+                  right: '0',
+                  zIndex: 1,
+                }}
+              >
+                <ChevronLeftIcon />
+              </IconButton>
             </>
+          ) : (
+            <IconButton
+              onClick={toggleSidebar} // Обработчик клика для скрытия/раскрытия боковой панели
+              sx={{
+                position: 'absolute',
+                top: '0',
+                right: '0',
+                zIndex: 1,
+              }}
+            >
+              <ChevronRightIcon />
+            </IconButton>
           )}
-          <ListItem button component={Link} to="/" sx={{ position:"absolute", my: 49 }}>
-            <ListItemIcon>
-              <LogoutIcon />
-            </ListItemIcon>
-            <ListItemText onClick={logoutHandler} primary="Выйти" />
-          </ListItem>
-        </List>
-        <IconButton
-        onClick={toggleSidebar} // Обработчик клика для скрытия/раскрытия боковой панели
-        sx={{
-          position: 'absolute',
-          top: '0',
-          right: '0',
-          zIndex: 1,
-        }}
-      >
-        <ChevronLeftIcon />
-      </IconButton>
-      </>
-      ) :
-      (<IconButton
-        onClick={toggleSidebar} // Обработчик клика для скрытия/раскрытия боковой панели
-        sx={{
-          position: 'absolute',
-          top: '0',
-          right: '0',
-          zIndex: 1,
-        }}
-      >
-          <ChevronRightIcon /> 
-      </IconButton>)}
-    </Drawer>
+        </Drawer>
+      )}
+    </>
   );
 }
 
