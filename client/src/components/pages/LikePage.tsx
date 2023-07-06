@@ -1,10 +1,12 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import TinderCard from 'react-tinder-card';
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
 import PetsIcon from '@mui/icons-material/Pets';
 import RestoreIcon from '@mui/icons-material/Restore';
-import CongratulationsModal from '../ui/CongratulationsModal';
+import { useAppDispatch, useAppSelector } from '../features/redux/hooks';
+import { getSwipePetThunk } from '../features/thunkAction/swipePet';
+// import CongratulationsModal from '../ui/CongratulationsModal';
 
 const db = [
   {
@@ -38,14 +40,25 @@ const db = [
     status: false,
   },
 ];
-export default function CardSwipePage(): JSX.Element {
-  const [currentIndex, setCurrentIndex] = useState(db.length - 1);
+export default function LikePage(): JSX.Element {
+  const petSwipe = useAppSelector((state) => state.petsSwipe.data);
+  const dispatch = useAppDispatch();
+  const currentPet = useAppSelector((state) => state.currentPet.data);
+
+  useEffect(() => {
+    if (currentPet) {
+      void dispatch(getSwipePetThunk(currentPet));
+    }
+  }, [currentPet]);
+
+  const [currentIndex, setCurrentIndex] = useState(petSwipe.length - 1);
   const [lastDirection, setLastDirection] = useState();
   const currentIndexRef = useRef(currentIndex);
   const [open, setOpen] = useState<boolean>(false);
+
   const childRefs = useMemo(
     () =>
-      Array(db.length)
+      Array(petSwipe.length)
         .fill(0)
         .map((i) => React.createRef()),
     [],
@@ -54,19 +67,19 @@ export default function CardSwipePage(): JSX.Element {
     setCurrentIndex(val);
     currentIndexRef.current = val;
   };
-  const canGoBack = currentIndex < db.length - 1;
+  const canGoBack = currentIndex < petSwipe.length - 1;
   const canSwipe = currentIndex >= 0;
   // set last direction and decrease current index
-  const swiped = (direction, nameToDelete, index) => {
+  const swiped = (direction, nameToDelete, index): void => {
     setLastDirection(direction);
     updateCurrentIndex(index - 1);
   };
-  const outOfFrame = (url, idx) => {
-    console.log(`${url} (${idx}) left the screen!`, currentIndexRef.current);
+  const outOfFrame = (image, idx) => {
+    console.log(`${image} (${idx}) left the screen!`, currentIndexRef.current);
     currentIndexRef.current >= idx && childRefs[idx].current.restoreCard();
   };
   const swipe = async (dir, status) => {
-    if (canSwipe && currentIndex < db.length) {
+    if (canSwipe && currentIndex < petSwipe.length) {
       await childRefs[currentIndex].current.swipe(dir);
     }
     if (dir === 'right') {
@@ -89,29 +102,29 @@ export default function CardSwipePage(): JSX.Element {
         Make your choice
       </h1>
       <div className="cardContainer" style={{ width: '600px', height: '900px' }}>
-        {db.map((character, index) => (
+        {petSwipe.map((character, index) => (
           <TinderCard
             ref={childRefs[index]}
             className="swipe"
-            key={character.url}
-            onSwipe={(dir) => swiped(dir, character.url, index)}
-            onCardLeftScreen={() => outOfFrame(character.url, index)}
+            key={character.image}
+            onSwipe={(dir) => swiped(dir, character.image, index)}
+            onCardLeftScreen={() => outOfFrame(character.image, index)}
           >
             <div className={`card ${index === currentIndex ? 'active' : ''}`}>
               <div
                 className="imageContainer"
-                style={{ backgroundImage: `url(${character.url})` }}
+                style={{ backgroundImage: `http://localhost:3001/img/(${character.image})` }}
               />
-              <img src={character.url} alt="" style={{ width: '400px', height: '500px' }} />
-              <h4 className="overlay-text">{character.message}</h4>
+              <img src={character.image} alt="" style={{ width: '400px', height: '500px' }} />
+              <h4 className="overlay-text">{character.name}</h4>
             </div>
           </TinderCard>
         ))}
       </div>
       <div className="buttons">
-        {/* <button style={{ backgroundColor: !canSwipe && '#C3C4D3' }} onClick={() => swipe('left')}>
+        <button style={{ backgroundColor: !canSwipe && '#C3C4D3' }} onClick={() => swipe('left')}>
           Swipe left!
-        </button> */}
+        </button>
         <Button
           variant="contained"
           startIcon={<CloseIcon />}
@@ -134,7 +147,7 @@ export default function CardSwipePage(): JSX.Element {
           className="roundButton"
         />
       </div>
-      {/* {lastDirection ? (
+      {lastDirection ? (
         <h2 key={lastDirection} className="infoText">
           You swiped {lastDirection}
         </h2>
@@ -142,8 +155,8 @@ export default function CardSwipePage(): JSX.Element {
         <h2 className="infoText">
           Swipe a card or press a button to get Restore Card button visible!
         </h2>
-      )} */}
-      <CongratulationsModal open={open} onClose={onClose} />
+      )}
+      {/* <CongratulationsModal open={open} onClose={onClose} /> */}
     </div>
   );
 }

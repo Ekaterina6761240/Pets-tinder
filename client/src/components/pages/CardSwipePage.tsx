@@ -102,7 +102,7 @@ export default function CardSwipePage(): JSX.Element {
           <TinderCard
             ref={childRefs[index]}
             className="swipe"
-            key={el.id}
+            key={el.image}
             onSwipe={(dir) => swiped(dir, el.image, index)}
             onCardLeftScreen={() => outOfFrame(el.image, index)}
           >
@@ -111,7 +111,7 @@ export default function CardSwipePage(): JSX.Element {
               <img
                 src={`http://localhost:3001/img/${el?.image}`}
                 alt=""
-                style={{ width: '400px', height: '500px' }}
+                style={{ width: '600px', height: '900px' }}
               />
               <h4 className="overlay-text">{el.name}</h4>
             </div>
