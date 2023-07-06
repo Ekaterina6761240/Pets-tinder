@@ -6,6 +6,8 @@ import {
   createSwipePetThunk,
   getSwipePetThunk,
 } from '../features/thunkAction/swipePet';
+import getAllMatchThunk from '../features/thunkAction/petMatchThankAction';
+import CongratulationsModal from '../ui/CongratulationsModal';
 
 // const petSwipe = [
 //   {
@@ -42,12 +44,16 @@ function Simple(): JSX.Element {
   const petSwipe = useAppSelector((state) => state.petsSwipe.data);
   const dispatch = useAppDispatch();
   const currentPet = useAppSelector((state) => state.currentPet.data);
+  const petMatch = useAppSelector((state) => state.petMatch.data);
+  const [matchOpened, setMatchOpened] = useState(false);
   // вызывать функцию обновления состояния тех с кем метч и если метч то открывать модалку
   // как вызвать функцию на кликхендлере?
   const [currentIndex, setCurrentIndex] = useState(petSwipe.length - 1);
   const [lastDirection, setLastDirection] = useState();
   // used for outOfFrame closure
-  const currentIndexRef = useRef(currentIndex);
+  // const currentIndexRef = useRef(currentIndex);
+
+  const [open, setOpen] = useState<boolean>(false);
 
   const childRefs = useMemo(
     () =>
@@ -56,6 +62,15 @@ function Simple(): JSX.Element {
         .map((i) => React.createRef()),
     [petSwipe],
   );
+
+  // const [match, setMatch] = useState(petMatch.length);
+
+  // useEffect(() => {
+  //   if (match < petMatch.length) {
+  //     setOpen(true);
+  //     setMatch(petMatch.length);
+  //   }
+  // }, [petMatch]);
 
   useEffect(() => {
     if (currentPet) {
@@ -67,6 +82,13 @@ function Simple(): JSX.Element {
   useEffect(() => {
     setCurrentIndex(petSwipe.length - 1);
   }, [petSwipe]);
+
+  // useEffect(() => {
+  //   if (petMatch.length > 0 && !matchOpened) {
+  //     setOpen(true);
+  //     setMatchOpened(true);
+  //   }
+  // }, [petMatch, matchOpened]);
 
   console.log(childRefs);
   const updateCurrentIndex = (val) => {
@@ -98,16 +120,25 @@ function Simple(): JSX.Element {
       await childRefs[currentIndex].current.swipe(dir); // Swipe the card!
     }
   };
-  // const clickLikeHandler = async (data: { id: number; idMyPet: number }): Promise<void> => {
-  //   await (() => swipe('right'));
-  //   void dispatch(createSwipePetThunk(data));
-  // };
+  const clickDislikeHandler = (data: { id: number; idMyPet: number }): void => {
+    swipe('left');
+    void dispatch(createDislikeThunk(data));
+  };
 
-  // const clickDislikeHandler = async (data: { id: number; idMyPet: number }): Promise<void> => {
-  //   await (() => swipe('left'));
-  //   void dispatch(createDislikeThunk(data));
-  // };
-  // // increase current index and show card
+  const clickLikeHandler = (data: { id: number; idMyPet: number }, idMatch: number): void => {
+    swipe('right');
+    void dispatch(createSwipePetThunk(data));
+    // void dispatch(getAllMatchThunk(idMatch));
+  };
+
+  // useEffect(() => {
+  //   setOpen(true);
+  // }, [petMatch]);
+
+  const onClose = () => {
+    setOpen(false);
+  };
+
   const goBack = async (): Promise<void> => {
     if (!canGoBack) return;
     const newIndex = currentIndex + 1;
@@ -115,7 +146,7 @@ function Simple(): JSX.Element {
     await childRefs[newIndex].current.restoreCard();
   };
 
-  if (!childRefs.length) return null;
+  // if (!childRefs.length) return null;
 
   return (
     <div>
@@ -148,7 +179,9 @@ function Simple(): JSX.Element {
         <button
           type="button"
           style={{ backgroundColor: !canSwipe && '#c3c4d3' }}
-          onClick={() => swipe('left')}
+          onClick={() =>
+            clickDislikeHandler({ id: petSwipe[currentIndex]?.id, idMyPet: currentPet?.id })
+          }
         >
           Свайп влево!
         </button>
@@ -162,7 +195,12 @@ function Simple(): JSX.Element {
         <button
           type="button"
           style={{ backgroundColor: !canSwipe && '#c3c4d3' }}
-          onClick={() => swipe('right')}
+          onClick={() =>
+            clickLikeHandler(
+              { id: petSwipe[currentIndex]?.id, idMyPet: currentPet?.id },
+              petSwipe[currentIndex]?.id,
+            )
+          }
         >
           Свайп вправо!
         </button>
@@ -174,6 +212,7 @@ function Simple(): JSX.Element {
           Делай свайп вправо, если хочешь поставить лайк потенциальному партнеру!
         </h2>
       )}
+      <CongratulationsModal open={open} onClose={onClose} />
     </div>
   );
 }
