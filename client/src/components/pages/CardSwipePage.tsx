@@ -107,7 +107,7 @@ export default function CardSwipePage(): JSX.Element {
             onCardLeftScreen={() => outOfFrame(el.image, index)}
           >
             <div className={`card ${index === currentIndex ? 'active' : ''}`}>
-              <div className="imageContainer" />
+              <div className="imageContainer" style={{ backgroundImage: `#EABD56` }} />
               <img
                 src={`http://localhost:3001/img/${el?.image}`}
                 alt=""

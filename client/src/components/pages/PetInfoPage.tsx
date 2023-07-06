@@ -1,14 +1,13 @@
 import { Box, Button, Card, TextField, Grid, MenuItem, CardMedia } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import FemaleIcon from '@mui/icons-material/Female';
+import MaleIcon from '@mui/icons-material/Male';
 import usePetHook from '../features/Hooks/usePetHook';
 import { useAppDispatch, useAppSelector } from '../features/redux/reduxHooks';
 import AppSpinner from '../ui/PetSpinner';
 import { getPetsThunk } from '../features/thunkAction/petThunkActions';
 
 export default function PetInfoPage(): JSX.Element {
-  // const [isLoading, setIsLoading] = useState(true);
-
-  // const dispatch = useAppDispatch();
   const currentPet = useAppSelector((state) => state.currentPet.data);
   const { submitHandler } = usePetHook();
 
@@ -38,18 +37,8 @@ export default function PetInfoPage(): JSX.Element {
     }
   };
 
-  // useEffect((): void => {
-  //   void dispatch(getPetsThunk());
-  //   setTimeout(() => {
-  //     setIsLoading(false);
-  //   }, 2000);
-  // }, []);
-
-  console.log(currentPet?.image, '======image');
-
   const uniquePetTypes = ['Кошка', 'Собака'];
-  const sexPet = ['Мужской', 'Женский'];
-
+  const sexPet = ['♂', '♀'];
   return (
     <Box
       sx={{
@@ -59,7 +48,7 @@ export default function PetInfoPage(): JSX.Element {
         height: '100vh',
         padding: '2rem',
         paddingLeft: '10rem',
-        backgroundColor: '#DFC645',
+        backgroundColor: '#EABD56',
       }}
     >
       {/* {isLoading ? (
@@ -79,7 +68,7 @@ export default function PetInfoPage(): JSX.Element {
                 '& > :not(style)': { marginBottom: '1rem' },
               }}
             >
-              <Card sx={{ maxWidth: 500, textAlign: 'center' }}>
+              {/* <Card sx={{ maxWidth: 500, textAlign: 'center' }}>
                 <Box
                   sx={{
                     display: 'flex',
@@ -89,39 +78,46 @@ export default function PetInfoPage(): JSX.Element {
                     width: '100%',
                     borderRadius: '10px',
                   }}
-                >
-                  <label htmlFor="upload-input">
-                    <input
-                      id="upload-input"
-                      type="file"
-                      name="image"
-                      accept="image/*"
-                      style={{ display: 'none' }}
-                      onChange={changeHandler}
-                    />
-                  </label>
-                  {pet.image ? (
-                    // <CardMedia
-                    //   component="img"
-                    //   sx={{ height: 140 }}
-                    //   src={`http://localhost/3001/img/${currentPet?.image}`}
-                    //   alt="Загруженное изображение"
-                    // />
-                    <div>
-                      Фото добавлено
-                    </div>
-                  ) : (
-                    <Button component="label" htmlFor="upload-input" size="small">
-                      Добавить фото
-                    </Button>
-                  )}
+                > */}
+              <label htmlFor="upload-input">
+                <input
+                  id="upload-input"
+                  type="file"
+                  name="image"
+                  accept="image/*"
+                  style={{ display: 'none' }}
+                  onChange={changeHandler}
+                />
+              </label>
+              {pet.image ? (
+                // <CardMedia
+                //   component="img"
+                //   sx={{ height: 140 }}
+                //   src={`http://localhost/3001/img/${currentPet?.image}`}
+                //   alt="Загруженное изображение"
+                // />
+                <Box sx={{ fontSize: 60 }}>
+                  <div>✔</div>
                 </Box>
-              </Card>
+              ) : (
+                <Button
+                  component="label"
+                  htmlFor="upload-input"
+                  size="small"
+                  sx={{ color: '#000000', fontStyle: 'italic'}}
+                >
+                  Добавить фото
+                </Button>
+              )}
+              {/* </Box>
+              </Card> */}
               <Box>
                 <Button
                   sx={{
+                    color: '#000000',
                     marginTop: '2rem',
-                    backgroundColor: '#F3EDED',
+                    // backgroundColor: '#F3EDED',
+                    backgroundColor: 'transparent',
                     borderRadius: '10px',
                     overflow: 'hidden',
                     '& .MuiOutlinedInput-notchedOutline': {
@@ -137,7 +133,7 @@ export default function PetInfoPage(): JSX.Element {
                   type="submit"
                   variant="outlined"
                 >
-                  Добавить
+                  Сохранить
                 </Button>
               </Box>
             </Box>
@@ -164,13 +160,13 @@ export default function PetInfoPage(): JSX.Element {
                   select
                   placeholder="Вид питомца"
                   name="type"
-                  defaultValue="собака"
+                  defaultValue="Вид"
                   onChange={changeHandler}
                   value={pet.type}
                   fullWidth
                   sx={{
                     marginBottom: '1rem',
-                    backgroundColor: '#F3EDED',
+                    // backgroundColor: '#F3EDED',
                     borderRadius: '10px',
                     overflow: 'hidden',
                     '& .MuiOutlinedInput-notchedOutline': {
@@ -184,6 +180,9 @@ export default function PetInfoPage(): JSX.Element {
                     },
                   }}
                 >
+                  <MenuItem value="Вид">
+                    <em>Вид</em>
+                  </MenuItem>
                   {uniquePetTypes.map((petType) => (
                     <MenuItem key={petType} value={petType}>
                       {petType}
@@ -199,7 +198,7 @@ export default function PetInfoPage(): JSX.Element {
                 value={pet.name}
                 variant="outlined"
                 sx={{
-                  backgroundColor: '#F3EDED',
+                  // backgroundColor: '#F3EDED',
                   borderRadius: '10px',
                   overflow: 'hidden',
                   '& .MuiOutlinedInput-notchedOutline': {
@@ -215,17 +214,23 @@ export default function PetInfoPage(): JSX.Element {
                     transform: 'translate(14px, -6px) scale(0.75)',
                   },
                 }}
+                InputProps={{
+                  style: {
+                    fontStyle: 'italic',
+                  },
+                }}
               />
               <TextField
                 id="outlined-basic"
                 select
                 placeholder="Пол"
+                defaultValue="Пол"
                 name="sex"
                 onChange={changeHandler}
                 value={pet.sex}
                 variant="outlined"
                 sx={{
-                  backgroundColor: '#F3EDED',
+                  // backgroundColor: '#F3EDED',
                   borderRadius: '10px',
                   overflow: 'hidden',
                   '& .MuiOutlinedInput-notchedOutline': {
@@ -239,9 +244,12 @@ export default function PetInfoPage(): JSX.Element {
                   },
                 }}
               >
-                {sexPet.map((sex) => (
+                <MenuItem value="Пол">
+                  <em>Пол</em>
+                </MenuItem>
+                {sexPet.map((sex, index) => (
                   <MenuItem key={sex} value={sex}>
-                    {sex}
+                    {index === 0 ? <MaleIcon /> : <FemaleIcon />}
                   </MenuItem>
                 ))}
               </TextField>
@@ -253,7 +261,7 @@ export default function PetInfoPage(): JSX.Element {
                 value={pet.age}
                 variant="outlined"
                 sx={{
-                  backgroundColor: '#F3EDED',
+                  // backgroundColor: '#F3EDED',
                   borderRadius: '10px',
                   overflow: 'hidden',
                   '& .MuiOutlinedInput-notchedOutline': {
@@ -264,6 +272,11 @@ export default function PetInfoPage(): JSX.Element {
                   },
                   '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
                     border: 'none',
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontStyle: 'italic',
                   },
                 }}
               />
@@ -293,7 +306,7 @@ export default function PetInfoPage(): JSX.Element {
                 value={pet.city}
                 variant="outlined"
                 sx={{
-                  backgroundColor: '#F3EDED',
+                  // backgroundColor: '#F3EDED',
                   borderRadius: '10px',
                   overflow: 'hidden',
                   '& .MuiOutlinedInput-notchedOutline': {
@@ -306,6 +319,11 @@ export default function PetInfoPage(): JSX.Element {
                     border: 'none',
                   },
                 }}
+                InputProps={{
+                  style: {
+                    fontStyle: 'italic',
+                  },
+                }}
               />
               <TextField
                 id="outlined-basic"
@@ -315,7 +333,7 @@ export default function PetInfoPage(): JSX.Element {
                 value={pet.pedigree}
                 variant="outlined"
                 sx={{
-                  backgroundColor: '#F3EDED',
+                  // backgroundColor: '#F3EDED',
                   borderRadius: '10px',
                   overflow: 'hidden',
                   '& .MuiOutlinedInput-notchedOutline': {
@@ -326,6 +344,11 @@ export default function PetInfoPage(): JSX.Element {
                   },
                   '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
                     border: 'none',
+                  },
+                }}
+                InputProps={{
+                  style: {
+                    fontStyle: 'italic',
                   },
                 }}
               />
@@ -341,8 +364,9 @@ export default function PetInfoPage(): JSX.Element {
                   sx: {
                     width: 286,
                     height: 253,
-                    backgroundColor: '#F3EDED',
+                    // backgroundColor: '#F3EDED',
                     borderRadius: '10px',
+                    fontStyle: 'italic',
                   },
                 }}
               />

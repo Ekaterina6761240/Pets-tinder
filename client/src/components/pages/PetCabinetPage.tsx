@@ -1,6 +1,7 @@
 import { Box, Button, Card, TextField, Grid, CardMedia } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import Zoom from 'react-reveal/Zoom';
 import { useAppDispatch, useAppSelector } from '../features/redux/reduxHooks';
 import usePetHook from '../features/Hooks/usePetHook';
 import { getOnePetThunk, getPetsThunk } from '../features/thunkAction/petThunkActions';
@@ -42,7 +43,7 @@ export default function PetCabinetPage(): JSX.Element {
         height: '100vh',
         padding: '2rem',
         paddingLeft: '10rem',
-        backgroundColor: '#DFC645',
+        backgroundColor: '#EABD56',
       }}
     >
       {isLoading ? (
@@ -62,30 +63,46 @@ export default function PetCabinetPage(): JSX.Element {
                   '& > :not(style)': { marginBottom: '1rem' },
                 }}
               >
-                <Card sx={{ maxWidth: 500, textAlign: 'center' }}>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      height: '200px',
-                      width: '100%',
-                      borderRadius: '10px',
-                    }}
-                  >
+                <div>
+                  <Zoom>
+                    {/* <Card sx={{ maxWidth: 500, textAlign: 'center' }}> */}
+                    {/* <Box
+                        sx={{
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          height: '200px',
+                          width: '100%',
+                          // borderRadius: '10px',
+                          borderRadius: '50%', // Set border radius to 50% for a round shape
+                          overflow: 'hidden',
+                        }}
+                      > */}
                     <CardMedia
                       component="img"
-                      sx={{ height: 140 }}
+                      sx={{
+                        height: 140,
+                        width: 140, // Устанавливаем одинаковую высоту и ширину
+                        borderRadius: '50%', // Устанавливаем радиус границы в 50% для круглой формы
+                        objectFit: 'cover',
+                        transition: 'transform 0.7s ease', // Добавляем плавный переход для анимации
+                        '&:hover': {
+                          transform: 'scale(1.4)', // Увеличиваем масштаб изображения при наведении
+                        },
+                      }}
                       src={`http://localhost:3001/img/${currentPet?.image}`}
                       alt="Загруженное изображение"
                     />
-                  </Box>
-                </Card>
+                    {/* </Box> */}
+                    {/* </Card> */}
+                  </Zoom>
+                </div>
                 <Box>
                   <Button
                     sx={{
                       marginTop: '2rem',
-                      backgroundColor: '#F3EDED',
+                      marginLeft: '5rem',
+                      backgroundColor: 'transparent',
                       borderRadius: '10px',
                       overflow: 'hidden',
                       '& .MuiOutlinedInput-notchedOutline': {
@@ -97,6 +114,7 @@ export default function PetCabinetPage(): JSX.Element {
                       '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
                         border: 'none',
                       },
+                      color: '#000000',
                     }}
                     type="submit"
                     variant="outlined"
@@ -107,7 +125,8 @@ export default function PetCabinetPage(): JSX.Element {
                   <Button
                     sx={{
                       marginTop: '2rem',
-                      backgroundColor: '#F3EDED',
+                      marginLeft: '3rem',
+                      backgroundColor: 'transparent',
                       borderRadius: '10px',
                       overflow: 'hidden',
                       '& .MuiOutlinedInput-notchedOutline': {
@@ -119,6 +138,7 @@ export default function PetCabinetPage(): JSX.Element {
                       '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
                         border: 'none',
                       },
+                      color: '#000000',
                     }}
                     type="button"
                     variant="outlined"
@@ -151,13 +171,13 @@ export default function PetCabinetPage(): JSX.Element {
                     placeholder={currentPet?.type}
                     name="type"
                     // onChange={changeHandler}
-                    value={currentPet?.type}
+                    value={`Вид: ${currentPet?.type}`}
                     fullWidth
                     InputProps={{
                       readOnly: true,
                       sx: {
                         marginBottom: '1rem',
-                        backgroundColor: '#F3EDED',
+                        backgroundColor: 'transparent',
                         borderRadius: '10px',
                         overflow: 'hidden',
                         '& .MuiOutlinedInput-notchedOutline': {
@@ -169,6 +189,7 @@ export default function PetCabinetPage(): JSX.Element {
                         '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
                           border: 'none',
                         },
+                        fontSize: '1.3rem',
                       },
                     }}
                   />
@@ -178,12 +199,12 @@ export default function PetCabinetPage(): JSX.Element {
                   placeholder="Кличка"
                   name="name"
                   // onChange={changeHandler}
-                  value={currentPet?.name}
+                  value={`Имя: ${currentPet?.name}`}
                   variant="outlined"
                   InputProps={{
                     readOnly: true,
                     sx: {
-                      backgroundColor: '#F3EDED',
+                      backgroundColor: 'transparent',
                       borderRadius: '10px',
                       overflow: 'hidden',
                       '& .MuiOutlinedInput-notchedOutline': {
@@ -198,6 +219,7 @@ export default function PetCabinetPage(): JSX.Element {
                       '& .Mui-focused .MuiInputLabel-root': {
                         transform: 'translate(14px, -6px) scale(0.75)',
                       },
+                      fontSize: '1.3rem',
                     },
                   }}
                 />
@@ -206,12 +228,12 @@ export default function PetCabinetPage(): JSX.Element {
                   placeholder="Пол"
                   name="sex"
                   // onChange={changeHandler}
-                  value={currentPet?.sex}
+                  value={`Пол: ${currentPet?.sex}`}
                   variant="outlined"
                   InputProps={{
                     readOnly: true,
                     sx: {
-                      backgroundColor: '#F3EDED',
+                      backgroundColor: 'transparent',
                       borderRadius: '10px',
                       overflow: 'hidden',
                       '& .MuiOutlinedInput-notchedOutline': {
@@ -223,6 +245,7 @@ export default function PetCabinetPage(): JSX.Element {
                       '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
                         border: 'none',
                       },
+                      fontSize: '1.3rem',
                     },
                   }}
                 />
@@ -231,12 +254,12 @@ export default function PetCabinetPage(): JSX.Element {
                   placeholder="Возраст"
                   name="age"
                   // onChange={changeHandler}
-                  value={currentPet?.age}
+                  value={`Возраст: ${currentPet?.age}`}
                   variant="outlined"
                   InputProps={{
                     readOnly: true,
                     sx: {
-                      backgroundColor: '#F3EDED',
+                      backgroundColor: 'transparent',
                       borderRadius: '10px',
                       overflow: 'hidden',
                       '& .MuiOutlinedInput-notchedOutline': {
@@ -248,6 +271,7 @@ export default function PetCabinetPage(): JSX.Element {
                       '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
                         border: 'none',
                       },
+                      fontSize: '1.3rem',
                     },
                   }}
                 />
@@ -266,7 +290,7 @@ export default function PetCabinetPage(): JSX.Element {
                     marginBottom: '1rem',
                     marginTop: '6px',
                   },
-                  marginX: '2rem',
+                  marginX: '1.3rem',
                 }}
               >
                 <TextField
@@ -274,12 +298,12 @@ export default function PetCabinetPage(): JSX.Element {
                   placeholder="Город"
                   name="city"
                   // onChange={changeHandler}
-                  value={currentPet?.city}
+                  value={`Город: ${currentPet?.city}`}
                   variant="outlined"
                   InputProps={{
                     readOnly: true,
                     sx: {
-                      backgroundColor: '#F3EDED',
+                      backgroundColor: 'transparent',
                       borderRadius: '10px',
                       overflow: 'hidden',
                       '& .MuiOutlinedInput-notchedOutline': {
@@ -291,6 +315,7 @@ export default function PetCabinetPage(): JSX.Element {
                       '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
                         border: 'none',
                       },
+                      fontSize: '1.3rem',
                     },
                   }}
                 />
@@ -299,12 +324,12 @@ export default function PetCabinetPage(): JSX.Element {
                   placeholder="Родословная"
                   name="pedigree"
                   // onChange={changeHandler}
-                  value={currentPet?.pedigree}
+                  value={`Родословная: ${currentPet?.pedigree}`}
                   variant="outlined"
                   InputProps={{
                     readOnly: true,
                     sx: {
-                      backgroundColor: '#F3EDED',
+                      backgroundColor: 'transparent',
                       borderRadius: '10px',
                       overflow: 'hidden',
                       '& .MuiOutlinedInput-notchedOutline': {
@@ -316,6 +341,7 @@ export default function PetCabinetPage(): JSX.Element {
                       '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
                         border: 'none',
                       },
+                      fontSize: '1.3rem',
                     },
                   }}
                 />
@@ -323,17 +349,19 @@ export default function PetCabinetPage(): JSX.Element {
                   id="outlined-multiline-static"
                   placeholder="О питомце"
                   name="info"
+                  variant="standard"
                   // onChange={changeHandler}
-                  value={currentPet?.info}
+                  value={`  О питомце: ${currentPet?.info}`}
                   multiline
                   rows={4}
-                  InputProps={{
+                  inputProps={{
                     readOnly: true,
-                    sx: {
+                    style: {
                       width: 286,
                       height: 253,
-                      backgroundColor: '#F3EDED',
-                      borderRadius: '10px',
+                      backgroundColor: 'transparent',
+                      fontSize: '1.3rem',
+                      outline: 'none',
                     },
                   }}
                 />

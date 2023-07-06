@@ -51,7 +51,7 @@ function Simple(): JSX.Element {
   const [currentIndex, setCurrentIndex] = useState(petSwipe.length - 1);
   const [lastDirection, setLastDirection] = useState();
   // used for outOfFrame closure
-  // const currentIndexRef = useRef(currentIndex);
+  const currentIndexRef = useRef(currentIndex);
 
   const [open, setOpen] = useState<boolean>(false);
 
@@ -125,7 +125,7 @@ function Simple(): JSX.Element {
     void dispatch(createDislikeThunk(data));
   };
 
-  const clickLikeHandler = (data: { id: number; idMyPet: number }, idMatch: number): void => {
+  const clickLikeHandler = (data: { id: number; idMyPet: number }): void => {
     swipe('right');
     void dispatch(createSwipePetThunk(data));
     // void dispatch(getAllMatchThunk(idMatch));
@@ -198,7 +198,7 @@ function Simple(): JSX.Element {
           onClick={() =>
             clickLikeHandler(
               { id: petSwipe[currentIndex]?.id, idMyPet: currentPet?.id },
-              petSwipe[currentIndex]?.id,
+              // petSwipe[currentIndex]?.id,
             )
           }
         >

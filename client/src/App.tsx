@@ -20,6 +20,7 @@ import './index.css';
 import ChoiсePetPage from './components/pages/ChoiсePetPage';
 import AppSpinner from './components/ui/PetSpinner';
 import Sidebar from './components/ui/SideBar';
+import Slider from './components/pages/Slider';
 import OverPetProfil from './components/pages/OverPetProfil';
 import Test from './components/pages/Test';
 import LikePage from './components/pages/LikePage';
@@ -60,6 +61,7 @@ function App(): JSX.Element {
           <Route path="/choice" element={<ChoiсePetPage />} />
           <Route path="/spinner" element={<AppSpinner />} />
         </Route>
+        <Route path="/slider" element={<Slider />} />
       </Routes>
     </Container>
   );
