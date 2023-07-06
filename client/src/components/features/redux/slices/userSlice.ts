@@ -1,6 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
-import type { UserStateType } from '../../../Types/userTypes';
-import { userCheckThunk, userLoginThunk, userRegThunk } from '../../thunkAction/userThunkAction';
+import axios from 'axios';
+import type { UserStateType, UserType } from '../../../Types/userTypes';
+import {
+  logoutThunk,
+  userCheckThunk,
+  userLoginThunk,
+  userRegThunk,
+} from '../../thunkAction/userThunkAction';
+import type { AppThunk } from '../hooks';
+import apiInstance from '../../../services/apiConfig';
+
+export type UserState = UserType & { status: boolean };
 
 const initialState: UserStateType = {
   status: 'pending',
@@ -10,6 +20,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState: initialState as UserStateType,
   reducers: {},
+
   extraReducers: (builder) => {
     builder.addCase(userCheckThunk.fulfilled, (state, action) => ({
       status: 'success',
@@ -26,6 +37,7 @@ const userSlice = createSlice({
       status: 'success',
       data: action.payload,
     }));
+    builder.addCase(logoutThunk.fulfilled, (state, action) => ({ status: 'guest' }));
   },
 });
 

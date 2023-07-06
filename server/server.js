@@ -7,6 +7,8 @@ const apiAuthRouter = require('./routes/apiUserRouter');
 const Petrouter = require('./routes/PetApiRouter');
 const matchRouter = require('./routes/matchRouter/matchRouter');
 const { upgradeCb, wss, connectionCb } = require('./webSocket');
+const apiCurrentRouter = require('./routes/apiCurrentRouter');
+const swipePageRouter = require('./routes/swipePage/swipePageRouter');
 
 const PORT = process.env.PORT || 3001;
 
@@ -22,6 +24,9 @@ app.use(sessionParser);
 app.use('/api/pets', Petrouter);
 app.use('/api/auth', apiAuthRouter);
 app.use('/match', matchRouter);
+app.use('/current', apiCurrentRouter);
+
+app.use('/swipe', swipePageRouter);
 
 const server = http.createServer(app);
 server.on('upgrade', upgradeCb);

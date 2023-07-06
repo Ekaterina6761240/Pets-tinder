@@ -66,10 +66,46 @@ matchRouter.get('/', async (req, res) => {
 //   }
 // });
 
-matchRouter.get('/:id', async (req, res) => {
+matchRouter.post('/', async (req, res) => {
   try {
-    const { id } = req.params;
-    // console.log('11111!!!!!!', req.params);
+    const { id } = req.body;
+
+    const findMatch = await Like.findAll({
+      where: {
+        who_liked_pet_id: id,
+        isLiked: true,
+      },
+    });
+    const findMatch2 = await Like.findAll({
+      where: {
+        was_liked_pet_id: id,
+        isLiked: true,
+      },
+    });
+
+    const filterMatch = findMatch2.filter((e) =>
+      findMatch.some((g) => g.was_liked_pet_id === e.who_liked_pet_id),
+    );
+
+    const petIds = filterMatch.map((pet) => pet.who_liked_pet_id);
+
+    Pet.findAll({
+      where: {
+        id: petIds,
+      },
+    }).then((foundPets) => {
+      res.json(foundPets);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+matchRouter.post('/4444', async (req, res) => {
+  try {
+    console.log('!!!!!!!!!!!!!!!');
+    const { id } = req.body;
+    console.log(req.body);
 
     const likes = await Like.findAll({
       where: {

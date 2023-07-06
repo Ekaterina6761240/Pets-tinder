@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { checkUser, loginUser, regUser } from '../../services/userService';
+import { checkUser, loginUser, logoutUser, regUser } from '../../services/userService';
 import type { UserLoginType, UserRegType, UserType } from '../../Types/userTypes';
+import apiInstance from '../../services/apiConfig';
 
 export const userCheckThunk = createAsyncThunk<UserType>('user/check', async () =>
   checkUser()
@@ -20,4 +21,10 @@ export const userLoginThunk = createAsyncThunk<UserType, UserLoginType>(
     loginUser(data)
       .then((res) => res)
       .catch((err) => Promise.reject(err)),
+);
+
+export const logoutThunk = createAsyncThunk<UserType>('user/logout', async () =>
+  logoutUser()
+    .then((res) => res)
+    .catch((err) => Promise.reject(err)),
 );

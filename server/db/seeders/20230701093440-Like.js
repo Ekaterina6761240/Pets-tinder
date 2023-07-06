@@ -21,12 +21,17 @@ module.exports = {
         {
           who_liked_pet_id: 1,
           was_liked_pet_id: 2,
+          isLiked: false,
+        },
+        {
+          who_liked_pet_id: 4,
+          was_liked_pet_id: 1,
           isLiked: true,
         },
         {
           who_liked_pet_id: 2,
           was_liked_pet_id: 3,
-          isLiked: true,
+          isLiked: false,
         },
         {
           who_liked_pet_id: 2,
@@ -36,6 +41,157 @@ module.exports = {
         {
           who_liked_pet_id: 4,
           was_liked_pet_id: 2,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 5,
+          was_liked_pet_id: 7,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 7,
+          was_liked_pet_id: 9,
+          isLiked: false,
+        },
+        {
+          who_liked_pet_id: 9,
+          was_liked_pet_id: 7,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 3,
+          was_liked_pet_id: 5,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 2,
+          was_liked_pet_id: 5,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 1,
+          was_liked_pet_id: 5,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 1,
+          was_liked_pet_id: 6,
+          isLiked: false,
+        },
+        {
+          who_liked_pet_id: 4,
+          was_liked_pet_id: 5,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 1,
+          was_liked_pet_id: 7,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 1,
+          was_liked_pet_id: 9,
+          isLiked: true,
+        },
+
+        {
+          who_liked_pet_id: 2,
+          was_liked_pet_id: 4,
+          isLiked: false,
+        },
+        {
+          who_liked_pet_id: 4,
+          was_liked_pet_id: 2,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 5,
+          was_liked_pet_id: 7,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 7,
+          was_liked_pet_id: 9,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 9,
+          was_liked_pet_id: 7,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 3,
+          was_liked_pet_id: 5,
+          isLiked: false,
+        },
+        {
+          who_liked_pet_id: 2,
+          was_liked_pet_id: 5,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 1,
+          was_liked_pet_id: 5,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 1,
+          was_liked_pet_id: 6,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 4,
+          was_liked_pet_id: 5,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 1,
+          was_liked_pet_id: 7,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 1,
+          was_liked_pet_id: 9,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 11,
+          was_liked_pet_id: 10,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 10,
+          was_liked_pet_id: 11,
+          isLiked: false,
+        },
+        {
+          who_liked_pet_id: 10,
+          was_liked_pet_id: 12,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 12,
+          was_liked_pet_id: 10,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 13,
+          was_liked_pet_id: 10,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 10,
+          was_liked_pet_id: 13,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 14,
+          was_liked_pet_id: 10,
+          isLiked: true,
+        },
+        {
+          who_liked_pet_id: 10,
+          was_liked_pet_id: 14,
           isLiked: true,
         },
       ],
