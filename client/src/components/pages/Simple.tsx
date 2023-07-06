@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react';
+import React, { useState, useMemo, useRef, useEffect, useLayoutEffect } from 'react';
 import TinderCard from 'react-tinder-card';
 import { useAppDispatch, useAppSelector } from '../features/redux/hooks';
 import {
@@ -7,19 +7,43 @@ import {
   getSwipePetThunk,
 } from '../features/thunkAction/swipePet';
 
+// const petSwipe = [
+//   {
+//     id: 6,
+//     name: 'Багира',
+//     type: 'Кошка',
+//     sex: 'Женский',
+//     age: 6,
+//     city: 'Санкт-Петербург',
+//     pedigree: 'Пушистая',
+//     info: 'Любит изучать композицию, а также изучать их разные исполнители',
+//     image: 'c48d31be1c9aad219531240030650bae.jpg',
+//     user_id: 3,
+//     createdAt: '2023-07-06T15:18:58.494Z',
+//     updatedAt: '2023-07-06T15:18:58.494Z',
+//   },
+//   {
+//     id: 7,
+//     name: 'Багира',
+//     type: 'Кошка',
+//     sex: 'Женский',
+//     age: 6,
+//     city: 'Санкт-Петербург',
+//     pedigree: 'Пушистая',
+//     info: 'Любит изучать композицию, а также изучать их разные исполнители',
+//     image: 'koshka-kot-morda.jpg',
+//     user_id: 3,
+//     createdAt: '2023-07-06T15:18:58.494Z',
+//     updatedAt: '2023-07-06T15:18:58.494Z',
+//   },
+// ];
+
 function Simple(): JSX.Element {
   const petSwipe = useAppSelector((state) => state.petsSwipe.data);
   const dispatch = useAppDispatch();
   const currentPet = useAppSelector((state) => state.currentPet.data);
   // вызывать функцию обновления состояния тех с кем метч и если метч то открывать модалку
   // как вызвать функцию на кликхендлере?
-
-  useEffect(() => {
-    if (currentPet) {
-      void dispatch(getSwipePetThunk(currentPet));
-    }
-  }, [currentPet]);
-
   const [currentIndex, setCurrentIndex] = useState(petSwipe.length - 1);
   const [lastDirection, setLastDirection] = useState();
   // used for outOfFrame closure
@@ -30,9 +54,21 @@ function Simple(): JSX.Element {
       Array(petSwipe.length)
         .fill(0)
         .map((i) => React.createRef()),
-    [],
+    [petSwipe],
   );
 
+  useEffect(() => {
+    if (currentPet) {
+      console.log(currentPet);
+      void dispatch(getSwipePetThunk(currentPet));
+    }
+  }, [currentPet]);
+
+  useEffect(() => {
+    setCurrentIndex(petSwipe.length - 1);
+  }, [petSwipe]);
+
+  console.log(childRefs);
   const updateCurrentIndex = (val) => {
     setCurrentIndex(val);
     currentIndexRef.current = val;
@@ -45,39 +81,41 @@ function Simple(): JSX.Element {
   // set last direction and decrease current index
   const swiped = (direction, nameToDelete, index) => {
     setLastDirection(direction);
+    console.log('index', index);
     updateCurrentIndex(index - 1);
   };
 
   const outOfFrame = (name, idx) => {
     console.log(`${name} (${idx}) left the screen!`, currentIndexRef.current);
-    // handle the case in which go back is pressed before card goes outOfFrame
+
     currentIndexRef.current >= idx && childRefs[idx].current.restoreCard();
-    // TODO: when quickly swipe and restore multiple times the same card,
-    // it happens multiple outOfFrame events are queued and the card disappear
-    // during latest swipes. Only the last outOfFrame event should be considered valid
   };
 
   const swipe = async (dir) => {
     if (canSwipe && currentIndex < petSwipe.length) {
+      console.log(childRefs);
+      console.log('petSwipre', petSwipe, petSwipe[currentIndex]);
       await childRefs[currentIndex].current.swipe(dir); // Swipe the card!
     }
   };
-  const clickLikeHandler = async (data: { id: number; idMyPet: number }): Promise<void> => {
-    await (() => swipe('right'));
-    void dispatch(createSwipePetThunk(data));
-  };
+  // const clickLikeHandler = async (data: { id: number; idMyPet: number }): Promise<void> => {
+  //   await (() => swipe('right'));
+  //   void dispatch(createSwipePetThunk(data));
+  // };
 
-  const clickDislikeHandler = async (data: { id: number; idMyPet: number }): Promise<void> => {
-    await (() => swipe('left'));
-    void dispatch(createDislikeThunk(data));
-  };
-  // increase current index and show card
+  // const clickDislikeHandler = async (data: { id: number; idMyPet: number }): Promise<void> => {
+  //   await (() => swipe('left'));
+  //   void dispatch(createDislikeThunk(data));
+  // };
+  // // increase current index and show card
   const goBack = async (): Promise<void> => {
     if (!canGoBack) return;
     const newIndex = currentIndex + 1;
     updateCurrentIndex(newIndex);
     await childRefs[newIndex].current.restoreCard();
   };
+
+  if (!childRefs.length) return null;
 
   return (
     <div>
