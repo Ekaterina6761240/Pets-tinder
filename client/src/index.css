@@ -154,7 +154,7 @@ h2 {
   width: 80vw;
   max-width: 260px;
   height: 300px;
-  box-shadow: 0px 0px 60px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 60px 0px rgba(212, 185, 185, 0.048);
   border-radius: 20px;
   background-size: cover;
   background-position: center;
@@ -172,7 +172,7 @@ h2 {
   position: absolute;
   bottom: 0;
   margin: 10px;
-  color: #fff;
+  color: #eabd56;
 }
 
 .infoText {

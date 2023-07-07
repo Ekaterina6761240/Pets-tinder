@@ -93,11 +93,17 @@ export default function CardSwipePage(): JSX.Element {
   }, [currentPet]);
 
   return (
-    <div className="container">
+    <div
+      className="container"
+      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+    >
       <h1 style={{ fontFamily: 'Kanit, sans-serif', fontSize: '40px', marginBottom: '50px' }}>
         Выбери пару своему питомцу
       </h1>
-      <div className="cardContainer" style={{ width: '600px', height: '900px' }}>
+      <div
+        className="cardContainer"
+        style={{ width: '600px', height: '900px', display: 'flex', justifyContent: 'center' }}
+      >
         {petSwipe.map((el, index) => (
           <TinderCard
             ref={childRefs[index]}
@@ -107,7 +113,7 @@ export default function CardSwipePage(): JSX.Element {
             onCardLeftScreen={() => outOfFrame(el.image, index)}
           >
             <div className={`card ${index === currentIndex ? 'active' : ''}`}>
-              <div className="imageContainer" style={{ backgroundImage: `#EABD56` }} />
+              <div className="imageContainer" style={{ backgroundImage: '#EABD56' }} />
               <img
                 src={`http://localhost:3001/img/${el?.image}`}
                 alt=""
