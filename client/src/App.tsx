@@ -10,12 +10,9 @@ import '@fontsource/roboto/700.css';
 import AuthPage from './components/pages/authPage/AuthPage';
 import PrivateRoute from './components/HOC/PrivateRoute';
 import MatchList from './components/ui/MatchList';
-// import MatchPage from './components/pages/MatchPage';
 import PetInfoPage from './components/pages/PetInfoPage';
 import PetEditPage from './components/pages/PetEditPage';
 import PetCabinetPage from './components/pages/PetCabinetPage';
-import CardSwipePage from './components/pages/CardSwipePage';
-import ChatPage from './components/pages/ChatPage';
 import ChatListPage from './components/pages/ChatListPage';
 import TestChatPage from './components/pages/TestChatPage';
 import VariationsPage from './components/pages/VariationsPage';
@@ -25,15 +22,10 @@ import AppSpinner from './components/ui/PetSpinner';
 import Sidebar from './components/ui/SideBar';
 import Slider from './components/pages/Slider';
 import OverPetProfil from './components/pages/OverPetProfil';
-import Test from './components/pages/Test';
-import LikePage from './components/pages/LikePage';
-import { Swipe } from '@mui/icons-material';
 import Simple from './components/pages/Simple';
 import MatchPage from './components/pages/MatchPage';
 import { Container } from '@mui/material';
 
-// import SwipePage from './components/pages/SwipePage';
-// import TestCard from './components/pages/TestCard';
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
@@ -53,7 +45,6 @@ function App(): JSX.Element {
 
         <Route element={<PrivateRoute isAllowed={user.status !== 'guest'} redirectTo="/choice" />}>
           <Route path="/profile" element={<OverPetProfil />} />
-
           <Route path="app/match" element={<MatchList />} />
           <Route path="/swipe" element={<Simple />} />
           <Route path="/match" element={<MatchPage />} />
