@@ -48,6 +48,7 @@ export default function MainPage(): JSX.Element {
             justifyContent: 'flex-start',
             alignItems: 'center',
             height: '180vh',
+            width: '200vh',
             color: '#fff',
             textShadow: '1px 1px 3px rgba(0, 0, 0, 0.5)',
             backgroundSize: 'contain',
@@ -91,44 +92,41 @@ export default function MainPage(): JSX.Element {
               display: 'flex',
               flexDirection: 'row',
               alignItems: 'center',
-              
-}}
->
-<motion.div
-style={{
-display: 'flex',
-flexDirection: 'row',
-alignItems: 'center',
-justifyContent: 'center',
-}}
-initial={{ opacity: 0, y: 100 }}
-animate={{ opacity: 1, y: 0 }}
-transition={{ duration: 0.5, delay: 0.5 }}
->
-<ColorButton
-variant="contained"
-size="large"
-startIcon={<PetsIcon />}
-style={{ borderRadius: '10px', width: '200px', margin: '10px' }}
-href="/auth/login"
->
-Войти
-</ColorButton>
-<Button
-variant="contained"
-size="large"
-style={{ borderRadius: '10px', width: '300px', margin: '10px' }}
-href="/auth/reg"
->
-Зарегистрироваться
-</Button>
-</motion.div>
-</div>
-</div>
-</Parallax>
-<footer style={footerStyles}>
-<p>Ваш суперанимированный футер здесь</p>
-</footer>
-</div>
-);
+            }}
+          >
+            <motion.div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              initial={{ opacity: 0, y: 100 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
+              <ColorButton
+                variant="contained"
+                size="large"
+                startIcon={<PetsIcon />}
+                style={{ borderRadius: '10px', width: '200px', margin: '10px' }}
+                href="/auth/login"
+              >
+                Войти
+              </ColorButton>
+              <Button
+                variant="contained"
+                size="large"
+                style={{ borderRadius: '10px', width: '300px', margin: '10px' }}
+                href="/auth/reg"
+              >
+                Зарегистрироваться
+              </Button>
+            </motion.div>
+          </div>
+        </div>
+      </Parallax>
+      <footer style={footerStyles} />
+    </div>
+  );
 }
