@@ -10,9 +10,9 @@ module.exports = {
           sex: '♂',
           age: 3,
           city: 'Москва',
-          pedigree: 'Лабрадор',
-          info: 'Любит изучать композицию, а также изучать их разные исполнители',
-          image: '5ddeb3e40af939a26ba4b62598fe5112.jpg',
+          pedigree: 'Бордер Колли',
+          info: 'Любит играть с палочкой',
+          image: 'vzglad-sobaka1234.jpg',
           user_id: 2,
         },
         {
@@ -23,7 +23,7 @@ module.exports = {
           city: 'Санкт-Петербург',
           pedigree: 'Овчарка',
           info: 'Любит изучать композицию, а также изучать их разные исполнители',
-          image: '11.jpg',
+          image: 'screen-6.jpg',
           user_id: 2,
         },
         {
@@ -45,7 +45,7 @@ module.exports = {
           city: 'Улан-Удэ',
           pedigree: 'Корги',
           info: 'Любит изучать композицию, а также изучать их разные исполнители',
-          image: 'porodistye-sobaki-krasivye-kartinki-19.jpg',
+          image: '8731ebe64395319075e5423d0462b540.jpg',
           user_id: 2,
         },
         {
@@ -67,7 +67,7 @@ module.exports = {
           city: 'Санкт-Петербург',
           pedigree: 'Пушистая',
           info: 'Любит изучать композицию, а также изучать их разные исполнители',
-          image: 'c48d31be1c9aad219531240030650bae.jpg',
+          image: 'photo_2023-07-07_10-29-47.jpg',
           user_id: 3,
         },
         {
@@ -78,7 +78,7 @@ module.exports = {
           city: 'Владимир',
           pedigree: 'Британская',
           info: 'Любит изучать композицию, а также изучать их разные исполнители',
-          image: 'koshka-kot-morda.jpg',
+          image: 'photo_2023-07-07_10-48-45.jpg',
           user_id: 2,
         },
         {
@@ -89,7 +89,7 @@ module.exports = {
           city: 'Екатеринбург',
           pedigree: 'Дикая',
           info: 'Любит изучать композицию, а также изучать их разные исполнители',
-          image: 'koshka-kot-morda.jpg',
+          image: 'photo_2023-07-07_10-31-19.jpg',
           user_id: 1,
         },
         {
@@ -106,12 +106,12 @@ module.exports = {
         {
           name: 'Мурка',
           type: 'Кошка',
-          sex: '♀',
+          sex: '♂',
           age: 2,
           city: 'Москва',
           pedigree: 'Русская голубая',
           info: 'Любит изучать композицию, а также изучать их разные исполнители',
-          image: '',
+          image: 'photo_2023-07-07_14-19-25.jpg',
           user_id: 4,
         },
         {
@@ -146,7 +146,7 @@ module.exports = {
           city: 'Москва',
           pedigree: 'Манул',
           info: 'Любит изучать композицию, а также изучать их разные исполнители',
-          image: '',
+          image: 'photo_2023-07-07_14-19-25.jpg',
           user_id: 6,
         },
 
@@ -158,7 +158,7 @@ module.exports = {
           city: 'Москва',
           pedigree: 'Манул',
           info: 'Любит изучать композицию, а также изучать их разные исполнители',
-          image: '',
+          image: '1669404561_damion-club-p-kotik-s-golubimi-glazami-oboi-1.jpg',
           user_id: 6,
         },
 
@@ -170,7 +170,7 @@ module.exports = {
           city: 'Москва',
           pedigree: 'Манул',
           info: 'Любит изучать композицию, а также изучать их разные исполнители',
-          image: '',
+          image: 'photo_2023-07-07_13-20-07.jpg',
           user_id: 6,
         },
 
@@ -182,7 +182,7 @@ module.exports = {
           city: 'Москва',
           pedigree: 'Манул',
           info: 'Любит изучать композицию, а также изучать их разные исполнители',
-          image: '',
+          image: 'photo_2023-07-07_10-39-43.jpg',
           user_id: 6,
         },
 
@@ -194,7 +194,7 @@ module.exports = {
           city: 'Москва',
           pedigree: 'Манул',
           info: 'Любит изучать композицию, а также изучать их разные исполнители',
-          image: '',
+          image: 'Russkaya-golubaya-e1623600193791.jpg',
           user_id: 6,
         },
 
@@ -206,7 +206,7 @@ module.exports = {
           city: 'Москва',
           pedigree: 'Манул',
           info: 'Любит изучать композицию, а также изучать их разные исполнители',
-          image: '',
+          image: '1663288675_6-mykaleidoscope-ru-p-emotsii-kotov-emotsii-6.jpg',
           user_id: 6,
         },
 
@@ -218,7 +218,7 @@ module.exports = {
           city: 'Москва',
           pedigree: 'Манул',
           info: 'Любит изучать композицию, а также изучать их разные исполнители',
-          image: '',
+          image: '3130x2348_605244_[www.ArtFile.ru].jpg',
           user_id: 6,
         },
 
@@ -230,7 +230,7 @@ module.exports = {
           city: 'Москва',
           pedigree: 'Манул',
           info: 'Любит изучать композицию, а также изучать их разные исполнители',
-          image: '',
+          image: 'maxresdefault-9.jpg',
           user_id: 6,
         },
       ],

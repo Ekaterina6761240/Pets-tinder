@@ -2,8 +2,7 @@ import type React from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { PetFormType, PetType } from '../../Types/petTypes';
 import { useAppDispatch } from '../redux/reduxHooks';
-
-import { addPetThunk, editPetThunk } from '../thunkAction/petThunkActions';
+import { addPetThunk, editPetThunk, getAnimalsTypeThunk } from '../thunkAction/petThunkActions';
 
 import type { OnePet } from '../../Types/PetsTypes';
 
@@ -59,6 +58,8 @@ export default function usePetHook(): SubmitHandler {
 
     navigate('/cabinet');
   };
+
+  const getAnimalsTypeHandler = async (): Promise<PetType[]> => dispatch(getAnimalsTypeThunk());
 
   return { submitHandler, editHandler };
 }

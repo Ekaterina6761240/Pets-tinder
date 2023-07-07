@@ -1,3 +1,4 @@
+import { Container } from '@mui/material';
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from './components/features/redux/reduxHooks';
@@ -10,11 +11,11 @@ import '@fontsource/roboto/700.css';
 import AuthPage from './components/pages/authPage/AuthPage';
 import PrivateRoute from './components/HOC/PrivateRoute';
 import MatchList from './components/ui/MatchList';
-// import MatchPage from './components/pages/MatchPage';
 import PetInfoPage from './components/pages/PetInfoPage';
 import PetEditPage from './components/pages/PetEditPage';
 import PetCabinetPage from './components/pages/PetCabinetPage';
-import CardSwipePage from './components/pages/CardSwipePage';
+import ChatListPage from './components/pages/ChatListPage';
+import TestChatPage from './components/pages/TestChatPage';
 import VariationsPage from './components/pages/VariationsPage';
 import './index.css';
 import ChoiсePetPage from './components/pages/ChoiсePetPage';
@@ -27,10 +28,7 @@ import OverPetProfil from './components/pages/OverPetProfil';
 // import { Swipe } from '@mui/icons-material';
 import Simple from './components/pages/Simple';
 import MatchPage from './components/pages/MatchPage';
-import { Container } from '@mui/material';
 
-// import SwipePage from './components/pages/SwipePage';
-// import TestCard from './components/pages/TestCard';
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
@@ -49,15 +47,16 @@ function App(): JSX.Element {
 
         <Route path="auth/:type" element={<AuthPage />} />
 
-        <Route element={<PrivateRoute isAllowed={user.status !== 'guest'} redirectTo="/" />}>
+        <Route element={<PrivateRoute isAllowed={user.status !== 'guest'} redirectTo="/choice" />}>
           <Route path="/profile" element={<OverPetProfil />} />
-
           <Route path="app/match" element={<MatchList />} />
           <Route path="/swipe" element={<Simple />} />
           <Route path="/match" element={<MatchPage />} />
           <Route path="/info" element={<PetInfoPage />} />
           <Route path="/edit/:id" element={<PetEditPage />} />
           <Route path="/cabinet" element={<PetCabinetPage />} />
+          <Route path="/chat/:id" element={<TestChatPage />} />
+          <Route path="/list" element={<ChatListPage />} />
           <Route path="/variations" element={<VariationsPage />} />
           <Route path="/choice" element={<ChoiсePetPage />} />
           <Route path="/spinner" element={<AppSpinner />} />
