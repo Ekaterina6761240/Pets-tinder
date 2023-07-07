@@ -1,10 +1,12 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const http = require('http');
 const sessionParser = require('./middlewares/sessionMiddle');
 const apiAuthRouter = require('./routes/apiUserRouter');
 const Petrouter = require('./routes/PetApiRouter');
 const matchRouter = require('./routes/matchRouter/matchRouter');
+const { upgradeCb, wss, connectionCb } = require('./webSocket');
 const apiCurrentRouter = require('./routes/apiCurrentRouter');
 const swipePageRouter = require('./routes/swipePage/swipePageRouter');
 
@@ -26,6 +28,9 @@ app.use('/current', apiCurrentRouter);
 
 app.use('/swipe', swipePageRouter);
 
-app.listen(PORT, () => {
+const server = http.createServer(app);
+server.on('upgrade', upgradeCb);
+wss.on('connection', connectionCb);
+server.listen(PORT, () => {
   console.log(`App listening on port ${PORT}!`);
 });

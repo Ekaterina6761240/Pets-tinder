@@ -21,6 +21,26 @@ export const addPetThunk = createAsyncThunk<OnePet, FormData>('pets/addPet', asy
     .catch((err) => Promise.reject(err)),
 );
 
+// export const editPetThunk = createAsyncThunk<PetType, { data: PetType; id: PetType['id'] }>(
+//   'pets/edit',
+//   async ({ data, id }) =>
+//     editPet(data, id)
+//       .then((res) => res)
+//       .catch((err) => Promise.reject(err)),
+// );
+
+export const getAnimalsTypeThunk = createAsyncThunk<PetType[], void, { rejectValue: Error }>(
+  'petsOneType',
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = getOnePetType();
+      return await res;
+    } catch (err) {
+      return rejectWithValue(err as Error);
+    }
+  },
+);
+
 export const editPetThunk = createAsyncThunk<PetType, { data: FormData; id: PetType['id'] }>(
   'pets/edit',
   async (data, { dispatch }) =>
