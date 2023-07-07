@@ -1,6 +1,6 @@
 import type React from 'react';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import type { UserLoginType, UserRegType } from '../../Types/userTypes';
 import { useAppDispatch } from '../redux/reduxHooks';
 import { userLoginThunk, userRegThunk } from '../thunkAction/userThunkAction';
@@ -21,11 +21,12 @@ export default function useFormHook(): AuthHookReturnedType {
   const dispatch = useAppDispatch();
   const [disabled, setDisabled] = useState(true);
   const { type } = useParams();
+  const navigate = useNavigate();
   const regHandler: SubmitHandler = (e) => {
     e.preventDefault();
     const formData = Object.fromEntries(new FormData(e.currentTarget)) as UserRegType;
     void dispatch(userRegThunk(formData));
-    // navigate('/choice', { replace: true });
+    navigate('/choice', { replace: true });
   };
 
   const loginHandler: SubmitHandler = (e) => {

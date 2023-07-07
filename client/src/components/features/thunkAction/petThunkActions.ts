@@ -1,5 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { createPet, editPet, getOnePets, getPets } from '../../services/apiPetService';
+import {
+  createPet,
+  editPet,
+  getOnePetType,
+  getOnePets,
+  getPets,
+} from '../../services/apiPetService';
 import type { EditFormType, PetType } from '../../Types/petTypes';
 import type { OnePet } from '../../Types/PetsTypes';
 
@@ -33,8 +39,8 @@ export const getAnimalsTypeThunk = createAsyncThunk<PetType[], void, { rejectVal
   'petsOneType',
   async (_, { rejectWithValue }) => {
     try {
-      const res = getOnePetType();
-      return await res;
+      const res = void getOnePetType();
+      return res;
     } catch (err) {
       return rejectWithValue(err as Error);
     }

@@ -14,7 +14,6 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import useFormHook from '../../features/Hooks/authFormHooks';
 
 export default function AuthPage(): JSX.Element {
-  const [input, setInput] = useState<string>('');
   const { regHandler, loginHandler, reCapchaHandler, disabled, type } = useFormHook();
   return (
     <div
@@ -38,7 +37,7 @@ export default function AuthPage(): JSX.Element {
             <Stack direction="column" spacing={2}>
               <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
                 <AccountCircle sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
-                <TextField label="name" variant="standard" type="text" name="name" value={input} />
+                <TextField label="name" variant="standard" type="text" name="name" />
               </Box>
             </Stack>
           )}

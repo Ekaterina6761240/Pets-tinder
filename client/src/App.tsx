@@ -1,3 +1,4 @@
+import { Container } from '@mui/material';
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from './components/features/redux/reduxHooks';
@@ -22,9 +23,11 @@ import AppSpinner from './components/ui/PetSpinner';
 import Sidebar from './components/ui/SideBar';
 import Slider from './components/pages/Slider';
 import OverPetProfil from './components/pages/OverPetProfil';
+// import Test from './components/pages/Test';
+// import LikePage from './components/pages/LikePage';
+// import { Swipe } from '@mui/icons-material';
 import Simple from './components/pages/Simple';
 import MatchPage from './components/pages/MatchPage';
-import { Container } from '@mui/material';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -37,10 +40,11 @@ function App(): JSX.Element {
   console.log(currentPet);
 
   return (
-    <Container sx={{ display: 'flex' }}>
+    <Container>
       <Sidebar />
       <Routes>
         <Route path="/" element={<MainPage />} />
+
         <Route path="auth/:type" element={<AuthPage />} />
 
         <Route element={<PrivateRoute isAllowed={user.status !== 'guest'} redirectTo="/choice" />}>
