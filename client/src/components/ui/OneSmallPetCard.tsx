@@ -23,9 +23,10 @@ export default function OneSmallPetCard({ pet }: OnePetProps): JSX.Element {
   };
 
   const clickChatHandler = (): void => {
-    const { id } = pet;
+    const id = pet.user_id;
+
     // const { history } = useHistory();
-    navigate('/chat');
+    navigate(`/chat/${id}`);
   };
   return (
     <Stack direction="column" spacing={2}>

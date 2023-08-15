@@ -1,18 +1,26 @@
 import type React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import type { UserLoginType, UserRegType } from '../../Types/userTypes';
 import { useAppDispatch } from '../redux/reduxHooks';
 import { userLoginThunk, userRegThunk } from '../thunkAction/userThunkAction';
 
 export type SubmitHandler = (e: React.FormEvent<HTMLFormElement>) => void;
 
+export type ReCapchaHandler = (value: string) => () => void;
+
 export type AuthHookReturnedType = {
   regHandler: SubmitHandler;
   loginHandler: SubmitHandler;
+  reCapchaHandler: ReCapchaHandler;
+  disabled: boolean;
+  type: string | undefined;
 };
 
 export default function useFormHook(): AuthHookReturnedType {
   const dispatch = useAppDispatch();
+  const [disabled, setDisabled] = useState(true);
+  const { type } = useParams();
   const navigate = useNavigate();
   const regHandler: SubmitHandler = (e) => {
     e.preventDefault();
@@ -29,5 +37,15 @@ export default function useFormHook(): AuthHookReturnedType {
     navigate('/choice', { replace: true });
   };
 
-  return { regHandler, loginHandler };
+  const reCapchaHandler = (value: string): (() => void) => {
+    if (value) {
+      const timer = setTimeout(() => {
+        setDisabled(false);
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+    return () => {};
+  };
+
+  return { regHandler, loginHandler, reCapchaHandler, disabled, type };
 }

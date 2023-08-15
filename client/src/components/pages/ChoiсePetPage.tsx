@@ -13,7 +13,6 @@ export default function ChoiсePetPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const pets = useAppSelector((state) => state.pets.data);
   const user = useAppSelector((state) => state.user.data);
-  console.log(pets, '--------------------');
 
   useEffect(() => {
     void dispatch(getPetsThunk());

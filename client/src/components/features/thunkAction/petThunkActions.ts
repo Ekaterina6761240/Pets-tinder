@@ -1,5 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { createPet, editPet, getOnePets, getPets } from '../../services/apiPetService';
+import {
+  createPet,
+  editPet,
+  getOnePetType,
+  getOnePets,
+  getPets,
+} from '../../services/apiPetService';
 import type { EditFormType, PetType } from '../../Types/petTypes';
 import type { OnePet } from '../../Types/PetsTypes';
 
@@ -19,6 +25,26 @@ export const addPetThunk = createAsyncThunk<OnePet, FormData>('pets/addPet', asy
   createPet(data)
     .then((res) => res)
     .catch((err) => Promise.reject(err)),
+);
+
+// export const editPetThunk = createAsyncThunk<PetType, { data: PetType; id: PetType['id'] }>(
+//   'pets/edit',
+//   async ({ data, id }) =>
+//     editPet(data, id)
+//       .then((res) => res)
+//       .catch((err) => Promise.reject(err)),
+// );
+
+export const getAnimalsTypeThunk = createAsyncThunk<PetType[], void, { rejectValue: Error }>(
+  'petsOneType',
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = void getOnePetType();
+      return res;
+    } catch (err) {
+      return rejectWithValue(err as Error);
+    }
+  },
 );
 
 export const editPetThunk = createAsyncThunk<PetType, { data: FormData; id: PetType['id'] }>(

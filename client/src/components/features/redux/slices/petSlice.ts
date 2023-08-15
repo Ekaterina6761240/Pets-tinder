@@ -4,8 +4,8 @@ import {
   editPetThunk,
   getOnePetThunk,
   getPetsThunk,
+  getAnimalsTypeThunk,
 } from '../../thunkAction/petThunkActions';
-import type { PetType } from '../../../Types/petTypes';
 import type { OnePet } from '../../../Types/PetsTypes';
 
 export type InitialState = {
@@ -32,6 +32,10 @@ const petSlice = createSlice({
     });
     builder.addCase(editPetThunk.fulfilled, (state, action) => {
       state.data = state.data.map((pet) => (pet.id === action.payload.id ? action.payload : pet));
+    });
+
+    builder.addCase(getAnimalsTypeThunk.fulfilled, (state, action) => {
+      state.data = action.payload;
     });
   },
 });

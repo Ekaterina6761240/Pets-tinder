@@ -1,14 +1,18 @@
 import React, { useState, useMemo, useRef, useEffect, useLayoutEffect } from 'react';
 import TinderCard from 'react-tinder-card';
+import PetsIcon from '@mui/icons-material/Pets';
+import { IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import YoutubeSearchedForIcon from '@mui/icons-material/YoutubeSearchedFor';
 import { useAppDispatch, useAppSelector } from '../features/redux/hooks';
+import CongratulationsModal from '../ui/CongratulationsModal';
+
 import {
   createDislikeThunk,
   createSwipePetThunk,
   getSwipePetThunk,
 } from '../features/thunkAction/swipePet';
 import getAllMatchThunk from '../features/thunkAction/petMatchThankAction';
-import CongratulationsModal from '../ui/CongratulationsModal';
-
 // const petSwipe = [
 //   {
 //     id: 6,
@@ -149,11 +153,37 @@ function Simple(): JSX.Element {
   // if (!childRefs.length) return null;
 
   return (
-    <div>
+    <div
+      style={{
+        backgroundColor: '#EABD56',
+        width: '130%',
+        height: '150%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+    >
       <link href="https://fonts.googleapis.com/css?family=Damion&display=swap" rel="stylesheet" />
       <link href="https://fonts.googleapis.com/css?family=Alatsi&display=swap" rel="stylesheet" />
-      <h1>React Tinder Card</h1>
-      <div className="cardContainer">
+      <h1
+        style={{
+          fontFamily: 'Kanit, sans-serif',
+          fontSize: '40px',
+          marginBottom: '50px',
+          color: 'black',
+        }}
+      >
+        Выбери пару своему питомцу
+      </h1>
+      <div
+        className="cardContainer"
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          padding: '150px',
+        }}
+      >
         {petSwipe.map((character, index) => (
           <TinderCard
             ref={childRefs[index]}
@@ -169,49 +199,69 @@ function Simple(): JSX.Element {
                 style={{
                   width: '100%',
                   height: '100%',
+                  borderRadius: '5%',
                 }}
               />
+              <h1
+                style={{
+                  color: 'black',
+                  backgroundColor: '#EABD56',
+                  fontFamily: 'Kanit, sans-serif',
+                }}
+              >
+                {character.name}
+              </h1>
             </div>
           </TinderCard>
         ))}
       </div>
-      <div className="buttons">
-        <button
-          type="button"
-          style={{ backgroundColor: !canSwipe && '#c3c4d3' }}
-          onClick={() =>
-            clickDislikeHandler({ id: petSwipe[currentIndex]?.id, idMyPet: currentPet?.id })
-          }
-        >
-          Свайп влево!
-        </button>
-        <button
-          type="button"
-          style={{ backgroundColor: !canGoBack && '#c3c4d3' }}
-          onClick={() => goBack()}
-        >
-          Вернуть
-        </button>
-        <button
-          type="button"
-          style={{ backgroundColor: !canSwipe && '#c3c4d3' }}
-          onClick={() =>
-            clickLikeHandler(
-              { id: petSwipe[currentIndex]?.id, idMyPet: currentPet?.id }
-              // petSwipe[currentIndex]?.id,
-            )
-          }
-        >
-          Свайп вправо!
-        </button>
+      <div style={{ marginLeft: '100px' }}>
+        <IconButton size="large">
+          <CloseIcon
+            variant="contained"
+            onClick={() =>
+              clickDislikeHandler({ id: petSwipe[currentIndex]?.id, idMyPet: currentPet?.id })
+            }
+            style={{
+              margin: '30px',
+              fontSize: '50px',
+              color: 'red',
+            }}
+            size="large"
+            className="roundButton"
+          />
+        </IconButton>
+
+        <IconButton size="large">
+          <YoutubeSearchedForIcon
+            variant="contained"
+            onClick={() => goBack()}
+            size="large"
+            style={{
+              margin: '30px',
+              fontSize: '50px',
+            }}
+            className="roundButton"
+          />
+        </IconButton>
+
+        <IconButton size="large">
+          <PetsIcon
+            variant="contained"
+            onClick={() =>
+              clickLikeHandler({ id: petSwipe[currentIndex]?.id, idMyPet: currentPet?.id })
+            }
+            size="large"
+            className="roundButton"
+            style={{
+              margin: '30px',
+              fontSize: '40px',
+              color: 'green',
+            }}
+          />
+        </IconButton>
       </div>
-      {lastDirection ? (
-        <h2 key={lastDirection} className="infoText" />
-      ) : (
-        <h2 className="infoText">
-          Делай свайп вправо, если хочешь поставить лайк потенциальному партнеру!
-        </h2>
-      )}
+
       <CongratulationsModal open={open} onClose={onClose} />
     </div>
   );

@@ -47,6 +47,7 @@ export default function MatchPage(): JSX.Element {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        width: '150vh',
       }}
     >
       {isLoading ? (
