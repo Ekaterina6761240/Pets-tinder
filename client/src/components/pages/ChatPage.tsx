@@ -7,7 +7,6 @@ import Message from '../ui/Message';
 import type { MessageType } from '../Types/MessageType';
 
 export default function ChatPage(): JSX.Element {
-
   return (
     <div>
       <Stack direction="row" spacing={2}>

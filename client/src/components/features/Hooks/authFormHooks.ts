@@ -34,7 +34,7 @@ export default function useFormHook(): AuthHookReturnedType {
     const formData = Object.fromEntries(new FormData(e.currentTarget)) as UserLoginType;
     void dispatch(userLoginThunk(formData));
 
-    // navigate('/choice', { replace: true });
+    navigate('/choice', { replace: true });
   };
 
   const reCapchaHandler = (value: string): (() => void) => {

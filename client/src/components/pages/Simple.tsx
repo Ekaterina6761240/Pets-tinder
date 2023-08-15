@@ -220,7 +220,7 @@ function Simple(): JSX.Element {
           <CloseIcon
             variant="contained"
             onClick={() =>
-              clickLikeHandler({ id: petSwipe[currentIndex]?.id, idMyPet: currentPet?.id })
+              clickDislikeHandler({ id: petSwipe[currentIndex]?.id, idMyPet: currentPet?.id })
             }
             style={{
               margin: '30px',

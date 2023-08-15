@@ -1,7 +1,7 @@
 import { Box, Button, Card, TextField, Grid, CardMedia } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Zoom from 'react-reveal/Zoom';
+// import Zoom from 'react-reveal/Zoom';
 import { useAppDispatch, useAppSelector } from '../features/redux/reduxHooks';
 import usePetHook from '../features/Hooks/usePetHook';
 import { getOnePetThunk, getPetsThunk } from '../features/thunkAction/petThunkActions';
@@ -12,6 +12,8 @@ export default function PetCabinetPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const currentPet = useAppSelector((store) => store.currentPet.data);
+
+  console.log(currentPet);
 
   useEffect((): void => {
     void dispatch(getPetsThunk());
@@ -64,9 +66,9 @@ export default function PetCabinetPage(): JSX.Element {
                 }}
               >
                 <div>
-                  <Zoom>
-                    {/* <Card sx={{ maxWidth: 500, textAlign: 'center' }}> */}
-                    {/* <Box
+                  {/* <Zoom> */}
+                  {/* <Card sx={{ maxWidth: 500, textAlign: 'center' }}> */}
+                  {/* <Box
                         sx={{
                           display: 'flex',
                           justifyContent: 'center',
@@ -78,24 +80,24 @@ export default function PetCabinetPage(): JSX.Element {
                           overflow: 'hidden',
                         }}
                       > */}
-                    <CardMedia
-                      component="img"
-                      sx={{
-                        height: 140,
-                        width: 140, // Устанавливаем одинаковую высоту и ширину
-                        borderRadius: '50%', // Устанавливаем радиус границы в 50% для круглой формы
-                        objectFit: 'cover',
-                        transition: 'transform 0.7s ease', // Добавляем плавный переход для анимации
-                        '&:hover': {
-                          transform: 'scale(1.4)', // Увеличиваем масштаб изображения при наведении
-                        },
-                      }}
-                      src={`http://localhost:3001/img/${currentPet?.image}`}
-                      alt="Загруженное изображение"
-                    />
-                    {/* </Box> */}
-                    {/* </Card> */}
-                  </Zoom>
+                  <CardMedia
+                    component="img"
+                    sx={{
+                      height: 140,
+                      width: 140, // Устанавливаем одинаковую высоту и ширину
+                      borderRadius: '50%', // Устанавливаем радиус границы в 50% для круглой формы
+                      objectFit: 'cover',
+                      transition: 'transform 0.7s ease', // Добавляем плавный переход для анимации
+                      '&:hover': {
+                        transform: 'scale(1.4)', // Увеличиваем масштаб изображения при наведении
+                      },
+                    }}
+                    src={`http://localhost:3001/img/${currentPet?.image}`}
+                    alt="Загруженное изображение"
+                  />
+                  {/* </Box> */}
+                  {/* </Card> */}
+                  {/* </Zoom> */}
                 </div>
                 <Box>
                   <Button
